@@ -5,15 +5,10 @@ import {
   ChefHat,
   ArrowUpRight,
   CheckCircle2,
-  Layers,
-  Flame,
-  Factory,
-  ShieldCheck,
 } from 'lucide-react';
 
 export const ProjectsPage: React.FC = () => {
-  const { openQuoteModal, themeMode } = useContent();
-  const isLight = themeMode === 'light';
+  const { openQuoteModal } = useContent();
 
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
@@ -89,40 +84,32 @@ export const ProjectsPage: React.FC = () => {
   );
 
   return (
-    <div className={`pt-28 pb-24 transition-colors min-h-screen ${isLight ? 'bg-slate-50' : 'bg-[#0a0c10]'}`}>
+    <div className="pt-28 pb-24 transition-colors min-h-screen bg-[#F3E7DA] text-[#292321]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <TopPageBackButton currentPageTitle="Turnkey Projects & Applications" />
 
         {/* Page Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-amber-700 dark:text-amber-400 mb-4 px-3 py-1 rounded-xs bg-amber-500/10 border border-amber-500/20">
+          <div className="inline-flex items-center gap-2 text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-[#5B1018] mb-4 px-3 py-1 rounded-xs bg-[#5B1018]/10 border border-[#5B1018]/25">
             <ChefHat className="w-3.5 h-3.5" />
             <span>COMMERCIAL DEPLOYMENTS & APPLICATION SHOWCASE</span>
           </div>
 
-          <h1
-            className={`text-4xl sm:text-6xl font-extrabold tracking-tight uppercase leading-[1.05] mb-6 ${
-              isLight ? 'text-[#171717]' : 'text-[#ffffff]'
-            }`}
-          >
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight uppercase leading-[1.05] mb-6 text-[#292321]">
             COMMERCIAL KITCHEN
             <br />
-            <span className={isLight ? 'text-[#b45309]' : 'text-[#f59e0b]'}>
+            <span className="text-[#5B1018]">
               PROJECTS & APPLICATIONS.
             </span>
           </h1>
 
-          <p
-            className={`text-base sm:text-lg leading-relaxed font-normal ${
-              isLight ? 'text-[#4a4a4a]' : 'text-[#d4d4d8]'
-            }`}
-          >
+          <p className="text-base sm:text-lg leading-relaxed font-normal text-[#4D423E]">
             Explore how our commercial cooking lines and in-house manufactured stainless steel hardware integrate into demanding commercial foodservice facilities, hotel banquets, and high-volume confectioneries.
           </p>
         </div>
 
         {/* Filter Bar */}
-        <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-slate-200 dark:border-white/10">
+        <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-[#D8BFA8]">
           {[
             { id: 'all', label: 'ALL APPLICATIONS' },
             { id: 'confectionery', label: 'SWEET & CONFECTIONERY' },
@@ -135,12 +122,8 @@ export const ProjectsPage: React.FC = () => {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-2 text-xs font-tech font-bold uppercase tracking-wider rounded-xs transition-colors ${
                 activeCategory === cat.id
-                  ? isLight
-                    ? 'bg-slate-950 text-white'
-                    : 'bg-white text-zinc-950'
-                  : isLight
-                  ? 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-                  : 'bg-zinc-900/60 text-zinc-400 hover:text-white border border-white/10'
+                  ? 'bg-[#5B1018] text-[#F3E7DA]'
+                  : 'bg-[#FAF4EE] text-[#4D423E] hover:bg-[#E9D9C8] border border-[#D8BFA8]'
               }`}
             >
               {cat.label}
@@ -153,11 +136,7 @@ export const ProjectsPage: React.FC = () => {
           {filteredProjects.map((p) => (
             <div
               key={p.id}
-              className={`rounded-xs border overflow-hidden flex flex-col justify-between transition-all duration-300 group ${
-                isLight
-                  ? 'bg-white border-slate-200 hover:border-slate-400 hover:shadow-xl'
-                  : 'bg-[#11141a] border-white/10 hover:border-white/30 hover:bg-[#131720]'
-              }`}
+              className="rounded-xs border overflow-hidden flex flex-col justify-between transition-all duration-300 group bg-[#FAF4EE] border-[#D8BFA8] hover:border-[#5B1018] hover:shadow-xl"
             >
               {/* Image */}
               <div className="relative h-72 sm:h-80 overflow-hidden">
@@ -167,13 +146,13 @@ export const ProjectsPage: React.FC = () => {
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#292321] via-[#292321]/40 to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <span className="text-[10px] font-tech font-bold uppercase tracking-widest px-3 py-1 bg-black/80 text-white rounded-xs border border-white/20">
+                  <span className="text-[10px] font-tech font-bold uppercase tracking-widest px-3 py-1 bg-[#292321]/90 text-[#F3E7DA] rounded-xs border border-[#D8BFA8]/30">
                     {p.type}
                   </span>
                 </div>
-                <div className="absolute bottom-4 left-4 right-4 text-white">
+                <div className="absolute bottom-4 left-4 right-4 text-[#F3E7DA]">
                   <h3 className="text-xl font-black uppercase tracking-tight">
                     {p.title}
                   </h3>
@@ -183,45 +162,33 @@ export const ProjectsPage: React.FC = () => {
               {/* Content */}
               <div className="p-8 flex flex-col justify-between flex-grow">
                 <div>
-                  <p
-                    className={`text-xs sm:text-sm leading-relaxed mb-6 font-normal ${
-                      isLight ? 'text-slate-600' : 'text-zinc-300'
-                    }`}
-                  >
+                  <p className="text-xs sm:text-sm leading-relaxed mb-6 font-normal text-[#4D423E]">
                     {p.description}
                   </p>
 
                   <div className="mb-6">
-                    <span
-                      className={`text-[10px] font-tech font-bold uppercase tracking-[0.2em] block mb-2.5 ${
-                        isLight ? 'text-slate-500' : 'text-zinc-400'
-                      }`}
-                    >
+                    <span className="text-[10px] font-tech font-bold uppercase tracking-[0.2em] block mb-2.5 text-[#5A4F4B]">
                       TYPICAL EQUIPMENT CONFIGURATION
                     </span>
                     <div className="space-y-2">
                       {p.equipmentSupplied.map((eq, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-xs font-tech">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                          <span className={isLight ? 'text-slate-800' : 'text-zinc-200'}>{eq}</span>
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#5B1018] shrink-0" />
+                          <span className="text-[#292321]">{eq}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                <div
-                  className={`pt-4 border-t flex flex-wrap items-center justify-between gap-4 ${
-                    isLight ? 'border-slate-100' : 'border-white/5'
-                  }`}
-                >
-                  <span className="text-[11px] font-tech text-slate-500 dark:text-zinc-400">
+                <div className="pt-4 border-t border-[#D8BFA8]/60 flex flex-wrap items-center justify-between gap-4">
+                  <span className="text-[11px] font-tech text-[#5A4F4B]">
                     {p.standards}
                   </span>
 
                   <button
                     onClick={() => openQuoteModal(`Project Setup: ${p.title}`, p.type)}
-                    className="inline-flex items-center gap-1.5 text-xs font-tech font-bold uppercase tracking-wider text-slate-950 dark:text-white hover:text-amber-500 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-tech font-bold uppercase tracking-wider text-[#292321] hover:text-[#5B1018] transition-colors"
                   >
                     <span>REQUEST THIS SETUP</span>
                     <ArrowUpRight className="w-4 h-4" />
@@ -233,27 +200,21 @@ export const ProjectsPage: React.FC = () => {
         </div>
 
         {/* Global Turnkey Consultation Banner */}
-        <div
-          className={`p-10 sm:p-14 rounded-xs border text-center flex flex-col items-center justify-center ${
-            isLight
-              ? 'bg-slate-950 text-white border-slate-900'
-              : 'bg-gradient-to-b from-[#12151c] to-[#0d0f14] text-white border-white/10'
-          }`}
-        >
-          <span className="text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-amber-400 mb-3">
+        <div className="p-10 sm:p-14 rounded-xs border text-center flex flex-col items-center justify-center bg-[#292321] text-[#F3E7DA] border-[#D8BFA8]/30 shadow-xl">
+          <span className="text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-[#D8BFA8] mb-3">
             TURNKEY COMMERCIAL CONSULTATION
           </span>
           <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight max-w-2xl mb-4">
             Planning a New Commercial Kitchen or Central Production Unit?
           </h2>
-          <p className="text-sm sm:text-base text-zinc-300 max-w-xl mb-8 leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-[#D8BFA8] max-w-xl mb-8 leading-relaxed font-normal">
             Speak directly with our commercial kitchen consultants. We assist in equipment capacity calculations, electrical load planning, and custom stainless steel layout fabrication.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <button
               onClick={() => openQuoteModal('Turnkey Kitchen Project Consultation', 'Commercial Projects')}
-              className="px-8 py-4 font-tech text-xs font-bold uppercase tracking-[0.18em] rounded-xs bg-amber-500 text-slate-950 hover:bg-amber-400 transition-colors shadow-lg"
+              className="px-8 py-4 font-tech text-xs font-bold uppercase tracking-[0.18em] rounded-xs bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] transition-colors shadow-lg border border-[#D8BFA8]/30"
             >
               BOOK PROJECT CONSULTATION
             </button>

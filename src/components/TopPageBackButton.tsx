@@ -13,27 +13,18 @@ export const TopPageBackButton: React.FC<TopPageBackButtonProps> = ({
   categoryName,
   className = '',
 }) => {
-  const { goBack, previousPageTitle, canGoBack, navigateTo, themeMode } = useContent();
-  const isLight = themeMode === 'light';
+  const { goBack, previousPageTitle, navigateTo } = useContent();
 
   return (
     <div
-      className={`flex flex-wrap items-center justify-between gap-3 py-2.5 px-3 sm:px-4 rounded-sm border mb-6 transition-all ${
-        isLight
-          ? 'bg-white/80 border-slate-200/80 shadow-xs'
-          : 'bg-zinc-900/60 border-white/10 shadow-xs'
-      } ${className}`}
+      className={`flex flex-wrap items-center justify-between gap-3 py-2.5 px-3 sm:px-4 rounded-sm border mb-6 transition-all bg-[#FAF4EE] border-[#D8BFA8] shadow-xs ${className}`}
     >
       {/* Top-Left Back Action Button */}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={goBack}
-          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-sm font-tech text-xs font-bold uppercase tracking-wider transition-all shadow-xs group ${
-            isLight
-              ? 'bg-slate-900 hover:bg-amber-500 text-white hover:text-slate-950 border border-slate-900 hover:border-amber-500'
-              : 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-black border border-amber-500'
-          }`}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm font-tech text-xs font-bold uppercase tracking-wider transition-all shadow-xs group bg-[#292321] hover:bg-[#5B1018] text-[#F3E7DA] border border-[#292321] hover:border-[#5B1018]"
           title={previousPageTitle ? `Go back to: ${previousPageTitle}` : 'Go back to previous page'}
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
@@ -48,12 +39,12 @@ export const TopPageBackButton: React.FC<TopPageBackButtonProps> = ({
         {/* Dynamic Breadcrumbs */}
         <nav
           aria-label="Breadcrumb"
-          className="hidden md:flex items-center gap-1.5 text-xs font-tech text-slate-500 dark:text-zinc-400"
+          className="hidden md:flex items-center gap-1.5 text-xs font-tech text-[#5A4F4B]"
         >
           <button
             type="button"
             onClick={() => navigateTo('home')}
-            className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors inline-flex items-center gap-1"
+            className="hover:text-[#5B1018] transition-colors inline-flex items-center gap-1"
             title="Go to Home Page"
           >
             <Home className="w-3 h-3" />
@@ -62,29 +53,25 @@ export const TopPageBackButton: React.FC<TopPageBackButtonProps> = ({
 
           {categoryName && (
             <>
-              <ChevronRight className="w-3 h-3 text-slate-400 dark:text-zinc-600" />
-              <span className="truncate max-w-[160px] text-slate-600 dark:text-zinc-300 uppercase font-medium">
+              <ChevronRight className="w-3 h-3 text-[#B8B8B3]" />
+              <span className="truncate max-w-[160px] text-[#4D423E] uppercase font-medium">
                 {categoryName}
               </span>
             </>
           )}
 
-          <ChevronRight className="w-3 h-3 text-slate-400 dark:text-zinc-600" />
-          <span className="font-bold text-slate-900 dark:text-white uppercase truncate max-w-[220px]">
+          <ChevronRight className="w-3 h-3 text-[#B8B8B3]" />
+          <span className="font-bold text-[#292321] uppercase truncate max-w-[220px]">
             {currentPageTitle}
           </span>
         </nav>
       </div>
 
-      {/* Right side: Quick Direct Home Link if user explicitly wants home */}
+      {/* Right side: Quick Direct Home Link */}
       <button
         type="button"
         onClick={() => navigateTo('home')}
-        className={`text-[11px] font-tech font-bold uppercase tracking-wider px-2.5 py-1 rounded-sm border transition-colors inline-flex items-center gap-1.5 ${
-          isLight
-            ? 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900'
-            : 'border-white/10 bg-zinc-800/60 hover:bg-zinc-800 text-zinc-400 hover:text-white'
-        }`}
+        className="text-[11px] font-tech font-bold uppercase tracking-wider px-2.5 py-1 rounded-sm border transition-colors inline-flex items-center gap-1.5 border-[#D8BFA8] bg-[#F3E7DA] hover:bg-[#E9D9C8] text-[#4D423E] hover:text-[#292321]"
         title="Directly return to home page"
       >
         <Home className="w-3 h-3" />

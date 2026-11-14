@@ -6,18 +6,13 @@ import { HeaderEditModal } from './HeaderEditModal';
 import {
   Menu,
   X,
-  Sliders,
   ChevronRight,
   ChevronDown,
-  Sun,
-  Moon,
   Phone,
   MessageSquare,
-  FileText,
   Pencil,
   Flame,
   Factory,
-  Utensils,
   Layers,
   Sparkles,
   Zap,
@@ -32,20 +27,14 @@ export const Header: React.FC = () => {
     brand,
     activePage,
     setActivePage,
-    navigateTo,
     isAdmin,
-    adminUser,
     logoutAdmin,
-    openQuoteModal,
-    setAdminModalOpen,
     setSelectedProductForDetail,
     setActiveDivisionFilter,
     setSelectedCategoryFilter,
     commercialProducts,
     gnPanProducts,
     manufacturingProducts,
-    themeMode,
-    toggleThemeMode,
   } = useContent();
 
   const [scrolled, setScrolled] = useState(false);
@@ -62,13 +51,11 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Dynamic Navigation items matching user-configured links or default hierarchy
   const rawNavItems: HeaderNavItem[] =
     brand.headerNavItems && brand.headerNavItems.length > 0
       ? brand.headerNavItems
       : defaultHeaderNavItems;
 
-  // Filter only visible links
   const navItems = rawNavItems.filter((item) => item.visible !== false);
 
   const handleDropdownEnter = (type: 'manufacturing' | 'commercial' | 'gnpans') => {
@@ -121,8 +108,6 @@ export const Header: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const isLight = themeMode === 'light';
-
   const salesContact = brand.contacts?.find((c) => c.type === 'sales') || {
     number: brand.phone,
     label: 'Sales',
@@ -139,31 +124,25 @@ export const Header: React.FC = () => {
   const showQuote = brand.showHeaderQuote ?? true;
   const whatsappLabel = brand.headerWhatsappText || 'WHATSAPP';
   const quoteLabel = brand.headerQuoteText || 'GET A QUOTE';
-  const logoStyle = brand.logoStyle || 'both';
 
   return (
     <>
       <header
         id="main-header"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-[#D8BFA8] ${
           scrolled
-            ? isLight
-              ? 'py-2.5 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm'
-              : 'py-2.5 bg-[#090b0e]/95 backdrop-blur-md border-b border-white/10 shadow-2xl'
-            : isLight
-            ? 'py-3.5 bg-white/90 backdrop-blur-sm border-b border-slate-200'
-            : 'py-4 bg-[#090b0e]/85 backdrop-blur-sm border-b border-white/10'
+            ? 'py-2.5 bg-[#FAF4EE]/95 backdrop-blur-md shadow-sm'
+            : 'py-3.5 bg-[#F3E7DA]/95 backdrop-blur-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo & Title with quick edit hover trigger */}
+          {/* Brand Logo & Title */}
           <div className="flex items-center gap-2 shrink-0">
             <div
               id="header-brand"
               onClick={() => handleNavClick('home')}
               className="cursor-pointer group flex items-center gap-3 select-none"
             >
-              {/* Logo icon/image */}
               {brand.logoImage ? (
                 <img
                   src={brand.logoImage}
@@ -172,43 +151,27 @@ export const Header: React.FC = () => {
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div
-                  className={`w-9 h-9 border flex items-center justify-center font-tech font-bold text-sm tracking-wider rounded-xs transition-colors shrink-0 ${
-                    isLight
-                      ? 'border-slate-300 bg-slate-100 text-slate-900 group-hover:border-slate-500'
-                      : 'border-white/25 bg-gradient-to-br from-white/10 to-transparent text-white group-hover:border-white/60'
-                  }`}
-                >
+                <div className="w-9 h-9 border border-[#B8B8B3] bg-[#5B1018] text-[#F3E7DA] flex items-center justify-center font-tech font-bold text-sm tracking-wider rounded-xs transition-colors shrink-0 group-hover:bg-[#440B11]">
                   {brand.logoText ? brand.logoText.slice(0, 2) : 'SD'}
                 </div>
               )}
 
-              {/* Company Name & Subtitle - ALWAYS DISPLAYED PROMINENTLY */}
               <div className="flex flex-col justify-center">
-                <span
-                  className={`font-black text-xs sm:text-sm md:text-base tracking-[0.14em] block uppercase leading-tight whitespace-nowrap transition-colors ${
-                    isLight ? 'text-slate-950 group-hover:text-amber-800' : 'text-white group-hover:text-amber-300'
-                  }`}
-                >
+                <span className="font-black text-xs sm:text-sm md:text-base tracking-[0.14em] block uppercase leading-tight whitespace-nowrap text-[#292321] group-hover:text-[#5B1018] transition-colors">
                   {brand.brandName || 'SHREE DURGA STEELS'}
                 </span>
-                <span
-                  className={`text-[8px] sm:text-[9px] tracking-[0.18em] block uppercase font-tech font-semibold whitespace-nowrap transition-colors ${
-                    isLight ? 'text-amber-700' : 'text-amber-400'
-                  }`}
-                >
+                <span className="text-[8px] sm:text-[9px] tracking-[0.18em] block uppercase font-tech font-semibold whitespace-nowrap text-[#5B1018]">
                   {headerTagline || 'COMMERCIAL KITCHEN & MANUFACTURING'}
                 </span>
               </div>
             </div>
 
-            {/* Quick pencil edit button on header brand hover - ADMIN ONLY */}
             {isAdmin && (
               <button
                 type="button"
                 onClick={() => setHeaderEditModalOpen(true)}
                 title="Quick Edit Top Bar Title, Subtitle, Logo & Navigation"
-                className="hidden md:flex p-1 rounded-sm text-zinc-400 hover:text-amber-400 hover:bg-amber-400/10 transition-colors"
+                className="hidden md:flex p-1 rounded-sm text-[#5A4F4B] hover:text-[#5B1018] hover:bg-[#D8BFA8]/30 transition-colors"
               >
                 <Pencil className="w-3 h-3" />
               </button>
@@ -239,41 +202,27 @@ export const Header: React.FC = () => {
                   <button
                     id={`nav-${item.page}`}
                     onClick={() => handleNavClick(item.page)}
-                    className={`inline-flex items-center gap-1.5 text-xs font-tech font-bold uppercase tracking-[0.13em] transition-all relative py-1 ${
+                    className={`inline-flex items-center gap-1.5 text-xs font-tech font-bold uppercase tracking-[0.13em] transition-all relative py-1 whitespace-nowrap shrink-0 ${
                       isActive
-                        ? isLight
-                          ? 'text-slate-950 font-black'
-                          : 'text-white font-black'
-                        : isLight
-                        ? 'text-slate-700 hover:text-slate-950'
-                        : 'text-zinc-300 hover:text-white'
+                        ? 'text-[#5B1018] font-black'
+                        : 'text-[#292321]/80 hover:text-[#5B1018]'
                     }`}
                   >
-                    {isKitchenware && (
-                      <Factory className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    )}
-                    {isKitchenEquipment && (
-                      <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-                    )}
-                    {isGnPans && (
-                      <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                    )}
+                    {isKitchenware && <Factory className="w-3.5 h-3.5 text-[#5B1018]" />}
+                    {isKitchenEquipment && <Flame className="w-3.5 h-3.5 text-[#5B1018]" />}
+                    {isGnPans && <Layers className="w-3.5 h-3.5 text-[#5B1018]" />}
                     <span>{item.label}</span>
                     {hasDropdown && (
                       <ChevronDown
                         className={`w-3 h-3 transition-transform duration-200 ${
                           activeDropdown === currentDropdownType
-                            ? 'rotate-180 text-amber-500'
-                            : 'opacity-50'
+                            ? 'rotate-180 text-[#5B1018]'
+                            : 'text-[#B8B8B3]'
                         }`}
                       />
                     )}
                     {isActive && (
-                      <span
-                        className={`absolute -bottom-1 left-0 right-0 h-[2px] rounded-full ${
-                          isLight ? 'bg-slate-950' : 'bg-amber-400'
-                        }`}
-                      />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full bg-[#5B1018]" />
                     )}
                   </button>
 
@@ -282,63 +231,59 @@ export const Header: React.FC = () => {
                     <div
                       onMouseEnter={() => handleDropdownEnter('manufacturing')}
                       onMouseLeave={handleDropdownLeave}
-                      className={`absolute left-0 top-full mt-1.5 w-[520px] p-4 rounded-sm border shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-150 ${
-                        isLight
-                          ? 'bg-white border-slate-200 text-slate-900 shadow-slate-200/80'
-                          : 'bg-zinc-950 border-zinc-800 text-white shadow-black/80'
-                      }`}
+                      className="absolute left-0 top-full mt-1.5 w-[520px] p-4 rounded-sm border border-[#D8BFA8] bg-[#FAF4EE] text-[#292321] shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                     >
-                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-zinc-800">
+                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#D8BFA8]/60">
                         <div>
-                          <span className="text-[10px] font-tech font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase">
+                          <span className="text-[10px] font-tech font-bold tracking-widest text-[#5B1018] uppercase">
                             CATEGORY 1 • IN-HOUSE MANUFACTURING
                           </span>
-                          <h4 className="text-sm font-black uppercase tracking-tight">
+                          <h4 className="text-sm font-black uppercase tracking-tight text-[#292321]">
                             Kitchenware & Home Utility
                           </h4>
                         </div>
-                        <span className="text-[10px] font-tech font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="text-[10px] font-tech font-bold px-2 py-0.5 rounded bg-[#D8BFA8]/40 text-[#5B1018] border border-[#D8BFA8]">
                           {manufacturingProducts.length} PRODUCTS
                         </span>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2 text-xs mb-3">
-                        <div className="p-2 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-0.5">
-                            <Layers className="w-3 h-3 text-emerald-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-0.5">
+                            <Layers className="w-3 h-3 text-[#5B1018]" />
                             <span>Trays (12 Types)</span>
                           </div>
-                          <p className="text-[10px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[10px] text-[#5A4F4B] leading-snug">
                             Barfi, Rasgulla, Sandesh, Dyna, Mithai Joint-Free, Taper & Jumbo Trays in 0.4"–2.0" depths.
                           </p>
                         </div>
 
-                        <div className="p-2 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-0.5">
-                            <Boxes className="w-3 h-3 text-emerald-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-0.5">
+                            <Boxes className="w-3 h-3 text-[#5B1018]" />
                             <span>Storage / Masala Dani</span>
                           </div>
-                          <p className="text-[10px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[10px] text-[#5A4F4B] leading-snug">
                             Domestic Masal Dani, Commercial 7-Cup Station, and Jumbo Masal Dani for kitchens & spice storage.
                           </p>
                         </div>
 
-                        <div className="p-2 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-0.5">
-                            <Sparkles className="w-3 h-3 text-emerald-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-0.5">
+                            <Sparkles className="w-3 h-3 text-[#5B1018]" />
                             <span>Pooja / Traditional</span>
                           </div>
-                          <p className="text-[10px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[10px] text-[#5A4F4B] leading-snug">
                             Pooja Peti, Heavy Stainless Gullak, Chowki, Patla & Perforated Confectionery Jhava (Chonga).
                           </p>
                         </div>
 
-                        <div className="p-2 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-0.5">
-                            <Factory className="w-3 h-3 text-emerald-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-0.5">
+                            <Factory className="w-3 h-3 text-[#5B1018]" />
                             <span>Display & Custom Works</span>
                           </div>
-                          <p className="text-[10px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[10px] text-[#5A4F4B] leading-snug">
                             Glass Stands (6–24 Khana), Golden Stands, PVD Titanium Trays, Dust Lifters & Bread Moulds.
                           </p>
                         </div>
@@ -346,7 +291,7 @@ export const Header: React.FC = () => {
 
                       <button
                         onClick={() => handleNavClick('manufacturing')}
-                        className="w-full py-2 px-3 text-center text-xs font-tech font-bold uppercase tracking-wider rounded bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
+                        className="w-full py-2.5 px-3 text-center text-xs font-tech font-bold uppercase tracking-wider rounded bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] transition-colors"
                       >
                         Explore All Kitchenware & Home Utility Products ({manufacturingProducts.length}) →
                       </button>
@@ -358,43 +303,39 @@ export const Header: React.FC = () => {
                     <div
                       onMouseEnter={() => handleDropdownEnter('commercial')}
                       onMouseLeave={handleDropdownLeave}
-                      className={`absolute left-0 top-full mt-1.5 w-[540px] p-4 rounded-sm border shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-150 ${
-                        isLight
-                          ? 'bg-white border-slate-200 text-slate-900 shadow-slate-200/80'
-                          : 'bg-zinc-950 border-zinc-800 text-white shadow-black/80'
-                      }`}
+                      className="absolute left-0 top-full mt-1.5 w-[540px] p-4 rounded-sm border border-[#D8BFA8] bg-[#FAF4EE] text-[#292321] shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                     >
-                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-zinc-800">
+                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#D8BFA8]/60">
                         <div>
-                          <span className="text-[10px] font-tech font-bold tracking-widest text-amber-600 dark:text-amber-400 uppercase">
+                          <span className="text-[10px] font-tech font-bold tracking-widest text-[#5B1018] uppercase">
                             CATEGORY 2 • COMMERCIAL KITCHEN EQUIPMENT
                           </span>
-                          <h4 className="text-sm font-black uppercase tracking-tight">
+                          <h4 className="text-sm font-black uppercase tracking-tight text-[#292321]">
                             Kitchen Equipment
                           </h4>
                         </div>
-                        <span className="text-[10px] font-tech font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                        <span className="text-[10px] font-tech font-bold px-2 py-0.5 rounded bg-[#D8BFA8]/40 text-[#5B1018] border border-[#D8BFA8]">
                           {commercialProducts.length} APPLIANCE MODELS
                         </span>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2.5 text-xs mb-3">
-                        <div className="p-2.5 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-1">
-                            <Flame className="w-3.5 h-3.5 text-amber-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-1">
+                            <Flame className="w-3.5 h-3.5 text-[#5B1018]" />
                             <span>Fryers, Grills & Ovens</span>
                           </div>
-                          <p className="text-[11px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[11px] text-[#5A4F4B] leading-snug">
                             Electric Fryers (TSL-81/82/88/89), Contact Grills (TSL-811/813), Stone Pizza Ovens (TSL-46/55/1-ST).
                           </p>
                         </div>
 
-                        <div className="p-2.5 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-1">
-                            <Zap className="w-3.5 h-3.5 text-amber-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-1">
+                            <Zap className="w-3.5 h-3.5 text-[#5B1018]" />
                             <span>Induction, Griddles & Steamers</span>
                           </div>
-                          <p className="text-[11px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[11px] text-[#5A4F4B] leading-snug">
                             Commercial Induction (3.5kW/5kW), Pop-Up Toasters, Salamanders, Flat/Grooved Griddles, Momo Steamers.
                           </p>
                         </div>
@@ -402,7 +343,7 @@ export const Header: React.FC = () => {
 
                       <button
                         onClick={() => handleNavClick('commercial')}
-                        className="w-full py-2 px-3 text-center text-xs font-tech font-bold uppercase tracking-wider rounded bg-amber-600 hover:bg-amber-700 text-white transition-colors"
+                        className="w-full py-2.5 px-3 text-center text-xs font-tech font-bold uppercase tracking-wider rounded bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] transition-colors"
                       >
                         Explore All Commercial Kitchen Equipment ({commercialProducts.length}) →
                       </button>
@@ -414,43 +355,39 @@ export const Header: React.FC = () => {
                     <div
                       onMouseEnter={() => handleDropdownEnter('gnpans')}
                       onMouseLeave={handleDropdownLeave}
-                      className={`absolute left-0 top-full mt-1.5 w-[540px] p-4 rounded-sm border shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-150 ${
-                        isLight
-                          ? 'bg-white border-slate-200 text-slate-900 shadow-slate-200/80'
-                          : 'bg-zinc-950 border-zinc-800 text-white shadow-black/80'
-                      }`}
+                      className="absolute left-0 top-full mt-1.5 w-[540px] p-4 rounded-sm border border-[#D8BFA8] bg-[#FAF4EE] text-[#292321] shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                     >
-                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-zinc-800">
+                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#D8BFA8]/60">
                         <div>
-                          <span className="text-[10px] font-tech font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase">
+                          <span className="text-[10px] font-tech font-bold tracking-widest text-[#5B1018] uppercase">
                             CATEGORY 3 • GASTRONORM STANDARDS
                           </span>
-                          <h4 className="text-sm font-black uppercase tracking-tight">
+                          <h4 className="text-sm font-black uppercase tracking-tight text-[#292321]">
                             Gastronorm (GN) Pans & Covers
                           </h4>
                         </div>
-                        <span className="text-[10px] font-tech font-bold px-2 py-0.5 rounded bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">
+                        <span className="text-[10px] font-tech font-bold px-2 py-0.5 rounded bg-[#D8BFA8]/40 text-[#5B1018] border border-[#D8BFA8]">
                           {gnPanProducts.length} SERIES • EN-631
                         </span>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2.5 text-xs mb-3">
-                        <div className="p-2.5 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-1">
-                            <Boxes className="w-3.5 h-3.5 text-blue-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-1">
+                            <Boxes className="w-3.5 h-3.5 text-[#5B1018]" />
                             <span>Standard GN Pans (1/1 to 2/1)</span>
                           </div>
-                          <p className="text-[11px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[11px] text-[#5A4F4B] leading-snug">
                             GN 1/1, 1/2, 1/3, 1/4, 1/6, 1/9 and GN 2/1 in 65mm, 100mm, 150mm & 200mm depths with anti-jam rims.
                           </p>
                         </div>
 
-                        <div className="p-2.5 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-100 dark:border-zinc-800/80">
-                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-slate-900 dark:text-zinc-200 flex items-center gap-1.5 mb-1">
-                            <Layers className="w-3.5 h-3.5 text-blue-500" />
+                        <div className="p-2.5 rounded bg-[#F3E7DA] border border-[#D8BFA8]/70">
+                          <div className="font-tech font-bold uppercase tracking-wider text-[11px] text-[#292321] flex items-center gap-1.5 mb-1">
+                            <Layers className="w-3.5 h-3.5 text-[#5B1018]" />
                             <span>Lids & Gelato Containers</span>
                           </div>
-                          <p className="text-[11px] text-slate-500 dark:text-zinc-400 leading-snug">
+                          <p className="text-[11px] text-[#5A4F4B] leading-snug">
                             Matching recessed-handle GN lids (all sizes) and stainless ice cream storage containers with lids.
                           </p>
                         </div>
@@ -458,7 +395,7 @@ export const Header: React.FC = () => {
 
                       <button
                         onClick={() => handleNavClick('gnpans')}
-                        className="w-full py-2 px-3 text-center text-xs font-tech font-bold uppercase tracking-wider rounded bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                        className="w-full py-2.5 px-3 text-center text-xs font-tech font-bold uppercase tracking-wider rounded bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] transition-colors"
                       >
                         Explore Full Gastronorm (GN) Pan Catalogue →
                       </button>
@@ -469,23 +406,21 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* Right Side: WhatsApp, Get a Quote, Edit Top Bar, Theme, Admin */}
-          <div className="flex items-center gap-2.5">
-            {/* WhatsApp CTA (Desktop) */}
+          {/* Right Side Actions (Theme Toggle Removed) */}
+          <div className="flex items-center gap-2.5 shrink-0">
             {showWhatsapp && (
               <a
                 id="header-wa-cta"
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-tech font-bold uppercase tracking-wider rounded-xs border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-500 dark:hover:text-zinc-950 transition-colors"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-tech font-bold uppercase tracking-wider rounded-xs border border-[#5B1018]/30 text-[#5B1018] bg-[#D8BFA8]/40 hover:bg-[#5B1018] hover:text-[#F3E7DA] transition-colors whitespace-nowrap"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>{whatsappLabel}</span>
               </a>
             )}
 
-            {/* Get a Quote CTA (Desktop) */}
             {showQuote && (
               <button
                 id="header-quote-button"
@@ -493,80 +428,50 @@ export const Header: React.FC = () => {
                   setActivePage('quote');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className={`hidden sm:inline-flex items-center gap-1 px-3.5 py-2 font-tech font-bold text-xs tracking-[0.16em] uppercase rounded-xs transition-all active:scale-[0.98] shadow-sm ${
-                  isLight
-                    ? 'bg-slate-950 text-white hover:bg-slate-800'
-                    : 'bg-white text-zinc-950 hover:bg-zinc-200'
-                }`}
+                className="hidden sm:inline-flex items-center gap-1 px-3.5 py-2 font-tech font-bold text-xs tracking-[0.16em] uppercase rounded-xs bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] transition-all active:scale-[0.98] shadow-sm whitespace-nowrap"
               >
                 <span>{quoteLabel}</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
             )}
 
-            {/* Dedicated EDIT TOP BAR Button - ADMIN ONLY */}
             {isAdmin && (
               <button
                 id="header-edit-topbar-button"
                 onClick={() => setHeaderEditModalOpen(true)}
                 title="Edit Top Bar Header: Brand Name, Subtitle, Logo & Navigation Links"
-                className={`hidden md:flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-tech font-bold uppercase rounded-xs transition-colors border shadow-xs ${
-                  isLight
-                    ? 'bg-amber-100 hover:bg-amber-200 text-amber-950 border-amber-300'
-                    : 'bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border-amber-500/30'
-                }`}
+                className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-tech font-bold uppercase rounded-xs transition-colors border bg-[#D8BFA8]/50 hover:bg-[#D8BFA8] text-[#292321] border-[#B8B8B3] shadow-xs whitespace-nowrap"
               >
-                <Pencil className="w-3 h-3 text-amber-500" />
+                <Pencil className="w-3 h-3 text-[#5B1018]" />
                 <span>EDIT TOP BAR</span>
               </button>
             )}
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleThemeMode}
-              title={isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-              className={`p-2 rounded-xs text-xs border transition-colors ${
-                isLight
-                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'
-                  : 'bg-zinc-800/80 hover:bg-zinc-700/80 text-zinc-300 border-white/10'
-              }`}
-            >
-              {isLight ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5 text-amber-300" />}
-            </button>
-
-            {/* Admin Controls */}
             {isAdmin ? (
               <button
                 id="admin-cms-button"
                 onClick={() => setActivePage('admin-panel')}
                 title="Open Master Admin Control Panel"
-                className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-tech font-bold uppercase rounded-xs transition-colors bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm"
+                className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-tech font-bold uppercase rounded-xs transition-colors bg-[#292321] hover:bg-[#3f3734] text-[#F3E7DA] shadow-sm whitespace-nowrap"
               >
-                <ShieldCheck className="w-3.5 h-3.5" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#D8BFA8]" />
                 <span>ADMIN PANEL</span>
               </button>
             ) : (
               <button
                 onClick={() => setActivePage('admin-login')}
                 title="Admin Portal Login (Authorized Personnel Only)"
-                className={`hidden md:flex items-center gap-1 px-2 py-1.5 rounded-xs text-[11px] font-tech border transition-colors ${
-                  isLight
-                    ? 'bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 border-slate-300'
-                    : 'bg-zinc-800/80 hover:bg-zinc-700/80 text-zinc-400 hover:text-white border-white/10'
-                }`}
+                className="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-xs text-[11px] font-tech font-semibold border border-[#D8BFA8] bg-[#FAF4EE] hover:bg-[#D8BFA8]/40 text-[#292321] transition-colors whitespace-nowrap"
               >
-                <Lock className="w-3 h-3" />
+                <Lock className="w-3 h-3 text-[#5B1018]" />
                 <span>ADMIN</span>
               </button>
             )}
 
-            {/* Mobile menu trigger */}
             <button
               id="mobile-menu-toggle"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 lg:hidden focus:outline-none ${
-                isLight ? 'text-slate-900' : 'text-zinc-300 hover:text-white'
-              }`}
+              className="p-2 lg:hidden focus:outline-none text-[#292321] hover:text-[#5B1018]"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -578,104 +483,83 @@ export const Header: React.FC = () => {
         {mobileMenuOpen && (
           <div
             id="mobile-drawer"
-            className={`lg:hidden border-b px-6 py-6 space-y-5 animate-in fade-in duration-200 max-h-[85vh] overflow-y-auto ${
-              isLight
-                ? 'bg-white border-slate-200 text-slate-900 shadow-xl'
-                : 'bg-[#0c0e11] border-white/10 text-white shadow-2xl'
-            }`}
+            className="lg:hidden border-b border-[#D8BFA8] bg-[#FAF4EE] text-[#292321] shadow-2xl px-6 py-6 space-y-5 animate-in fade-in duration-200 max-h-[85vh] overflow-y-auto"
           >
-            {/* Primary Three Product Categories */}
             <div>
-              <div className="text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400 mb-2.5 px-1">
+              <div className="text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-[#5A4F4B] mb-2.5 px-1">
                 PRODUCT CATEGORIES
               </div>
               <div className="space-y-2.5">
-                {/* 1. Kitchenware & Home Utility */}
                 <button
                   onClick={() => handleNavClick('manufacturing')}
                   className={`w-full p-3.5 rounded-sm text-left border transition-all ${
                     activePage === 'manufacturing'
-                      ? isLight
-                        ? 'border-emerald-600 bg-emerald-50/70 text-emerald-950 ring-1 ring-emerald-600'
-                        : 'border-emerald-500/60 bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-500/30'
-                      : isLight
-                      ? 'border-slate-200 bg-slate-50/60 hover:bg-white text-slate-900'
-                      : 'border-zinc-800 bg-zinc-900/80 hover:bg-zinc-800/80 text-white'
+                      ? 'border-[#5B1018] bg-[#5B1018]/10 text-[#292321] ring-1 ring-[#5B1018]'
+                      : 'border-[#D8BFA8] bg-[#F3E7DA] hover:bg-white text-[#292321]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+                    <span className="font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-[#5B1018]">
                       <Factory className="w-3.5 h-3.5" />
                       <span>1. KITCHENWARE & HOME UTILITY</span>
                     </span>
-                    <span className="text-[10px] font-tech px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 font-bold">
+                    <span className="text-[10px] font-tech px-1.5 py-0.5 rounded bg-[#D8BFA8]/50 text-[#5B1018] font-bold">
                       {manufacturingProducts.length} ITEMS
                     </span>
                   </div>
-                  <p className="text-[11px] leading-relaxed text-slate-600 dark:text-zinc-400">
+                  <p className="text-[11px] leading-relaxed text-[#5A4F4B]">
                     Manufactured kitchenware, cookware, confectionery serving products, storage products, and home utility items.
                   </p>
                 </button>
 
-                {/* 2. Kitchen Equipment */}
                 <button
                   onClick={() => handleNavClick('commercial')}
                   className={`w-full p-3.5 rounded-sm text-left border transition-all ${
                     activePage === 'commercial'
-                      ? isLight
-                        ? 'border-amber-600 bg-amber-50/70 text-amber-950 ring-1 ring-amber-600'
-                        : 'border-amber-500/60 bg-amber-500/10 text-amber-300 ring-1 ring-amber-500/30'
-                      : isLight
-                      ? 'border-slate-200 bg-slate-50/60 hover:bg-white text-slate-900'
-                      : 'border-zinc-800 bg-zinc-900/80 hover:bg-zinc-800/80 text-white'
+                      ? 'border-[#5B1018] bg-[#5B1018]/10 text-[#292321] ring-1 ring-[#5B1018]'
+                      : 'border-[#D8BFA8] bg-[#F3E7DA] hover:bg-white text-[#292321]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-amber-700 dark:text-amber-400">
+                    <span className="font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-[#5B1018]">
                       <Flame className="w-3.5 h-3.5" />
                       <span>2. KITCHEN EQUIPMENT</span>
                     </span>
-                    <span className="text-[10px] font-tech px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-400 font-bold">
+                    <span className="text-[10px] font-tech px-1.5 py-0.5 rounded bg-[#D8BFA8]/50 text-[#5B1018] font-bold">
                       {commercialProducts.length} ITEMS
                     </span>
                   </div>
-                  <p className="text-[11px] leading-relaxed text-slate-600 dark:text-zinc-400">
+                  <p className="text-[11px] leading-relaxed text-[#5A4F4B]">
                     Commercial kitchen equipment, professional cooking equipment, fryers, grills, ovens, and food-service equipment.
                   </p>
                 </button>
 
-                {/* 3. GN Pans */}
                 <button
                   onClick={() => handleNavClick('gnpans')}
                   className={`w-full p-3.5 rounded-sm text-left border transition-all ${
                     activePage === 'gnpans'
-                      ? isLight
-                        ? 'border-blue-600 bg-blue-50/70 text-blue-950 ring-1 ring-blue-600'
-                        : 'border-blue-500/60 bg-blue-500/10 text-blue-300 ring-1 ring-blue-500/30'
-                      : isLight
-                      ? 'border-slate-200 bg-slate-50/60 hover:bg-white text-slate-900'
-                      : 'border-zinc-800 bg-zinc-900/80 hover:bg-zinc-800/80 text-white'
+                      ? 'border-[#5B1018] bg-[#5B1018]/10 text-[#292321] ring-1 ring-[#5B1018]'
+                      : 'border-[#D8BFA8] bg-[#F3E7DA] hover:bg-white text-[#292321]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-blue-700 dark:text-blue-400">
+                    <span className="font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-[#5B1018]">
                       <Layers className="w-3.5 h-3.5" />
                       <span>3. GASTRONORM (GN) PANS & COVERS</span>
                     </span>
-                    <span className="text-[10px] font-tech px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-700 dark:text-blue-400 font-bold">
+                    <span className="text-[10px] font-tech px-1.5 py-0.5 rounded bg-[#D8BFA8]/50 text-[#5B1018] font-bold">
                       {gnPanProducts.length} SERIES
                     </span>
                   </div>
-                  <p className="text-[11px] leading-relaxed text-slate-600 dark:text-zinc-400">
+                  <p className="text-[11px] leading-relaxed text-[#5A4F4B]">
                     European EN-631 food pans (1/1 to 2/1, 65mm to 200mm depths), matching covers, and gelato storage pans.
                   </p>
                 </button>
               </div>
             </div>
 
-            {/* Other Navigation Links */}
-            <div className="pt-2 border-t border-slate-200 dark:border-white/10 space-y-1">
-              <div className="text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400 mb-1.5 px-1">
+            <div className="pt-2 border-t border-[#D8BFA8] space-y-1">
+              <div className="text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-[#5A4F4B] mb-1.5 px-1">
                 MORE PAGES
               </div>
               {navItems
@@ -686,22 +570,17 @@ export const Header: React.FC = () => {
                     onClick={() => handleNavClick(item.page)}
                     className={`w-full py-2.5 px-3 rounded-xs text-left text-xs font-tech font-bold uppercase tracking-wider flex items-center justify-between ${
                       activePage === item.page
-                        ? isLight
-                          ? 'bg-slate-100 text-slate-950 font-black'
-                          : 'bg-zinc-800 text-white font-black'
-                        : isLight
-                        ? 'text-slate-700 hover:bg-slate-50'
-                        : 'text-zinc-300 hover:bg-white/5'
+                        ? 'bg-[#D8BFA8]/40 text-[#5B1018] font-black'
+                        : 'text-[#292321] hover:bg-[#F3E7DA]'
                     }`}
                   >
                     <span>{item.label}</span>
-                    <ChevronRight className="w-4 h-4 opacity-50" />
+                    <ChevronRight className="w-4 h-4 text-[#B8B8B3]" />
                   </button>
                 ))}
             </div>
 
-            {/* Mobile Actions */}
-            <div className="pt-4 border-t border-slate-200 dark:border-white/10 space-y-2">
+            <div className="pt-4 border-t border-[#D8BFA8] space-y-2">
               {showQuote && (
                 <button
                   onClick={() => {
@@ -709,9 +588,7 @@ export const Header: React.FC = () => {
                     setMobileMenuOpen(false);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className={`w-full py-3.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs flex items-center justify-center gap-2 ${
-                    isLight ? 'bg-slate-950 text-white' : 'bg-white text-zinc-950'
-                  }`}
+                  className="w-full py-3.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs bg-[#5B1018] text-[#F3E7DA] flex items-center justify-center gap-2"
                 >
                   <span>{quoteLabel}</span>
                 </button>
@@ -722,14 +599,13 @@ export const Header: React.FC = () => {
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 flex items-center justify-center gap-2"
+                  className="w-full py-3.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border border-[#5B1018]/30 text-[#5B1018] bg-[#D8BFA8]/40 flex items-center justify-center gap-2"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>{whatsappLabel}</span>
                 </a>
               )}
 
-              {/* Admin vs Visitor Actions in Mobile Drawer */}
               {isAdmin ? (
                 <>
                   <button
@@ -737,9 +613,9 @@ export const Header: React.FC = () => {
                       setActivePage('admin-panel');
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full py-2.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 shadow-sm"
+                    className="w-full py-2.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs bg-[#292321] text-[#F3E7DA] flex items-center justify-center gap-1.5 shadow-sm"
                   >
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#D8BFA8]" />
                     <span>ADMIN CONTROL PANEL</span>
                   </button>
 
@@ -748,9 +624,9 @@ export const Header: React.FC = () => {
                       setHeaderEditModalOpen(true);
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full py-2.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border border-amber-500/40 text-amber-400 bg-amber-500/10 flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border border-[#D8BFA8] text-[#292321] bg-[#F3E7DA] flex items-center justify-center gap-1.5"
                   >
-                    <Pencil className="w-3.5 h-3.5" />
+                    <Pencil className="w-3.5 h-3.5 text-[#5B1018]" />
                     <span>EDIT TOP BAR & NAVIGATION</span>
                   </button>
 
@@ -759,7 +635,7 @@ export const Header: React.FC = () => {
                       logoutAdmin();
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full py-2 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border border-red-500/30 text-red-500 flex items-center justify-center gap-1.5"
+                    className="w-full py-2 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border border-[#5B1018]/40 text-[#5B1018] flex items-center justify-center gap-1.5"
                   >
                     <LogOut className="w-3 h-3" />
                     <span>LOGOUT ADMINISTRATOR</span>
@@ -771,13 +647,9 @@ export const Header: React.FC = () => {
                     setActivePage('admin-login');
                     setMobileMenuOpen(false);
                   }}
-                  className={`w-full py-2.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border flex items-center justify-center gap-1.5 transition-colors ${
-                    isLight
-                      ? 'border-slate-300 text-slate-600 hover:text-slate-900 bg-slate-100'
-                      : 'border-white/10 text-zinc-400 hover:text-white bg-zinc-900'
-                  }`}
+                  className="w-full py-2.5 font-tech text-xs font-bold uppercase tracking-wider rounded-xs border border-[#D8BFA8] text-[#292321] bg-[#F3E7DA] flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  <Lock className="w-3.5 h-3.5" />
+                  <Lock className="w-3.5 h-3.5 text-[#5B1018]" />
                   <span>ADMIN PORTAL LOGIN</span>
                 </button>
               )}
@@ -786,42 +658,33 @@ export const Header: React.FC = () => {
         )}
       </header>
 
-      {/* Top Bar / Header Edit Modal */}
       <HeaderEditModal
         isOpen={headerEditModalOpen}
         onClose={() => setHeaderEditModalOpen(false)}
       />
 
-      {/* Sticky Mobile Bottom Bar: WhatsApp, Call Now, Get Quote */}
+      {/* Sticky Mobile Bottom Bar */}
       <div
         id="mobile-sticky-bottom-bar"
-        className={`fixed bottom-0 left-0 right-0 z-40 sm:hidden border-t backdrop-blur-md px-3 py-2 flex items-center justify-between gap-2 transition-colors ${
-          isLight
-            ? 'bg-white/95 border-slate-200 shadow-lg text-slate-900'
-            : 'bg-[#0a0c0f]/95 border-white/10 shadow-2xl text-white'
-        }`}
+        className="fixed bottom-0 left-0 right-0 z-40 sm:hidden border-t border-[#D8BFA8] bg-[#FAF4EE]/95 backdrop-blur-md shadow-lg text-[#292321] px-3 py-2 flex items-center justify-between gap-2"
       >
         {showWhatsapp && (
           <a
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 py-2.5 px-2 rounded-xs bg-emerald-600 text-white font-tech text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-xs"
+            className="flex-1 py-2.5 px-2 rounded-xs bg-[#292321] text-[#F3E7DA] font-tech text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-xs"
           >
-            <MessageSquare className="w-3.5 h-3.5" />
+            <MessageSquare className="w-3.5 h-3.5 text-[#D8BFA8]" />
             <span>{whatsappLabel}</span>
           </a>
         )}
 
         <a
           href={`tel:${salesContact.number.replace(/\s+/g, '')}`}
-          className={`flex-1 py-2.5 px-2 rounded-xs border font-tech text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 ${
-            isLight
-              ? 'border-slate-300 text-slate-900 bg-slate-100 hover:bg-slate-200'
-              : 'border-white/15 text-white bg-zinc-900 hover:bg-zinc-800'
-          }`}
+          className="flex-1 py-2.5 px-2 rounded-xs border border-[#D8BFA8] font-tech text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 text-[#292321] bg-[#F3E7DA]"
         >
-          <Phone className="w-3.5 h-3.5" />
+          <Phone className="w-3.5 h-3.5 text-[#5B1018]" />
           <span>Call Now</span>
         </a>
 
@@ -831,9 +694,7 @@ export const Header: React.FC = () => {
               setActivePage('quote');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className={`flex-1 py-2.5 px-2 rounded-xs font-tech text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1 shadow-xs ${
-              isLight ? 'bg-slate-950 text-white' : 'bg-white text-zinc-950'
-            }`}
+            className="flex-1 py-2.5 px-2 rounded-xs font-tech text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1 shadow-xs bg-[#5B1018] text-[#F3E7DA]"
           >
             <span>{quoteLabel}</span>
           </button>

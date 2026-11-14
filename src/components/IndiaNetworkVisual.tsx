@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import IndiaMap from '@svg-maps/india';
 
 interface IndiaNetworkVisualProps {
-  isLight: boolean;
   className?: string;
 }
 
@@ -34,7 +33,6 @@ interface PhotonParticle {
 }
 
 export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
-  isLight,
   className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -174,11 +172,10 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
 
   const upHubNode = nodes[0];
 
-  // Colors matched to the exact reference image
-  // Image 2 has solid rich deep blue fill (#004c8c / #02478e) with crisp white state boundary lines!
-  const mapFill = isLight ? '#02478e' : '#052b57';
-  const mapStroke = isLight ? '#ffffff' : 'rgba(255, 255, 255, 0.65)';
-  const mapStrokeWidth = isLight ? '0.75' : '0.65';
+  // Signature Palette: Deep Oxblood & Soft Charcoal landmass with Champagne Beige / Warm Ivory boundaries
+  const mapFill = '#292321';
+  const mapStroke = '#F3E7DA';
+  const mapStrokeWidth = '0.75';
 
   return (
     <div
@@ -191,17 +188,15 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
-          {/* Subtle Outer Drop Shadow for India Landmass */}
           <filter id="india-shadow" x="-10%" y="-10%" width="120%" height="120%">
             <feDropShadow
               dx="0"
               dy="10"
               stdDeviation="16"
-              floodColor={isLight ? 'rgba(2, 71, 142, 0.35)' : 'rgba(0, 0, 0, 0.7)'}
+              floodColor="rgba(41, 35, 33, 0.28)"
             />
           </filter>
 
-          {/* Glow Filters */}
           <filter id="gold-glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
             <feMerge>
@@ -218,31 +213,21 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
             </feMerge>
           </filter>
 
-          {/* Linear Gradients for Laser Lines from UP */}
           <linearGradient id="grad-up-primary" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.95" />
-            <stop offset="100%" stopColor={isLight ? '#38bdf8' : '#67e8f9'} stopOpacity="0.8" />
+            <stop offset="0%" stopColor="#F3E7DA" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#D8BFA8" stopOpacity="0.85" />
           </linearGradient>
 
           <linearGradient id="grad-interstate" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={isLight ? '#38bdf8' : '#38bdf8'} stopOpacity="0.75" />
-            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.65" />
+            <stop offset="0%" stopColor="#D8BFA8" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#B8B8B3" stopOpacity="0.7" />
           </linearGradient>
         </defs>
 
-        {/* ========================================================
-            1. REAL INDIAN MAP - ALL 36 STATES FROM SVG-MAPS
-            Deep Blue with Clean State Boundary Outlines (as in image 2)
-            ======================================================== */}
         <g id="india-accurate-state-regions" filter="url(#india-shadow)">
           {IndiaMap.locations.map((loc) => {
             const isUP = loc.id === 'up';
-            // UP has a subtle brighter state fill highlighting it as the manufacturing hub
-            const stateFill = isUP
-              ? isLight
-                ? '#0054a8'
-                : '#083975'
-              : mapFill;
+            const stateFill = isUP ? '#5B1018' : mapFill;
 
             return (
               <path
@@ -259,9 +244,6 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
           })}
         </g>
 
-        {/* ========================================================
-            2. CONCENTRIC RADAR SHOCKWAVES RADIATING FROM UP HUB
-            ======================================================== */}
         <g id="up-concentric-shockwaves">
           {[0, 1, 2, 3].map((ringIdx) => {
             const waveProgress = ((animTime / 3000) + ringIdx * 0.25) % 1;
@@ -275,7 +257,7 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
                 cy={upHubNode.y}
                 r={waveRadius}
                 fill="none"
-                stroke="#f59e0b"
+                stroke="#5B1018"
                 strokeWidth="1.2"
                 strokeDasharray="4 6"
                 opacity={waveAlpha}
@@ -284,9 +266,6 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
           })}
         </g>
 
-        {/* ========================================================
-            3. CONNECTING LASER LINES (Originating from UP -> other states)
-            ======================================================== */}
         <g id="network-connection-lines">
           {connections.map((conn, idx) => {
             const from = nodeMap.get(conn.from);
@@ -294,9 +273,8 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
             if (!from || !to) return null;
 
             const timeSinceStart = animTime - conn.startTime;
-            if (timeSinceStart <= 0) return null; // hasn't started drawing yet
+            if (timeSinceStart <= 0) return null;
 
-            // Calculate draw progress 0 to 1
             const progress = Math.min(1, Math.max(0, timeSinceStart / conn.duration));
 
             const curX = from.x + (to.x - from.x) * progress;
@@ -306,7 +284,6 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
 
             return (
               <g key={`conn-${conn.from}-${conn.to}-${idx}`}>
-                {/* Glow Line */}
                 <line
                   x1={from.x}
                   y1={from.y}
@@ -318,13 +295,12 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
                   filter={isHubLine ? 'url(#laser-glow)' : undefined}
                 />
 
-                {/* Leading Light Tip while drawing */}
                 {progress > 0 && progress < 1 && (
                   <circle
                     cx={curX}
                     cy={curY}
                     r={3}
-                    fill="#ffffff"
+                    fill="#F3E7DA"
                     filter="url(#gold-glow)"
                   />
                 )}
@@ -333,13 +309,10 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
           })}
         </g>
 
-        {/* ========================================================
-            4. TRAVELING HIGH-SPEED PHOTONS (Light pulses moving along lines)
-            ======================================================== */}
         <g id="traveling-photons">
           {photonsRef.current.map((p, idx) => {
             const totalConnTime = p.connStartTime + p.connDuration;
-            if (animTime < totalConnTime) return null; // connection not formed yet
+            if (animTime < totalConnTime) return null;
 
             const photonProgress = ((animTime * p.speed + p.offset * 100) % 100) / 100;
             const px = p.fromNode.x + (p.toNode.x - p.fromNode.x) * photonProgress;
@@ -351,7 +324,7 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
                   cx={px}
                   cy={py}
                   r={2.4}
-                  fill="#ffffff"
+                  fill="#F3E7DA"
                   filter="url(#gold-glow)"
                 />
               </g>
@@ -359,79 +332,57 @@ export const IndiaNetworkVisual: React.FC<IndiaNetworkVisualProps> = ({
           })}
         </g>
 
-        {/* ========================================================
-            5. STATE NODES (Pure Visual Connectivity Dots - No Text Labels)
-            ======================================================== */}
         <g id="state-nodes">
           {nodes.map((node) => {
             const timeSinceAppear = animTime - node.appearTime;
-            if (timeSinceAppear <= 0) return null; // dot hasn't appeared yet in this cycle
+            if (timeSinceAppear <= 0) return null;
 
-            // Scale-in pop animation when node is born
             const scale = Math.min(1, Math.max(0, timeSinceAppear / 250));
             const pulse = (Math.sin(animTime * 0.005 + node.x * 0.1) + 1) / 2;
 
             if (node.isHub) {
-              // ==========================================
-              // UTTAR PRADESH CENTRAL FACTORY HUB BEACON
-              // ==========================================
               return (
                 <g key={node.id} transform={`translate(${node.x}, ${node.y}) scale(${scale})`}>
-                  {/* Outer pulsing ring */}
                   <circle
                     r={node.radius + 8 + pulse * 6}
                     fill="none"
-                    stroke="#f59e0b"
+                    stroke="#D8BFA8"
                     strokeWidth="1.5"
-                    opacity={0.7 - pulse * 0.4}
+                    opacity={0.75 - pulse * 0.4}
                   />
-
-                  {/* Secondary golden glow circle */}
                   <circle
                     r={node.radius + 3}
-                    fill="#f59e0b"
-                    opacity={0.35}
+                    fill="#5B1018"
+                    opacity={0.45}
                     filter="url(#gold-glow)"
                   />
-
-                  {/* Golden Core Hub */}
                   <circle
                     r={node.radius}
-                    fill="#f59e0b"
-                    stroke="#ffffff"
+                    fill="#5B1018"
+                    stroke="#F3E7DA"
                     strokeWidth="1.8"
                     filter="url(#gold-glow)"
                   />
-
-                  {/* Bright White Center Pin */}
-                  <circle r={2.5} fill="#ffffff" />
+                  <circle r={2.5} fill="#F3E7DA" />
                 </g>
               );
             }
 
-            // ==========================================
-            // OTHER STATE NETWORK NODES
-            // ==========================================
             return (
               <g key={node.id} transform={`translate(${node.x}, ${node.y}) scale(${scale})`}>
-                {/* Subtle pulse halo */}
                 <circle
                   r={node.radius + 2 + pulse * 2}
-                  fill={isLight ? '#38bdf8' : '#00e5ff'}
-                  opacity={0.25}
+                  fill="#D8BFA8"
+                  opacity={0.28}
                 />
-
-                {/* Main Node Body */}
                 <circle
                   r={node.radius}
-                  fill={isLight ? '#0ea5e9' : '#38bdf8'}
-                  stroke="#ffffff"
+                  fill="#B8B8B3"
+                  stroke="#F3E7DA"
                   strokeWidth="1.2"
                   filter="url(#laser-glow)"
                 />
-
-                {/* White Center Dot */}
-                <circle r={1.5} fill="#ffffff" />
+                <circle r={1.5} fill="#5B1018" />
               </g>
             );
           })}

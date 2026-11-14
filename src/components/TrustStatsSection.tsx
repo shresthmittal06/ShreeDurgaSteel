@@ -1,10 +1,9 @@
 import React from 'react';
 import { useContent } from '../context/ContentContext';
-import { ShieldCheck, Award, Factory, Truck, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Factory, Truck, CheckCircle2 } from 'lucide-react';
 
 export const TrustStatsSection: React.FC = () => {
-  const { brand, products, themeMode } = useContent();
-  const isLight = themeMode === 'light';
+  const { products } = useContent();
 
   const stats = [
     {
@@ -32,22 +31,20 @@ export const TrustStatsSection: React.FC = () => {
   return (
     <section
       id="trust-stats-section"
-      className={`py-24 border-t transition-colors ${
-        isLight ? 'bg-slate-950 text-white border-slate-900' : 'bg-[#07080b] text-white border-white/5'
-      }`}
+      className="py-24 border-t border-[#D8BFA8]/30 bg-[#5B1018] text-[#F3E7DA]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-amber-400 mb-3 px-3 py-1 rounded-xs bg-amber-500/10 border border-amber-500/20">
-            <ShieldCheck className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-[#F3E7DA] mb-3 px-3 py-1 rounded-xs bg-[#292321]/60 border border-[#D8BFA8]/40">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#D8BFA8]" />
             <span>QUALITY & RELIABILITY BENCHMARK</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase leading-tight text-[#F3E7DA]">
             BUILT ON FACTUAL REPUTATION.
           </h2>
 
-          <p className="mt-4 text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal">
+          <p className="mt-4 text-xs sm:text-sm text-[#D8BFA8] leading-relaxed font-normal">
             Direct manufacturing transparency, verified material certifications, and quarter-century engineering heritage backing professional kitchens across the country.
           </p>
         </div>
@@ -57,17 +54,17 @@ export const TrustStatsSection: React.FC = () => {
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="p-8 rounded-xs border border-white/10 bg-white/[0.02] flex flex-col justify-between"
+              className="p-8 rounded-xs border border-[#D8BFA8]/35 bg-[#292321]/35 flex flex-col justify-between"
             >
               <div>
-                <span className="text-4xl sm:text-5xl font-black font-tech tracking-tight text-white mb-2 block">
+                <span className="text-4xl sm:text-5xl font-black font-tech tracking-tight text-[#F3E7DA] mb-2 block tabular-nums">
                   {stat.value}
                 </span>
-                <span className="text-xs font-tech font-bold uppercase tracking-[0.18em] text-amber-400 block mb-2">
+                <span className="text-xs font-tech font-bold uppercase tracking-[0.18em] text-[#D8BFA8] block mb-2">
                   {stat.label}
                 </span>
               </div>
-              <p className="text-xs text-zinc-400 font-normal leading-relaxed">
+              <p className="text-xs text-[#F3E7DA]/85 font-normal leading-relaxed">
                 {stat.detail}
               </p>
             </div>
@@ -75,34 +72,34 @@ export const TrustStatsSection: React.FC = () => {
         </div>
 
         {/* Trust Badges */}
-        <div className="pt-10 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-tech">
+        <div className="pt-10 border-t border-[#D8BFA8]/25 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-tech">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xs bg-white/5 border border-white/10 flex items-center justify-center text-emerald-400 shrink-0">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-xs bg-[#292321]/50 border border-[#B8B8B3]/40 flex items-center justify-center text-[#F3E7DA] shrink-0">
+              <CheckCircle2 className="w-4 h-4 text-[#B8B8B3]" />
             </div>
             <div>
-              <span className="font-bold uppercase tracking-wider text-white block">100% Non-Magnetic Alloy</span>
-              <span className="text-zinc-400 text-[11px]">Strict acid and brine corrosion resistance</span>
+              <span className="font-bold uppercase tracking-wider text-[#F3E7DA] block">100% Non-Magnetic Alloy</span>
+              <span className="text-[#D8BFA8] text-[11px]">Strict acid and brine corrosion resistance</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xs bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 shrink-0">
-              <Factory className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-xs bg-[#292321]/50 border border-[#B8B8B3]/40 flex items-center justify-center text-[#F3E7DA] shrink-0">
+              <Factory className="w-4 h-4 text-[#B8B8B3]" />
             </div>
             <div>
-              <span className="font-bold uppercase tracking-wider text-white block">In-House Stamping Tooling</span>
-              <span className="text-zinc-400 text-[11px]">Seamless corners drawn without joint welds</span>
+              <span className="font-bold uppercase tracking-wider text-[#F3E7DA] block">In-House Stamping Tooling</span>
+              <span className="text-[#D8BFA8] text-[11px]">Seamless corners drawn without joint welds</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xs bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 shrink-0">
-              <Truck className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-xs bg-[#292321]/50 border border-[#B8B8B3]/40 flex items-center justify-center text-[#F3E7DA] shrink-0">
+              <Truck className="w-4 h-4 text-[#B8B8B3]" />
             </div>
             <div>
-              <span className="font-bold uppercase tracking-wider text-white block">Verified Freight Packaging</span>
-              <span className="text-zinc-400 text-[11px]">Protective film, foam guards and heavy strapping</span>
+              <span className="font-bold uppercase tracking-wider text-[#F3E7DA] block">Verified Freight Packaging</span>
+              <span className="text-[#D8BFA8] text-[11px]">Protective film, foam guards and heavy strapping</span>
             </div>
           </div>
         </div>

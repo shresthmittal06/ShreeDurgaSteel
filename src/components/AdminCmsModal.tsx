@@ -21,10 +21,8 @@ import {
   Trash2,
   Edit2,
   Layers,
-  Building,
   Sliders,
   CheckCircle,
-  FileText,
   Search,
   AlertTriangle,
   Star,
@@ -34,10 +32,8 @@ import {
   ArrowDown,
   Eye,
   EyeOff,
-  Sparkles,
   MessageSquare,
   ChevronRight,
-  Pencil,
   ArrowLeft,
 } from 'lucide-react';
 
@@ -344,32 +340,32 @@ export const AdminCmsModal: React.FC = () => {
   return (
     <div
       id="admin-cms-modal-backdrop"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#292321]/75 backdrop-blur-md animate-in fade-in duration-200"
     >
       <div
         id="admin-cms-card"
-        className="bg-[#0e1116] border border-white/20 rounded-sm w-full max-w-5xl h-[92vh] flex flex-col shadow-2xl overflow-hidden"
+        className="bg-[#FAF4EE] border border-[#D8BFA8] rounded-sm w-full max-w-5xl h-[92vh] flex flex-col shadow-2xl overflow-hidden text-[#292321]"
       >
         {/* Modal Header */}
-        <div className="p-4 sm:p-6 bg-zinc-950 border-b border-white/10 flex items-center justify-between shrink-0">
+        <div className="p-4 sm:p-6 bg-[#F3E7DA] border-b border-[#D8BFA8] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setAdminModalOpen(false)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-zinc-800 hover:bg-amber-500 text-zinc-200 hover:text-black font-tech text-xs font-bold uppercase tracking-wider transition-colors border border-white/15 hover:border-amber-500 shrink-0"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white hover:bg-[#5B1018] text-[#292321] hover:text-[#F3E7DA] font-tech text-xs font-bold uppercase tracking-wider transition-colors border border-[#D8BFA8] hover:border-[#5B1018] shrink-0"
               title="Back / Close CMS"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>BACK</span>
             </button>
-            <div className="p-2 bg-white/5 border border-white/15 rounded text-white">
+            <div className="p-2 bg-[#5B1018]/10 border border-[#5B1018]/25 rounded text-[#5B1018]">
               <Sliders className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] font-tech text-zinc-400 uppercase tracking-[0.25em]">
+              <div className="text-[10px] font-tech text-[#5B1018] font-bold uppercase tracking-[0.25em]">
                 ADMINISTRATOR PORTAL • ZERO HARDCODED CODE ARCHITECTURE
               </div>
-              <h2 className="text-lg sm:text-xl font-bold uppercase text-white tracking-tight">
+              <h2 className="text-lg sm:text-xl font-bold uppercase text-[#292321] tracking-tight">
                 CONTENT MANAGEMENT SYSTEM (CMS)
               </h2>
             </div>
@@ -377,13 +373,13 @@ export const AdminCmsModal: React.FC = () => {
 
           <div className="flex items-center gap-3">
             {successNotice && (
-              <span className="hidden sm:inline-flex items-center gap-1 text-xs text-emerald-400 font-tech font-semibold animate-pulse">
+              <span className="hidden sm:inline-flex items-center gap-1 text-xs text-[#5B1018] font-tech font-semibold">
                 <CheckCircle className="w-4 h-4" /> {successNotice}
               </span>
             )}
             <button
               onClick={() => setAdminModalOpen(false)}
-              className="p-1.5 text-zinc-400 hover:text-white rounded hover:bg-white/10"
+              className="p-1.5 text-[#5A4F4B] hover:text-[#5B1018] rounded hover:bg-[#E9D9C8]"
               aria-label="Close CMS"
             >
               <X className="w-5 h-5" />
@@ -392,7 +388,7 @@ export const AdminCmsModal: React.FC = () => {
         </div>
 
         {/* Navigation Tabs Bar */}
-        <div className="bg-zinc-900/80 border-b border-white/10 px-4 sm:px-6 flex items-center gap-2 overflow-x-auto shrink-0 py-2">
+        <div className="bg-[#E9D9C8] border-b border-[#D8BFA8] px-4 sm:px-6 flex items-center gap-2 overflow-x-auto shrink-0 py-2">
           {[
             { id: 'topbar', label: '1. Top Bar & Navigation' },
             { id: 'brand', label: '2. Brand & Contact' },
@@ -410,8 +406,8 @@ export const AdminCmsModal: React.FC = () => {
               }}
               className={`px-3 py-1.5 rounded-sm text-xs font-tech tracking-wider uppercase whitespace-nowrap transition-colors ${
                 activeTab === tab.id
-                  ? 'bg-white text-zinc-950 font-bold'
-                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-[#5B1018] text-[#F3E7DA] font-bold shadow-xs'
+                  : 'text-[#4D423E] hover:text-[#292321] hover:bg-[#FAF4EE]'
               }`}
             >
               {tab.label}
@@ -420,23 +416,23 @@ export const AdminCmsModal: React.FC = () => {
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-4 sm:p-8 flex-1 overflow-y-auto space-y-6 text-xs text-zinc-300">
+        <div className="p-4 sm:p-8 flex-1 overflow-y-auto space-y-6 text-xs text-[#4D423E] bg-[#FAF4EE]">
           {/* TAB 1: TOP BAR & NAVIGATION */}
           {activeTab === 'topbar' && (
             <form onSubmit={handleSaveTopBar} className="space-y-6 max-w-4xl">
               {/* Section: Top Bar Branding */}
-              <div className="p-5 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="p-5 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <div className="flex items-center justify-between border-b border-[#D8BFA8] pb-3">
                   <div>
-                    <h3 className="text-sm font-bold uppercase text-white font-tech">
+                    <h3 className="text-sm font-bold uppercase text-[#292321] font-tech">
                       Top Bar Identity & Branding
                     </h3>
-                    <p className="text-[11px] text-zinc-400">
+                    <p className="text-[11px] text-[#4D423E]">
                       Customize the brand title, subtitle tagline, and logo appearance rendered at the top of every page.
                     </p>
                   </div>
                   <div className="hidden sm:flex items-center gap-2">
-                    <span className="text-[10px] font-tech text-amber-400 uppercase bg-amber-500/10 px-2 py-1 rounded-xs border border-amber-500/20">
+                    <span className="text-[10px] font-tech text-[#5B1018] uppercase bg-[#E9D9C8] px-2 py-1 rounded-xs border border-[#5B1018]/25">
                       Header Bar Live Sync
                     </span>
                   </div>
@@ -444,20 +440,20 @@ export const AdminCmsModal: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Header Brand Name
                     </label>
                     <input
                       type="text"
                       value={tempBrand.brandName}
                       onChange={(e) => setTempBrand({ ...tempBrand, brandName: e.target.value })}
-                      placeholder="e.g. SHRI DURGA STEELS"
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      placeholder="e.g. SHREE DURGA STEELS"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Header Subtitle / Tagline
                     </label>
                     <input
@@ -465,7 +461,7 @@ export const AdminCmsModal: React.FC = () => {
                       value={tempBrand.headerTagline || tempBrand.tagline || ''}
                       onChange={(e) => setTempBrand({ ...tempBrand, headerTagline: e.target.value })}
                       placeholder="e.g. COMMERCIAL KITCHEN & MANUFACTURING"
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                 </div>
@@ -473,7 +469,7 @@ export const AdminCmsModal: React.FC = () => {
                 {/* Logo Display Style & Upload */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Header Logo Display Mode
                     </label>
                     <select
@@ -481,7 +477,7 @@ export const AdminCmsModal: React.FC = () => {
                       onChange={(e) =>
                         setTempBrand({ ...tempBrand, logoStyle: e.target.value as any })
                       }
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     >
                       <option value="both">Both Logo Image & Text Brand Name</option>
                       <option value="image">Logo Image Only</option>
@@ -490,7 +486,7 @@ export const AdminCmsModal: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Fallback Monogram Letters (2 Letters)
                     </label>
                     <input
@@ -498,12 +494,12 @@ export const AdminCmsModal: React.FC = () => {
                       maxLength={3}
                       value={tempBrand.logoText || 'SD'}
                       onChange={(e) => setTempBrand({ ...tempBrand, logoText: e.target.value.toUpperCase() })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-white/10">
+                <div className="pt-2 border-t border-[#D8BFA8]">
                   <ImageUploadField
                     label="Header Brand Logo Image"
                     value={tempBrand.logoImage || ''}
@@ -513,13 +509,13 @@ export const AdminCmsModal: React.FC = () => {
               </div>
 
               {/* Section: Navigation Menu Links */}
-              <div className="p-5 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+              <div className="p-5 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#D8BFA8] pb-3">
                   <div>
-                    <h3 className="text-sm font-bold uppercase text-white font-tech">
+                    <h3 className="text-sm font-bold uppercase text-[#292321] font-tech">
                       Navigation Menu Links ({currentNavItems.length})
                     </h3>
-                    <p className="text-[11px] text-zinc-400">
+                    <p className="text-[11px] text-[#4D423E]">
                       Add, reorder, rename, or toggle visibility of navigation links across the desktop top bar and mobile drawer.
                     </p>
                   </div>
@@ -527,14 +523,14 @@ export const AdminCmsModal: React.FC = () => {
                     <button
                       type="button"
                       onClick={handleResetNavItems}
-                      className="px-2.5 py-1 text-[11px] font-tech uppercase text-zinc-400 hover:text-white border border-white/15 rounded-xs hover:bg-white/5"
+                      className="px-2.5 py-1 text-[11px] font-tech uppercase text-[#4D423E] hover:text-[#292321] border border-[#D8BFA8] rounded-xs hover:bg-[#E9D9C8]"
                     >
                       Reset Defaults
                     </button>
                     <button
                       type="button"
                       onClick={handleAddNavItem}
-                      className="px-3 py-1 text-[11px] font-tech font-bold uppercase text-zinc-950 bg-white hover:bg-zinc-200 rounded-xs flex items-center gap-1"
+                      className="px-3 py-1 text-[11px] font-tech font-bold uppercase text-[#F3E7DA] bg-[#5B1018] hover:bg-[#440B11] rounded-xs flex items-center gap-1"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       Add Link
@@ -548,12 +544,12 @@ export const AdminCmsModal: React.FC = () => {
                       key={item.id}
                       className={`p-3 border rounded-xs flex flex-col sm:flex-row sm:items-center gap-3 transition-colors ${
                         item.visible === false
-                          ? 'bg-zinc-950/50 border-white/5 opacity-60'
-                          : 'bg-zinc-900/90 border-white/15'
+                          ? 'bg-[#E9D9C8]/50 border-[#D8BFA8] opacity-65'
+                          : 'bg-white border-[#D8BFA8]'
                       }`}
                     >
                       <div className="flex items-center gap-2 shrink-0">
-                        <span className="w-6 h-6 rounded-xs bg-white/10 text-zinc-300 flex items-center justify-center font-tech text-[10px] font-bold">
+                        <span className="w-6 h-6 rounded-xs bg-[#E9D9C8] text-[#292321] flex items-center justify-center font-tech text-[10px] font-bold">
                           #{index + 1}
                         </span>
 
@@ -563,7 +559,7 @@ export const AdminCmsModal: React.FC = () => {
                             type="button"
                             disabled={index === 0}
                             onClick={() => handleMoveNavItem(index, 'up')}
-                            className="p-1 text-zinc-400 hover:text-white disabled:opacity-20 hover:bg-white/10 rounded-xs"
+                            className="p-1 text-[#4D423E] hover:text-[#292321] disabled:opacity-20 hover:bg-[#E9D9C8] rounded-xs"
                             title="Move Up"
                           >
                             <ArrowUp className="w-3 h-3" />
@@ -572,7 +568,7 @@ export const AdminCmsModal: React.FC = () => {
                             type="button"
                             disabled={index === currentNavItems.length - 1}
                             onClick={() => handleMoveNavItem(index, 'down')}
-                            className="p-1 text-zinc-400 hover:text-white disabled:opacity-20 hover:bg-white/10 rounded-xs"
+                            className="p-1 text-[#4D423E] hover:text-[#292321] disabled:opacity-20 hover:bg-[#E9D9C8] rounded-xs"
                             title="Move Down"
                           >
                             <ArrowDown className="w-3 h-3" />
@@ -582,7 +578,7 @@ export const AdminCmsModal: React.FC = () => {
 
                       {/* Link Label Input */}
                       <div className="flex-1">
-                        <label className="block text-[9px] font-tech uppercase text-zinc-400 mb-0.5">
+                        <label className="block text-[9px] font-tech uppercase text-[#4D423E] mb-0.5">
                           Menu Label
                         </label>
                         <input
@@ -590,19 +586,19 @@ export const AdminCmsModal: React.FC = () => {
                           value={item.label}
                           onChange={(e) => handleUpdateNavItem(item.id, 'label', e.target.value)}
                           placeholder="e.g. Products"
-                          className="w-full px-2.5 py-1.5 bg-black/40 border border-white/15 text-white rounded-xs font-tech text-xs"
+                          className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-xs font-tech text-xs"
                         />
                       </div>
 
                       {/* Target Page Select */}
                       <div className="w-full sm:w-56">
-                        <label className="block text-[9px] font-tech uppercase text-zinc-400 mb-0.5">
+                        <label className="block text-[9px] font-tech uppercase text-[#4D423E] mb-0.5">
                           Target Page
                         </label>
                         <select
                           value={item.page}
                           onChange={(e) => handleUpdateNavItem(item.id, 'page', e.target.value as ActivePage)}
-                          className="w-full px-2.5 py-1.5 bg-black/40 border border-white/15 text-white rounded-xs font-tech text-xs"
+                          className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-xs font-tech text-xs"
                         >
                           {AVAILABLE_PAGES.map((page) => (
                             <option key={page.value} value={page.value}>
@@ -620,8 +616,8 @@ export const AdminCmsModal: React.FC = () => {
                           title={item.visible === false ? 'Show link in header' : 'Hide link from header'}
                           className={`px-2.5 py-1.5 rounded-xs border text-xs font-tech flex items-center gap-1 transition-colors ${
                             item.visible === false
-                              ? 'border-zinc-700 bg-zinc-800 text-zinc-400 hover:text-white'
-                              : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'
+                              ? 'border-[#D8BFA8] bg-[#E9D9C8] text-[#4D423E] hover:text-[#292321]'
+                              : 'border-[#5B1018]/30 bg-[#5B1018]/10 text-[#5B1018] hover:bg-[#5B1018]/20'
                           }`}
                         >
                           {item.visible === false ? (
@@ -640,7 +636,7 @@ export const AdminCmsModal: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleRemoveNavItem(item.id)}
-                          className="p-1.5 text-zinc-400 hover:text-red-400 hover:bg-red-500/10 rounded-xs border border-transparent hover:border-red-500/20 transition-colors"
+                          className="p-1.5 text-[#5A4F4B] hover:text-[#5B1018] hover:bg-[#5B1018]/10 rounded-xs border border-transparent hover:border-[#5B1018]/25 transition-colors"
                           title="Delete navigation link"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -652,18 +648,18 @@ export const AdminCmsModal: React.FC = () => {
               </div>
 
               {/* Section: Action Buttons (WhatsApp & Quote CTAs) */}
-              <div className="p-5 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <h3 className="text-sm font-bold uppercase text-white font-tech border-b border-white/10 pb-3">
+              <div className="p-5 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <h3 className="text-sm font-bold uppercase text-[#292321] font-tech border-b border-[#D8BFA8] pb-3">
                   Call-To-Action (CTA) Buttons
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* WhatsApp CTA Controls */}
-                  <div className="p-4 bg-zinc-950/60 border border-white/10 rounded-xs space-y-3">
+                  <div className="p-4 bg-[#FAF4EE] border border-[#D8BFA8] rounded-xs space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <MessageSquare className="w-4 h-4 text-emerald-400" />
-                        <span className="font-tech font-bold uppercase text-white text-xs">WhatsApp Button</span>
+                        <MessageSquare className="w-4 h-4 text-[#5B1018]" />
+                        <span className="font-tech font-bold uppercase text-[#292321] text-xs">WhatsApp Button</span>
                       </div>
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -672,14 +668,14 @@ export const AdminCmsModal: React.FC = () => {
                           onChange={(e) =>
                             setTempBrand({ ...tempBrand, showHeaderWhatsapp: e.target.checked })
                           }
-                          className="rounded-xs bg-zinc-800 border-white/20 text-emerald-500 focus:ring-0"
+                          className="rounded-xs bg-white border-[#D8BFA8] accent-[#5B1018] focus:ring-0"
                         />
-                        <span className="text-[11px] font-tech text-zinc-400">Show in Header</span>
+                        <span className="text-[11px] font-tech text-[#4D423E]">Show in Header</span>
                       </label>
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                         Button Label
                       </label>
                       <input
@@ -688,29 +684,29 @@ export const AdminCmsModal: React.FC = () => {
                         onChange={(e) =>
                           setTempBrand({ ...tempBrand, headerWhatsappText: e.target.value })
                         }
-                        className="w-full px-3 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-xs font-tech text-xs"
+                        className="w-full px-3 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-xs font-tech text-xs"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                         WhatsApp Number (with Country Code)
                       </label>
                       <input
                         type="text"
                         value={tempBrand.whatsapp || '919820084720'}
                         onChange={(e) => setTempBrand({ ...tempBrand, whatsapp: e.target.value })}
-                        className="w-full px-3 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-xs font-tech text-xs"
+                        className="w-full px-3 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-xs font-tech text-xs"
                       />
                     </div>
                   </div>
 
                   {/* Quote CTA Controls */}
-                  <div className="p-4 bg-zinc-950/60 border border-white/10 rounded-xs space-y-3">
+                  <div className="p-4 bg-[#FAF4EE] border border-[#D8BFA8] rounded-xs space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <ChevronRight className="w-4 h-4 text-amber-400" />
-                        <span className="font-tech font-bold uppercase text-white text-xs">Quote Button</span>
+                        <ChevronRight className="w-4 h-4 text-[#5B1018]" />
+                        <span className="font-tech font-bold uppercase text-[#292321] text-xs">Quote Button</span>
                       </div>
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -719,14 +715,14 @@ export const AdminCmsModal: React.FC = () => {
                           onChange={(e) =>
                             setTempBrand({ ...tempBrand, showHeaderQuote: e.target.checked })
                           }
-                          className="rounded-xs bg-zinc-800 border-white/20 text-amber-500 focus:ring-0"
+                          className="rounded-xs bg-white border-[#D8BFA8] accent-[#5B1018] focus:ring-0"
                         />
-                        <span className="text-[11px] font-tech text-zinc-400">Show in Header</span>
+                        <span className="text-[11px] font-tech text-[#4D423E]">Show in Header</span>
                       </label>
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                         Button Label
                       </label>
                       <input
@@ -735,7 +731,7 @@ export const AdminCmsModal: React.FC = () => {
                         onChange={(e) =>
                           setTempBrand({ ...tempBrand, headerQuoteText: e.target.value })
                         }
-                        className="w-full px-3 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-xs font-tech text-xs"
+                        className="w-full px-3 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-xs font-tech text-xs"
                       />
                     </div>
                   </div>
@@ -746,7 +742,7 @@ export const AdminCmsModal: React.FC = () => {
               <div className="pt-2 flex items-center justify-end gap-3">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-white hover:bg-zinc-200 text-zinc-950 font-tech font-bold text-xs uppercase tracking-wider rounded-xs flex items-center gap-2 shadow-sm transition-all"
+                  className="px-6 py-2.5 bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] font-tech font-bold text-xs uppercase tracking-wider rounded-xs flex items-center gap-2 shadow-sm transition-all"
                 >
                   <Save className="w-4 h-4" />
                   Save Top Bar & Navigation
@@ -758,50 +754,50 @@ export const AdminCmsModal: React.FC = () => {
           {/* TAB 2: BRAND & CONTACT */}
           {activeTab === 'brand' && (
             <form onSubmit={handleSaveBrand} className="space-y-6 max-w-3xl">
-              <div className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm">
-                <h3 className="text-sm font-bold uppercase text-white mb-1 font-tech">
+              <div className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm">
+                <h3 className="text-sm font-bold uppercase text-[#292321] mb-1 font-tech">
                   Company Identity & Naming
                 </h3>
-                <p className="text-[11px] text-zinc-400 mb-4">
+                <p className="text-[11px] text-[#4D423E] mb-4">
                   Modify the legal name, marketing brand name, year established, and tagline displayed on all headers, footers, meta tags, and hero copy.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Brand Name
                     </label>
                     <input
                       type="text"
                       value={tempBrand.brandName}
                       onChange={(e) => setTempBrand({ ...tempBrand, brandName: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Company Legal Name
                     </label>
                     <input
                       type="text"
                       value={tempBrand.companyName}
                       onChange={(e) => setTempBrand({ ...tempBrand, companyName: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       General Tagline
                     </label>
                     <input
                       type="text"
                       value={tempBrand.tagline}
                       onChange={(e) => setTempBrand({ ...tempBrand, tagline: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Header Subtitle (Under Brand Name)
                     </label>
                     <input
@@ -809,24 +805,24 @@ export const AdminCmsModal: React.FC = () => {
                       value={tempBrand.headerTagline || tempBrand.tagline || ''}
                       onChange={(e) => setTempBrand({ ...tempBrand, headerTagline: e.target.value })}
                       placeholder="e.g. COMMERCIAL KITCHEN & MANUFACTURING"
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Established Year
                     </label>
                     <input
                       type="text"
                       value={tempBrand.established}
                       onChange={(e) => setTempBrand({ ...tempBrand, established: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                 </div>
 
                 {/* Brand Logo Upload & Paste */}
-                <div className="mt-5 pt-4 border-t border-white/10 space-y-3">
+                <div className="mt-5 pt-4 border-t border-[#D8BFA8] space-y-3">
                   <ImageUploadField
                     label="Official Brand Logo"
                     value={tempBrand.logoImage || ''}
@@ -842,7 +838,7 @@ export const AdminCmsModal: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                         Logo Display Preference
                       </label>
                       <select
@@ -853,7 +849,7 @@ export const AdminCmsModal: React.FC = () => {
                           updateBrand(updated);
                           showToast('Logo display preference saved!');
                         }}
-                        className="w-full px-2.5 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs font-tech"
+                        className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                       >
                         <option value="both">Both (Show Logo Image + Brand Name Text)</option>
                         <option value="image">Image Only (Hide Text Next to Logo)</option>
@@ -862,7 +858,7 @@ export const AdminCmsModal: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                         Monogram Letter (Fallback)
                       </label>
                       <input
@@ -874,13 +870,13 @@ export const AdminCmsModal: React.FC = () => {
                           updateBrand(updated);
                         }}
                         placeholder="e.g., S or SDS"
-                        className="w-full px-2.5 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs font-tech"
+                        className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                       />
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between pt-1">
-                    <span className="text-[10px] font-tech text-emerald-400">
+                    <span className="text-[10px] font-tech text-[#5B1018]">
                       ✓ Logo changes automatically apply to header & footer in real-time
                     </span>
                     <button
@@ -889,7 +885,7 @@ export const AdminCmsModal: React.FC = () => {
                         updateBrand(tempBrand);
                         showToast('Logo & Brand settings committed!');
                       }}
-                      className="px-3 py-1 bg-white hover:bg-zinc-200 text-zinc-950 text-xs font-tech font-bold uppercase rounded-sm"
+                      className="px-3 py-1 bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] text-xs font-tech font-bold uppercase rounded-sm"
                     >
                       Save Logo Now
                     </button>
@@ -898,25 +894,25 @@ export const AdminCmsModal: React.FC = () => {
               </div>
 
               {/* Direct Communication Channels */}
-              <div className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <h3 className="text-sm font-bold uppercase text-white font-tech">
+              <div className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <h3 className="text-sm font-bold uppercase text-[#292321] font-tech">
                   Direct B2B Communication Channels
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Primary Phone Number (Sales)
                     </label>
                     <input
                       type="text"
                       value={tempBrand.phone}
                       onChange={(e) => setTempBrand({ ...tempBrand, phone: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Secondary Contact Number (Factory / Plant)
                     </label>
                     <input
@@ -924,65 +920,65 @@ export const AdminCmsModal: React.FC = () => {
                       value={tempBrand.phone2 || ''}
                       placeholder="+91 98200 84720"
                       onChange={(e) => setTempBrand({ ...tempBrand, phone2: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       WhatsApp Number (with country code)
                     </label>
                     <input
                       type="text"
                       value={tempBrand.whatsapp}
                       onChange={(e) => setTempBrand({ ...tempBrand, whatsapp: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Official Email Address
                     </label>
                     <input
                       type="email"
                       value={tempBrand.email}
                       onChange={(e) => setTempBrand({ ...tempBrand, email: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Region / Hub
                     </label>
                     <input
                       type="text"
                       value={tempBrand.location}
                       onChange={(e) => setTempBrand({ ...tempBrand, location: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                  <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                     Full Physical Factory Address
                   </label>
                   <textarea
                     rows={2}
                     value={tempBrand.address}
                     onChange={(e) => setTempBrand({ ...tempBrand, address: e.target.value })}
-                    className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs"
+                    className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                  <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                     Main Manufacturing USP Statement
                   </label>
                   <input
                     type="text"
                     value={tempBrand.mainUSP}
                     onChange={(e) => setTempBrand({ ...tempBrand, mainUSP: e.target.value })}
-                    className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs"
+                    className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs"
                   />
                 </div>
               </div>
@@ -990,7 +986,7 @@ export const AdminCmsModal: React.FC = () => {
               <div className="flex justify-end gap-3 pt-4">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-white text-zinc-950 font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-zinc-200"
+                  className="px-6 py-2.5 bg-[#5B1018] text-[#F3E7DA] font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-[#440B11]"
                 >
                   <Save className="w-4 h-4" />
                   <span>SAVE BRAND SETTINGS</span>
@@ -1002,32 +998,32 @@ export const AdminCmsModal: React.FC = () => {
           {/* TAB 2: HERO COPY & VISUALS */}
           {activeTab === 'hero' && (
             <form onSubmit={handleSaveHero} className="space-y-6 max-w-3xl">
-              <div className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <h3 className="text-sm font-bold uppercase text-white font-tech">
+              <div className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <h3 className="text-sm font-bold uppercase text-[#292321] font-tech">
                   Homepage Hero Banner Configuration
                 </h3>
 
                 <div>
-                  <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                  <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                     Main Hero Headline
                   </label>
                   <input
                     type="text"
                     value={tempHero.mainHeadline}
                     onChange={(e) => setTempHero({ ...tempHero, mainHeadline: e.target.value })}
-                    className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                    className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                  <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                     Supporting Text
                   </label>
                   <textarea
                     rows={3}
                     value={tempHero.supportingText}
                     onChange={(e) => setTempHero({ ...tempHero, supportingText: e.target.value })}
-                    className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs"
+                    className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs"
                   />
                 </div>
 
@@ -1043,25 +1039,25 @@ export const AdminCmsModal: React.FC = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Primary CTA Text
                     </label>
                     <input
                       type="text"
                       value={tempHero.primaryCtaText}
                       onChange={(e) => setTempHero({ ...tempHero, primaryCtaText: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-tech uppercase text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-tech uppercase text-[#4D423E] mb-1">
                       Secondary CTA Text
                     </label>
                     <input
                       type="text"
                       value={tempHero.secondaryCtaText}
                       onChange={(e) => setTempHero({ ...tempHero, secondaryCtaText: e.target.value })}
-                      className="w-full px-3 py-2 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs"
+                      className="w-full px-3 py-2 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                     />
                   </div>
                 </div>
@@ -1070,7 +1066,7 @@ export const AdminCmsModal: React.FC = () => {
               <div className="flex justify-end gap-3 pt-4">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-white text-zinc-950 font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-zinc-200"
+                  className="px-6 py-2.5 bg-[#5B1018] text-[#F3E7DA] font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-[#440B11]"
                 >
                   <Save className="w-4 h-4" />
                   <span>SAVE HERO COPY</span>
@@ -1082,20 +1078,20 @@ export const AdminCmsModal: React.FC = () => {
           {/* TAB 3: TRUST STATS */}
           {activeTab === 'stats' && (
             <div className="space-y-6 max-w-3xl">
-              <div className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm">
-                <h3 className="text-sm font-bold uppercase text-white mb-1 font-tech">
+              <div className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm">
+                <h3 className="text-sm font-bold uppercase text-[#292321] mb-1 font-tech">
                   Key Business Metric Counters
                 </h3>
-                <p className="text-[11px] text-zinc-400 mb-4">
+                <p className="text-[11px] text-[#4D423E] mb-4">
                   Update the numerical proof points shown right below the hero section.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {tempStats.map((stat, idx) => (
-                    <div key={stat.id} className="p-3 bg-zinc-900 border border-white/10 rounded-sm space-y-2">
+                    <div key={stat.id} className="p-3 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm space-y-2">
                       <div className="flex gap-2">
                         <div className="w-1/2">
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-0.5">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-0.5">
                             Numeric Value
                           </label>
                           <input
@@ -1106,11 +1102,11 @@ export const AdminCmsModal: React.FC = () => {
                               next[idx].value = e.target.value;
                               setTempStats(next);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm font-tech text-xs"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                           />
                         </div>
                         <div className="w-1/2">
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-0.5">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-0.5">
                             Suffix
                           </label>
                           <input
@@ -1121,13 +1117,13 @@ export const AdminCmsModal: React.FC = () => {
                               next[idx].suffix = e.target.value;
                               setTempStats(next);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm font-tech text-xs"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-0.5">
+                        <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-0.5">
                           Label
                         </label>
                         <input
@@ -1138,7 +1134,7 @@ export const AdminCmsModal: React.FC = () => {
                             next[idx].label = e.target.value;
                             setTempStats(next);
                           }}
-                          className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm font-tech text-xs"
+                          className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs"
                         />
                       </div>
                     </div>
@@ -1150,7 +1146,7 @@ export const AdminCmsModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleSaveStats}
-                  className="px-6 py-2.5 bg-white text-zinc-950 font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-zinc-200"
+                  className="px-6 py-2.5 bg-[#5B1018] text-[#F3E7DA] font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-[#440B11]"
                 >
                   <Save className="w-4 h-4" />
                   <span>SAVE ALL STATS</span>
@@ -1164,18 +1160,18 @@ export const AdminCmsModal: React.FC = () => {
             <div className="space-y-6">
               {/* Recently Deleted Item Undo Alert */}
               {recentlyDeleted && (
-                <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-tech animate-in fade-in">
-                  <div className="flex items-center gap-2 text-amber-300">
+                <div className="p-3 bg-[#E9D9C8] border border-[#5B1018]/30 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-tech animate-in fade-in">
+                  <div className="flex items-center gap-2 text-[#5B1018]">
                     <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>
-                      Staged removal: <strong className="text-white">{recentlyDeleted.item.model}</strong> ({recentlyDeleted.item.name}) was removed. Click "Commit Catalog Changes" to apply permanently.
+                      Staged removal: <strong className="text-[#292321]">{recentlyDeleted.item.model}</strong> ({recentlyDeleted.item.name}) was removed. Click "Commit Catalog Changes" to apply permanently.
                     </span>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={handleUndoDelete}
-                      className="px-3 py-1 bg-amber-400 hover:bg-amber-300 text-black font-bold uppercase rounded-sm flex items-center gap-1 transition-colors"
+                      className="px-3 py-1 bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] font-bold uppercase rounded-sm flex items-center gap-1 transition-colors"
                     >
                       <Undo2 className="w-3.5 h-3.5" />
                       <span>Undo Delete</span>
@@ -1183,7 +1179,7 @@ export const AdminCmsModal: React.FC = () => {
                     <button
                       type="button"
                       onClick={handleSaveProducts}
-                      className="px-3 py-1 bg-white hover:bg-zinc-200 text-zinc-950 font-bold uppercase rounded-sm flex items-center gap-1 transition-colors"
+                      className="px-3 py-1 bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] font-bold uppercase rounded-sm flex items-center gap-1 transition-colors"
                     >
                       <Save className="w-3.5 h-3.5" />
                       <span>Commit Now</span>
@@ -1192,14 +1188,14 @@ export const AdminCmsModal: React.FC = () => {
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D8BFA8]">
                 <div>
                   <div className="flex items-center gap-2.5">
-                    <h3 className="text-sm font-bold uppercase text-white font-tech tracking-wide">
+                    <h3 className="text-sm font-bold uppercase text-[#292321] font-tech tracking-wide">
                       Products & Technical Specifications Catalog
                     </h3>
                     {(hasUncommittedChanges || tempProducts.length !== products.length) && (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-tech font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-tech font-bold uppercase bg-[#E9D9C8] text-[#5B1018] border border-[#5B1018]/30">
                         {tempProducts.length < products.length
                           ? `${products.length - tempProducts.length} Deleted (Pending Commit)`
                           : tempProducts.length > products.length
@@ -1208,7 +1204,7 @@ export const AdminCmsModal: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] text-zinc-400 mt-0.5">
+                  <p className="text-[11px] text-[#4D423E] mt-0.5">
                     Add new machinery, edit specifications, and delete obsolete equipment. Click "COMMIT CATALOG CHANGES" to apply.
                   </p>
                 </div>
@@ -1216,7 +1212,7 @@ export const AdminCmsModal: React.FC = () => {
                 <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={handleAddProduct}
-                    className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-1.5 transition-colors border border-white/15"
+                    className="px-3.5 py-2 bg-white hover:bg-[#E9D9C8] text-[#292321] font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-1.5 transition-colors border border-[#D8BFA8]"
                   >
                     <Plus className="w-4 h-4" />
                     <span>ADD EQUIPMENT</span>
@@ -1226,8 +1222,8 @@ export const AdminCmsModal: React.FC = () => {
                     onClick={handleSaveProducts}
                     className={`px-4 py-2 font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-1.5 transition-all shadow-sm ${
                       hasUncommittedChanges || tempProducts.length !== products.length
-                        ? 'bg-amber-400 text-black hover:bg-amber-300 ring-2 ring-amber-300'
-                        : 'bg-white text-zinc-950 hover:bg-zinc-200'
+                        ? 'bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] ring-2 ring-[#5B1018]/30'
+                        : 'bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11]'
                     }`}
                   >
                     <Save className="w-4 h-4" />
@@ -1243,21 +1239,21 @@ export const AdminCmsModal: React.FC = () => {
                   if (!current) return null;
 
                   return (
-                    <div ref={editFormRef} className="p-5 bg-zinc-900 border border-amber-500/40 rounded-sm space-y-4 shadow-xl ring-1 ring-amber-500/20">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+                    <div ref={editFormRef} className="p-5 bg-[#FAF4EE] border border-[#D8BFA8] text-[#292321] rounded-sm space-y-4 shadow-xl ring-1 ring-[#5B1018]/20">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D8BFA8] pb-3">
                         <div>
-                          <div className="text-[10px] font-tech text-amber-400 uppercase tracking-widest font-bold">
+                          <div className="text-[10px] font-tech text-[#5B1018] uppercase tracking-widest font-bold">
                             ACTIVE PRODUCT SPECIFICATION EDITOR
                           </div>
-                          <h4 className="text-sm font-bold font-tech uppercase text-white">
-                            {current.name} <span className="text-amber-400 font-mono">({current.model})</span>
+                          <h4 className="text-sm font-bold font-tech uppercase text-[#292321]">
+                            {current.name} <span className="text-[#5B1018] font-mono">({current.model})</span>
                           </h4>
                         </div>
                         <div className="flex items-center gap-2">
                           <button
                             type="button"
                             onClick={() => handleRequestDeleteProduct(current)}
-                            className="px-3 py-1.5 bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-600/40 font-tech font-bold text-xs uppercase rounded-sm flex items-center gap-1.5 transition-colors"
+                            className="px-3 py-1.5 bg-[#5B1018]/10 hover:bg-[#5B1018] text-[#5B1018] hover:text-[#F3E7DA] border border-[#5B1018]/35 font-tech font-bold text-xs uppercase rounded-sm flex items-center gap-1.5 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             <span>DELETE THIS ITEM</span>
@@ -1265,7 +1261,7 @@ export const AdminCmsModal: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => setEditingProductId(null)}
-                            className="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-tech font-bold text-xs uppercase rounded-sm border border-white/15 transition-colors"
+                            className="px-3 py-1.5 bg-white hover:bg-[#E9D9C8] text-[#292321] font-tech font-bold text-xs uppercase rounded-sm border border-[#D8BFA8] transition-colors"
                           >
                             CLOSE EDITOR
                           </button>
@@ -1274,7 +1270,7 @@ export const AdminCmsModal: React.FC = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                             Equipment Name
                           </label>
                           <input
@@ -1286,12 +1282,12 @@ export const AdminCmsModal: React.FC = () => {
                               );
                               setTempProducts(updated);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs font-tech"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                             Model Number
                           </label>
                           <input
@@ -1303,12 +1299,12 @@ export const AdminCmsModal: React.FC = () => {
                               );
                               setTempProducts(updated);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs font-tech"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                             Category Slug
                           </label>
                           <select
@@ -1319,7 +1315,7 @@ export const AdminCmsModal: React.FC = () => {
                               );
                               setTempProducts(updated);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs font-tech"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                           >
                             {tempCategories.map((c) => (
                               <option key={c.id} value={c.slug}>
@@ -1351,7 +1347,7 @@ export const AdminCmsModal: React.FC = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                             Short Description (1-2 sentences)
                           </label>
                           <textarea
@@ -1363,12 +1359,12 @@ export const AdminCmsModal: React.FC = () => {
                               );
                               setTempProducts(updated);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-1">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-1">
                             Long Engineering Description
                           </label>
                           <textarea
@@ -1380,19 +1376,19 @@ export const AdminCmsModal: React.FC = () => {
                               );
                               setTempProducts(updated);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs"
                           />
                         </div>
                       </div>
 
                       {/* Technical Specs Sub-Table: Dimensions, Weights & Electrical */}
-                      <div className="pt-3 border-t border-white/10 space-y-3">
+                      <div className="pt-3 border-t border-[#D8BFA8] space-y-3">
                         <div className="flex items-center justify-between">
                           <div>
-                            <span className="text-[10px] font-tech uppercase text-zinc-200 font-bold tracking-wider block">
+                            <span className="text-[10px] font-tech uppercase text-[#292321] font-bold tracking-wider block">
                               Engineering Specs: Sizes, Weights, Electrical & Material
                             </span>
-                            <span className="text-[10px] text-zinc-400 font-tech">
+                            <span className="text-[10px] text-[#4D423E] font-tech">
                               Edit dimensions, gross/net weights, power, and operating voltage
                             </span>
                           </div>
@@ -1402,7 +1398,7 @@ export const AdminCmsModal: React.FC = () => {
                               updateProducts(tempProducts);
                               showToast(`Specifications for ${current.model} saved!`);
                             }}
-                            className="px-3 py-1 bg-white text-zinc-950 font-tech font-bold text-xs uppercase rounded-sm hover:bg-zinc-200"
+                            className="px-3 py-1 bg-[#5B1018] text-[#F3E7DA] font-tech font-bold text-xs uppercase rounded-sm hover:bg-[#440B11]"
                           >
                             Save Specs
                           </button>
@@ -1410,7 +1406,7 @@ export const AdminCmsModal: React.FC = () => {
 
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Dimensions (L × W × H)
                             </span>
                             <input
@@ -1431,12 +1427,12 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
 
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Weight (Net / Gross)
                             </span>
                             <input
@@ -1457,12 +1453,12 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
 
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Power / Thermal Rating
                             </span>
                             <input
@@ -1480,12 +1476,12 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
 
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Voltage & Phase
                             </span>
                             <input
@@ -1503,12 +1499,12 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
 
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Capacity / Volume
                             </span>
                             <input
@@ -1529,12 +1525,12 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
 
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Temperature Range
                             </span>
                             <input
@@ -1555,12 +1551,12 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
 
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Material Grade
                             </span>
                             <input
@@ -1581,12 +1577,12 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
 
                           <div>
-                            <span className="text-[9px] text-zinc-400 font-tech uppercase block mb-1">
+                            <span className="text-[9px] text-[#4D423E] font-tech uppercase block mb-1">
                               Cooking Surface / Finish
                             </span>
                             <input
@@ -1607,25 +1603,25 @@ export const AdminCmsModal: React.FC = () => {
                                 );
                                 setTempProducts(updated);
                               }}
-                              className="w-full px-2 py-1.5 bg-zinc-950 border border-white/15 text-white text-xs font-tech rounded-sm"
+                              className="w-full px-2 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] text-xs font-tech rounded-sm"
                             />
                           </div>
                         </div>
                       </div>
 
                       {/* Product Sizes & Variant Configurations Manager */}
-                      <div className="pt-4 border-t border-white/10 space-y-3">
+                      <div className="pt-4 border-t border-[#D8BFA8] space-y-3">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-[11px] font-tech uppercase text-amber-400 font-bold tracking-wider">
+                              <span className="text-[11px] font-tech uppercase text-[#5B1018] font-bold tracking-wider">
                                 SIZES & CONFIGURATIONS MANAGER
                               </span>
-                              <span className="text-[10px] font-tech px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">
+                              <span className="text-[10px] font-tech px-2 py-0.5 rounded bg-[#E9D9C8] text-[#5B1018] font-bold">
                                 {(current.variants || []).length} Sizes Configured
                               </span>
                             </div>
-                            <span className="text-[10px] text-zinc-400 font-tech">
+                            <span className="text-[10px] text-[#4D423E] font-tech">
                               For products with multiple sizes (Barfi trays, GN pans, Masala boxes, etc.). Add, edit, or remove each size option.
                             </span>
                           </div>
@@ -1654,7 +1650,7 @@ export const AdminCmsModal: React.FC = () => {
                                 updateProducts(updated);
                                 showToast(`Added new size to ${current.name}!`);
                               }}
-                              className="px-2.5 py-1 bg-amber-500 text-black font-tech font-bold text-[11px] uppercase rounded-sm hover:bg-amber-400 flex items-center gap-1"
+                              className="px-2.5 py-1 bg-[#5B1018] text-[#F3E7DA] font-tech font-bold text-[11px] uppercase rounded-sm hover:bg-[#440B11] flex items-center gap-1"
                             >
                               <Plus className="w-3 h-3" />
                               <span>Add Size</span>
@@ -1681,7 +1677,7 @@ export const AdminCmsModal: React.FC = () => {
                                   updateProducts(updated);
                                   showToast(`Cloned size in ${current.name}!`);
                                 }}
-                                className="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-white/20 font-tech font-bold text-[11px] uppercase rounded-sm hover:bg-zinc-700"
+                                className="px-2.5 py-1 bg-white text-[#292321] border border-[#D8BFA8] font-tech font-bold text-[11px] uppercase rounded-sm hover:bg-[#E9D9C8]"
                               >
                                 Clone Last Size
                               </button>
@@ -1691,8 +1687,8 @@ export const AdminCmsModal: React.FC = () => {
 
                         {/* List of Variant Rows */}
                         {(!current.variants || current.variants.length === 0) ? (
-                          <div className="p-4 rounded border border-dashed border-white/15 bg-zinc-950 text-center">
-                            <p className="text-xs text-zinc-400 font-tech mb-2">
+                          <div className="p-4 rounded border border-dashed border-[#D8BFA8] bg-[#F3E7DA] text-center">
+                            <p className="text-xs text-[#4D423E] font-tech mb-2">
                               This product currently has no size variants. It is displayed as a single item.
                             </p>
                             <button
@@ -1715,7 +1711,7 @@ export const AdminCmsModal: React.FC = () => {
                                 updateProducts(updated);
                                 showToast(`Initialized sizes for ${current.name}!`);
                               }}
-                              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white font-tech text-xs uppercase rounded-sm"
+                              className="px-3 py-1 bg-[#292321] hover:bg-[#5B1018] text-[#F3E7DA] font-tech text-xs uppercase rounded-sm transition-colors"
                             >
                               Initialize Size Variants Table
                             </button>
@@ -1725,18 +1721,18 @@ export const AdminCmsModal: React.FC = () => {
                             {current.variants.map((v, idx) => (
                               <div
                                 key={v.id}
-                                className="p-3 rounded bg-zinc-950/80 border border-white/10 hover:border-white/25 transition-colors space-y-2"
+                                className="p-3 rounded bg-[#FAF4EE] border border-[#D8BFA8] hover:border-[#5B1018] transition-colors space-y-2"
                               >
-                                <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-2">
+                                <div className="flex items-center justify-between gap-2 border-b border-[#D8BFA8] pb-2">
                                   <div className="flex items-center gap-2">
-                                    <span className="w-5 h-5 rounded-full bg-white/10 text-amber-400 text-[10px] font-tech font-bold flex items-center justify-center">
+                                    <span className="w-5 h-5 rounded-full bg-[#E9D9C8] text-[#5B1018] text-[10px] font-tech font-bold flex items-center justify-center">
                                       {idx + 1}
                                     </span>
-                                    <span className="text-xs font-tech font-bold text-white">
+                                    <span className="text-xs font-tech font-bold text-[#292321]">
                                       {v.sizeName || `Size #${idx + 1}`}
                                     </span>
                                     {v.modelCode && (
-                                      <span className="text-[10px] font-tech text-zinc-400 bg-white/5 px-1.5 py-0.5 rounded">
+                                      <span className="text-[10px] font-tech text-[#4D423E] bg-[#E9D9C8] px-1.5 py-0.5 rounded">
                                         {v.modelCode}
                                       </span>
                                     )}
@@ -1752,7 +1748,7 @@ export const AdminCmsModal: React.FC = () => {
                                       updateProducts(updated);
                                       showToast(`Removed size option!`);
                                     }}
-                                    className="p-1 text-red-400 hover:text-red-300 hover:bg-red-950/40 rounded transition-colors"
+                                    className="p-1 text-[#5A4F4B] hover:text-[#5B1018] hover:bg-[#5B1018]/10 rounded transition-colors"
                                     title="Delete this size"
                                   >
                                     <Trash2 className="w-3.5 h-3.5" />
@@ -1761,7 +1757,7 @@ export const AdminCmsModal: React.FC = () => {
 
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-tech">
                                   <div>
-                                    <label className="block text-[9px] uppercase text-zinc-400 mb-0.5">
+                                    <label className="block text-[9px] uppercase text-[#4D423E] mb-0.5">
                                       Size / Option Name
                                     </label>
                                     <input
@@ -1777,12 +1773,12 @@ export const AdminCmsModal: React.FC = () => {
                                         );
                                         setTempProducts(updated);
                                       }}
-                                      className="w-full px-2 py-1 bg-zinc-900 border border-white/10 text-white rounded-sm text-xs font-tech"
+                                      className="w-full px-2 py-1 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                                     />
                                   </div>
 
                                   <div>
-                                    <label className="block text-[9px] uppercase text-zinc-400 mb-0.5">
+                                    <label className="block text-[9px] uppercase text-[#4D423E] mb-0.5">
                                       Dimensions
                                     </label>
                                     <input
@@ -1798,12 +1794,12 @@ export const AdminCmsModal: React.FC = () => {
                                         );
                                         setTempProducts(updated);
                                       }}
-                                      className="w-full px-2 py-1 bg-zinc-900 border border-white/10 text-white rounded-sm text-xs font-tech"
+                                      className="w-full px-2 py-1 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                                     />
                                   </div>
 
                                   <div>
-                                    <label className="block text-[9px] uppercase text-zinc-400 mb-0.5">
+                                    <label className="block text-[9px] uppercase text-[#4D423E] mb-0.5">
                                       Depth / Height
                                     </label>
                                     <input
@@ -1819,12 +1815,12 @@ export const AdminCmsModal: React.FC = () => {
                                         );
                                         setTempProducts(updated);
                                       }}
-                                      className="w-full px-2 py-1 bg-zinc-900 border border-white/10 text-white rounded-sm text-xs font-tech"
+                                      className="w-full px-2 py-1 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                                     />
                                   </div>
 
                                   <div>
-                                    <label className="block text-[9px] uppercase text-zinc-400 mb-0.5">
+                                    <label className="block text-[9px] uppercase text-[#4D423E] mb-0.5">
                                       Weight / Capacity
                                     </label>
                                     <input
@@ -1840,12 +1836,12 @@ export const AdminCmsModal: React.FC = () => {
                                         );
                                         setTempProducts(updated);
                                       }}
-                                      className="w-full px-2 py-1 bg-zinc-900 border border-white/10 text-white rounded-sm text-xs font-tech"
+                                      className="w-full px-2 py-1 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                                     />
                                   </div>
 
                                   <div>
-                                    <label className="block text-[9px] uppercase text-zinc-400 mb-0.5">
+                                    <label className="block text-[9px] uppercase text-[#4D423E] mb-0.5">
                                       Item Model / Code
                                     </label>
                                     <input
@@ -1861,12 +1857,12 @@ export const AdminCmsModal: React.FC = () => {
                                         );
                                         setTempProducts(updated);
                                       }}
-                                      className="w-full px-2 py-1 bg-zinc-900 border border-white/10 text-white rounded-sm text-xs font-tech"
+                                      className="w-full px-2 py-1 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                                     />
                                   </div>
 
                                   <div>
-                                    <label className="block text-[9px] uppercase text-zinc-400 mb-0.5">
+                                    <label className="block text-[9px] uppercase text-[#4D423E] mb-0.5">
                                       Price (₹)
                                     </label>
                                     <input
@@ -1885,12 +1881,12 @@ export const AdminCmsModal: React.FC = () => {
                                         );
                                         setTempProducts(updated);
                                       }}
-                                      className="w-full px-2 py-1 bg-zinc-900 border border-white/10 text-white rounded-sm text-xs font-tech"
+                                      className="w-full px-2 py-1 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                                     />
                                   </div>
 
                                   <div>
-                                    <label className="block text-[9px] uppercase text-zinc-400 mb-0.5">
+                                    <label className="block text-[9px] uppercase text-[#4D423E] mb-0.5">
                                       List Price (₹)
                                     </label>
                                     <input
@@ -1907,7 +1903,7 @@ export const AdminCmsModal: React.FC = () => {
                                         );
                                         setTempProducts(updated);
                                       }}
-                                      className="w-full px-2 py-1 bg-zinc-900 border border-white/10 text-white rounded-sm text-xs font-tech"
+                                      className="w-full px-2 py-1 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                                     />
                                   </div>
 
@@ -1918,7 +1914,7 @@ export const AdminCmsModal: React.FC = () => {
                                         updateProducts(tempProducts);
                                         showToast(`Saved size "${v.sizeName}"!`);
                                       }}
-                                      className="w-full py-1 bg-white/10 hover:bg-white/20 text-white text-[11px] font-tech font-bold uppercase rounded-sm transition-colors"
+                                      className="w-full py-1 bg-[#292321] hover:bg-[#5B1018] text-[#F3E7DA] text-[11px] font-tech font-bold uppercase rounded-sm transition-colors"
                                     >
                                       Save Size
                                     </button>
@@ -1931,7 +1927,7 @@ export const AdminCmsModal: React.FC = () => {
                       </div>
 
                       {/* Product Technical Documents / Spec Sheets Upload */}
-                      <div className="pt-4 border-t border-white/10">
+                      <div className="pt-4 border-t border-[#D8BFA8]">
                         <DocumentUploadField
                           documents={current.documents || []}
                           onChange={(docs) => {
@@ -1945,7 +1941,7 @@ export const AdminCmsModal: React.FC = () => {
                         />
                       </div>
 
-                      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10">
+                      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#D8BFA8]">
                         <label className="inline-flex items-center gap-2 cursor-pointer">
                           <input
                             type="checkbox"
@@ -1957,9 +1953,9 @@ export const AdminCmsModal: React.FC = () => {
                               setTempProducts(updated);
                               setHasUncommittedChanges(true);
                             }}
-                            className="rounded text-white"
+                            className="rounded accent-[#5B1018]"
                           />
-                          <span className="text-xs font-tech text-zinc-300">
+                          <span className="text-xs font-tech text-[#4D423E]">
                             Show in Featured Equipment on Homepage
                           </span>
                         </label>
@@ -1971,14 +1967,14 @@ export const AdminCmsModal: React.FC = () => {
                               setEditingProductId(null);
                               showToast(`Staged changes for ${current.model}. Click "COMMIT CATALOG CHANGES" to save.`);
                             }}
-                            className="px-4 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-tech font-bold text-xs uppercase rounded-sm transition-colors border border-white/15"
+                            className="px-4 py-1.5 bg-white hover:bg-[#E9D9C8] text-[#292321] font-tech font-bold text-xs uppercase rounded-sm transition-colors border border-[#D8BFA8]"
                           >
                             DONE WITH THIS ITEM
                           </button>
                           <button
                             type="button"
                             onClick={handleSaveProducts}
-                            className="px-4 py-1.5 bg-white text-zinc-950 font-tech font-bold text-xs uppercase rounded-sm hover:bg-zinc-200 transition-colors flex items-center gap-1.5"
+                            className="px-4 py-1.5 bg-[#5B1018] text-[#F3E7DA] font-tech font-bold text-xs uppercase rounded-sm hover:bg-[#440B11] transition-colors flex items-center gap-1.5"
                           >
                             <Save className="w-3.5 h-3.5" />
                             <span>COMMIT CATALOG CHANGES</span>
@@ -1993,28 +1989,28 @@ export const AdminCmsModal: React.FC = () => {
               {/* Search and Summary Toolbar */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
                 <div className="relative flex-1 max-w-sm">
-                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#5A4F4B]" />
                   <input
                     type="text"
                     value={productSearch}
                     onChange={(e) => setProductSearch(e.target.value)}
                     placeholder="Filter equipment by model, name or category..."
-                    className="w-full pl-9 pr-3 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-sm font-tech text-xs placeholder:text-zinc-500 focus:outline-hidden focus:border-amber-400 transition-colors"
+                    className="w-full pl-9 pr-3 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm font-tech text-xs placeholder:text-[#5A4F4B] focus:outline-hidden focus:border-[#5B1018] transition-colors"
                   />
                   {productSearch && (
                     <button
                       type="button"
                       onClick={() => setProductSearch('')}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#5A4F4B] hover:text-[#292321]"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   )}
                 </div>
 
-                <div className="text-xs font-tech text-zinc-400 flex items-center gap-3">
+                <div className="text-xs font-tech text-[#4D423E] flex items-center gap-3">
                   <span>
-                    Showing <strong className="text-white">
+                    Showing <strong className="text-[#292321]">
                       {tempProducts.filter((p) => {
                         const q = productSearch.toLowerCase().trim();
                         if (!q) return true;
@@ -2025,10 +2021,10 @@ export const AdminCmsModal: React.FC = () => {
                           p.category.toLowerCase().includes(q)
                         );
                       }).length}
-                    </strong> of <strong className="text-white">{tempProducts.length}</strong> items
+                    </strong> of <strong className="text-[#292321]">{tempProducts.length}</strong> items
                   </span>
                   {tempProducts.length !== products.length && (
-                    <span className="text-amber-400 font-bold">
+                    <span className="text-[#5B1018] font-bold">
                       ({tempProducts.length < products.length
                         ? `${products.length - tempProducts.length} removed from staging`
                         : `${tempProducts.length - products.length} added to staging`})
@@ -2038,9 +2034,9 @@ export const AdminCmsModal: React.FC = () => {
               </div>
 
               {/* Product List Table */}
-              <div className="border border-white/10 rounded-sm overflow-hidden">
+              <div className="border border-[#D8BFA8] rounded-sm overflow-hidden">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-zinc-950 text-zinc-400 font-tech uppercase border-b border-white/10">
+                  <thead className="bg-[#E9D9C8] text-[#292321] font-tech uppercase border-b border-[#D8BFA8]">
                     <tr>
                       <th className="py-2.5 px-3">Thumb</th>
                       <th className="py-2.5 px-3">Model</th>
@@ -2051,7 +2047,7 @@ export const AdminCmsModal: React.FC = () => {
                       <th className="py-2.5 px-3 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 font-tech">
+                  <tbody className="divide-y divide-[#D8BFA8]/60 font-tech">
                     {tempProducts
                       .filter((p) => {
                         const q = productSearch.toLowerCase().trim();
@@ -2070,8 +2066,8 @@ export const AdminCmsModal: React.FC = () => {
                             key={p.id}
                             className={`transition-colors ${
                               isEditingThis
-                                ? 'bg-amber-500/10 border-l-2 border-amber-400'
-                                : 'hover:bg-white/[0.02]'
+                                ? 'bg-[#5B1018]/10 border-l-2 border-[#5B1018]'
+                                : 'hover:bg-[#FAF4EE]'
                             }`}
                           >
                             <td className="py-2 px-3">
@@ -2079,26 +2075,26 @@ export const AdminCmsModal: React.FC = () => {
                                 <img
                                   src={p.mainImage}
                                   alt=""
-                                  className="w-10 h-10 object-cover rounded bg-zinc-900 border border-white/10"
+                                  className="w-10 h-10 object-cover rounded bg-white border border-[#D8BFA8] text-[#292321]"
                                   referrerPolicy="no-referrer"
                                 />
                               ) : (
-                                <div className="w-10 h-10 rounded bg-zinc-900 border border-white/10 flex items-center justify-center text-[9px] text-zinc-500 font-tech">
+                                <div className="w-10 h-10 rounded bg-white border border-[#D8BFA8] text-[#292321] flex items-center justify-center text-[9px] text-[#5A4F4B] font-tech">
                                   NO IMG
                                 </div>
                               )}
                             </td>
-                            <td className="py-2 px-3 font-bold text-white font-mono">
+                            <td className="py-2 px-3 font-bold text-[#292321] font-mono">
                               {p.model}
                               {isEditingThis && (
-                                <span className="ml-1.5 px-1 py-0.2 rounded text-[9px] font-bold uppercase bg-amber-400 text-black">
+                                <span className="ml-1.5 px-1 py-0.2 rounded text-[9px] font-bold uppercase bg-[#5B1018] text-[#F3E7DA]">
                                   EDITING
                                 </span>
                               )}
                             </td>
-                            <td className="py-2 px-3 text-zinc-300 max-w-[200px] truncate">{p.name}</td>
-                            <td className="py-2 px-3 text-zinc-400 uppercase">{p.category}</td>
-                            <td className="py-2 px-3 text-zinc-400">{p.specifications.power || '—'}</td>
+                            <td className="py-2 px-3 text-[#4D423E] max-w-[200px] truncate">{p.name}</td>
+                            <td className="py-2 px-3 text-[#4D423E] uppercase">{p.category}</td>
+                            <td className="py-2 px-3 text-[#4D423E]">{p.specifications.power || '—'}</td>
                             <td className="py-2 px-3">
                               <button
                                 type="button"
@@ -2116,12 +2112,12 @@ export const AdminCmsModal: React.FC = () => {
                                 }}
                                 className={`px-2 py-0.5 rounded text-[10px] font-tech font-bold uppercase transition-colors flex items-center gap-1 ${
                                   p.isFeatured
-                                    ? 'bg-amber-400 text-black hover:bg-amber-300'
-                                    : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700'
+                                    ? 'bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11]'
+                                    : 'bg-[#E9D9C8] text-[#4D423E] hover:text-[#292321] hover:bg-[#D8BFA8]'
                                 }`}
                                 title="Click to toggle featured on homepage"
                               >
-                                <Star className={`w-3 h-3 ${p.isFeatured ? 'fill-black' : ''}`} />
+                                <Star className={`w-3 h-3 ${p.isFeatured ? 'fill-[#F3E7DA]' : ''}`} />
                                 <span>{p.isFeatured ? 'YES' : 'NO'}</span>
                               </button>
                             </td>
@@ -2131,8 +2127,8 @@ export const AdminCmsModal: React.FC = () => {
                                 onClick={() => handleStartEdit(p.id)}
                                 className={`p-1.5 rounded transition-colors ${
                                   isEditingThis
-                                    ? 'bg-amber-400 text-black'
-                                    : 'text-zinc-400 hover:text-white hover:bg-white/10'
+                                    ? 'bg-[#5B1018] text-[#F3E7DA]'
+                                    : 'text-[#4D423E] hover:text-[#292321] hover:bg-[#E9D9C8]'
                                 }`}
                                 title="Edit specs & variants"
                               >
@@ -2141,7 +2137,7 @@ export const AdminCmsModal: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => handleRequestDeleteProduct(p)}
-                                className="p-1.5 rounded text-zinc-500 hover:text-rose-400 hover:bg-rose-950/40 transition-colors"
+                                className="p-1.5 rounded text-[#5A4F4B] hover:text-[#5B1018] hover:bg-[#5B1018]/10 transition-colors"
                                 title="Delete this equipment item"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
@@ -2155,13 +2151,13 @@ export const AdminCmsModal: React.FC = () => {
               </div>
 
               {/* Bottom Commit & Discard Toolbar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/10">
-                <div className="text-xs font-tech text-zinc-400">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[#D8BFA8]">
+                <div className="text-xs font-tech text-[#4D423E]">
                   <span>
-                    Staged catalog has <strong className="text-white">{tempProducts.length}</strong> active items.
+                    Staged catalog has <strong className="text-[#292321]">{tempProducts.length}</strong> active items.
                   </span>
                   {(hasUncommittedChanges || tempProducts.length !== products.length) && (
-                    <span className="block sm:inline sm:ml-2 text-amber-400 font-bold">
+                    <span className="block sm:inline sm:ml-2 text-[#5B1018] font-bold">
                       • Click "COMMIT CATALOG CHANGES" to save live.
                     </span>
                   )}
@@ -2178,7 +2174,7 @@ export const AdminCmsModal: React.FC = () => {
                       showToast('Reverted staging changes to live catalog.');
                     }}
                     disabled={!hasUncommittedChanges && tempProducts.length === products.length}
-                    className="px-4 py-2.5 text-xs font-tech font-bold uppercase rounded-sm border border-white/15 text-zinc-400 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                    className="px-4 py-2.5 text-xs font-tech font-bold uppercase rounded-sm border border-[#D8BFA8] text-[#4D423E] hover:text-[#292321] hover:bg-[#E9D9C8] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   >
                     DISCARD STAGED CHANGES
                   </button>
@@ -2188,8 +2184,8 @@ export const AdminCmsModal: React.FC = () => {
                     onClick={handleSaveProducts}
                     className={`px-6 py-2.5 font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 transition-all shadow-md ${
                       hasUncommittedChanges || tempProducts.length !== products.length
-                        ? 'bg-amber-400 text-black hover:bg-amber-300 ring-2 ring-amber-300'
-                        : 'bg-white text-zinc-950 hover:bg-zinc-200'
+                        ? 'bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] ring-2 ring-[#5B1018]/30'
+                        : 'bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11]'
                     }`}
                   >
                     <Save className="w-4 h-4" />
@@ -2204,17 +2200,17 @@ export const AdminCmsModal: React.FC = () => {
           {activeTab === 'categories' && (
             <div className="space-y-6 max-w-3xl">
               {/* Homepage Category Portal Showcase Photos */}
-              <div className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <div className="flex items-center justify-between pb-2 border-b border-white/10">
+              <div className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-[#D8BFA8]">
                   <div>
-                    <h3 className="text-sm font-bold uppercase text-white font-tech">
+                    <h3 className="text-sm font-bold uppercase text-[#292321] font-tech">
                       Homepage Category Portal Showcase Photos
                     </h3>
-                    <p className="text-[11px] text-zinc-400">
+                    <p className="text-[11px] text-[#4D423E]">
                       Upload or replace photos shown on the 3 primary cards on the homepage (Category 01, Category 02, Category 03).
                     </p>
                   </div>
-                  <span className="text-[10px] font-tech text-emerald-400 font-bold uppercase">
+                  <span className="text-[10px] font-tech text-[#5B1018] font-bold uppercase">
                     Auto-Saves to Website
                   </span>
                 </div>
@@ -2276,17 +2272,17 @@ export const AdminCmsModal: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <h3 className="text-sm font-bold uppercase text-white font-tech">
+              <div className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <h3 className="text-sm font-bold uppercase text-[#292321] font-tech">
                   Equipment Category Definitions
                 </h3>
 
                 <div className="space-y-4">
                   {tempCategories.map((cat, idx) => (
-                    <div key={cat.id} className="p-3 bg-zinc-900 border border-white/10 rounded-sm space-y-2">
+                    <div key={cat.id} className="p-3 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm space-y-2">
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-0.5">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-0.5">
                             Category Title
                           </label>
                           <input
@@ -2297,11 +2293,11 @@ export const AdminCmsModal: React.FC = () => {
                               next[idx].name = e.target.value;
                               setTempCategories(next);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs font-tech"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-tech"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-0.5">
+                          <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-0.5">
                             Category Slug
                           </label>
                           <input
@@ -2312,13 +2308,13 @@ export const AdminCmsModal: React.FC = () => {
                               next[idx].slug = e.target.value;
                               setTempCategories(next);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs font-mono"
+                            className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-mono"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-0.5">
+                        <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-0.5">
                           Category Image URL
                         </label>
                         <input
@@ -2329,12 +2325,12 @@ export const AdminCmsModal: React.FC = () => {
                             next[idx].image = e.target.value;
                             setTempCategories(next);
                           }}
-                          className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs font-mono"
+                          className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs font-mono"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-tech uppercase text-zinc-400 mb-0.5">
+                        <label className="block text-[10px] font-tech uppercase text-[#4D423E] mb-0.5">
                           Short Description
                         </label>
                         <input
@@ -2345,7 +2341,7 @@ export const AdminCmsModal: React.FC = () => {
                             next[idx].shortDescription = e.target.value;
                             setTempCategories(next);
                           }}
-                          className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 text-white rounded-sm text-xs"
+                          className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] rounded-sm text-xs"
                         />
                       </div>
                     </div>
@@ -2357,7 +2353,7 @@ export const AdminCmsModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleSaveCategories}
-                  className="px-6 py-2.5 bg-white text-zinc-950 font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-zinc-200"
+                  className="px-6 py-2.5 bg-[#5B1018] text-[#F3E7DA] font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center gap-2 hover:bg-[#440B11]"
                 >
                   <Save className="w-4 h-4" />
                   <span>SAVE CATEGORIES</span>
@@ -2369,24 +2365,24 @@ export const AdminCmsModal: React.FC = () => {
           {/* TAB 6: BACKUP & RESTORE JSON */}
           {activeTab === 'json' && (
             <div className="space-y-6 max-w-3xl">
-              <div className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm space-y-4">
-                <h3 className="text-sm font-bold uppercase text-white font-tech">
+              <div className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-4">
+                <h3 className="text-sm font-bold uppercase text-[#292321] font-tech">
                   Portability & JSON Data Backup
                 </h3>
-                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                <p className="text-[11px] text-[#4D423E] leading-relaxed">
                   Export all your current brand information, custom equipment models, technical specifications, and phone numbers as a clean JSON file. You can restore this file at any time or migrate it to another server.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-2">
                   <button
                     onClick={handleExportJson}
-                    className="px-5 py-3 bg-white text-zinc-950 font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center justify-center gap-2 hover:bg-zinc-200"
+                    className="px-5 py-3 bg-[#5B1018] text-[#F3E7DA] font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center justify-center gap-2 hover:bg-[#440B11]"
                   >
                     <Download className="w-4 h-4" />
                     <span>EXPORT COMPLETE DATA (.JSON)</span>
                   </button>
 
-                  <label className="px-5 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center justify-center gap-2 cursor-pointer border border-white/10">
+                  <label className="px-5 py-3 bg-[#292321] hover:bg-[#5B1018] text-[#F3E7DA] font-bold font-tech text-xs uppercase tracking-wider rounded-sm flex items-center justify-center gap-2 cursor-pointer border border-[#D8BFA8]">
                     <Upload className="w-4 h-4" />
                     <span>RESTORE FROM JSON FILE</span>
                     <input
@@ -2399,17 +2395,17 @@ export const AdminCmsModal: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 bg-rose-950/20 border border-rose-500/20 rounded-sm space-y-2">
-                <h4 className="text-xs font-bold font-tech uppercase text-rose-300">
+              <div className="p-4 bg-[#FAF4EE] border border-[#5B1018]/30 rounded-sm space-y-2">
+                <h4 className="text-xs font-bold font-tech uppercase text-[#5B1018]">
                   Reset To Factory Initial State
                 </h4>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-[#4D423E]">
                   Revert all customized content and products back to the original default industrial equipment showcase catalog.
                 </p>
                 <button
                   type="button"
                   onClick={() => setShowResetConfirmModal(true)}
-                  className="px-4 py-2 bg-rose-900/50 hover:bg-rose-900 text-rose-200 border border-rose-700/50 rounded-sm font-tech text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-2 bg-[#5B1018]/10 hover:bg-[#5B1018] text-[#5B1018] hover:text-[#F3E7DA] border border-[#5B1018]/35 rounded-sm font-tech text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>RESET TO FACTORY DEFAULTS</span>
@@ -2422,41 +2418,41 @@ export const AdminCmsModal: React.FC = () => {
 
       {/* Safe In-App Delete Confirmation Modal (Works reliably in iframe sandboxes) */}
       {productToDelete && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="max-w-md w-full rounded-sm border border-rose-500/40 bg-zinc-950 text-white p-6 shadow-2xl space-y-4 ring-1 ring-rose-500/20">
+        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-[#292321]/75 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="max-w-md w-full rounded-sm border border-[#D8BFA8] bg-[#FAF4EE] text-[#292321] p-6 shadow-2xl space-y-4 ring-1 ring-[#5B1018]/20">
             <div className="flex items-start gap-3">
-              <div className="p-2.5 rounded-full bg-rose-500/15 text-rose-400 shrink-0">
+              <div className="p-2.5 rounded-full bg-[#5B1018]/10 text-[#5B1018] shrink-0">
                 <Trash2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold uppercase font-tech text-white tracking-wide">
+                <h3 className="text-sm font-bold uppercase font-tech text-[#292321] tracking-wide">
                   Remove Equipment From Catalog?
                 </h3>
-                <p className="text-xs text-zinc-400 mt-1">
-                  This item will be removed from your staging list immediately. Click <strong className="text-white">"COMMIT CATALOG CHANGES"</strong> afterwards to update the live catalog permanently.
+                <p className="text-xs text-[#4D423E] mt-1">
+                  This item will be removed from your staging list immediately. Click <strong className="text-[#292321]">"COMMIT CATALOG CHANGES"</strong> afterwards to update the live catalog permanently.
                 </p>
               </div>
             </div>
 
-            <div className="p-3 rounded-sm border border-white/10 bg-zinc-900 flex items-center gap-3">
+            <div className="p-3 rounded-sm border border-[#D8BFA8] bg-[#F3E7DA] flex items-center gap-3">
               {productToDelete.mainImage ? (
                 <img
                   src={productToDelete.mainImage}
                   alt=""
-                  className="w-12 h-12 rounded-sm object-cover border border-white/10 shrink-0 bg-zinc-950"
+                  className="w-12 h-12 rounded-sm object-cover border border-[#D8BFA8] shrink-0 bg-white"
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="w-12 h-12 rounded-sm bg-zinc-800 flex items-center justify-center text-[10px] text-zinc-500 font-tech shrink-0">
+                <div className="w-12 h-12 rounded-sm bg-[#E9D9C8] flex items-center justify-center text-[10px] text-[#5A4F4B] font-tech shrink-0">
                   NO IMG
                 </div>
               )}
               <div className="overflow-hidden min-w-0">
-                <div className="font-bold text-xs font-tech text-white truncate">{productToDelete.name}</div>
-                <div className="text-[11px] text-zinc-400 font-tech">
-                  Model: <span className="text-amber-400 font-bold font-mono">{productToDelete.model}</span>
+                <div className="font-bold text-xs font-tech text-[#292321] truncate">{productToDelete.name}</div>
+                <div className="text-[11px] text-[#4D423E] font-tech">
+                  Model: <span className="text-[#5B1018] font-bold font-mono">{productToDelete.model}</span>
                 </div>
-                <div className="text-[10px] text-zinc-500 font-tech uppercase truncate">
+                <div className="text-[10px] text-[#5A4F4B] font-tech uppercase truncate">
                   Category: {productToDelete.category}
                 </div>
               </div>
@@ -2466,14 +2462,14 @@ export const AdminCmsModal: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setProductToDelete(null)}
-                className="px-4 py-2 text-xs font-tech font-bold uppercase rounded-sm border border-white/15 text-zinc-300 hover:bg-zinc-800 transition-colors"
+                className="px-4 py-2 text-xs font-tech font-bold uppercase rounded-sm border border-[#D8BFA8] text-[#4D423E] hover:bg-[#E9D9C8] transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleConfirmDeleteProduct}
-                className="px-5 py-2 text-xs font-tech font-bold uppercase rounded-sm bg-rose-600 hover:bg-rose-500 text-white flex items-center gap-1.5 transition-colors shadow-md font-black"
+                className="px-5 py-2 text-xs font-tech font-bold uppercase rounded-sm bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] flex items-center gap-1.5 transition-colors shadow-md font-black"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Remove From Catalog</span>
@@ -2485,17 +2481,17 @@ export const AdminCmsModal: React.FC = () => {
 
       {/* Safe In-App Factory Reset Confirmation Modal */}
       {showResetConfirmModal && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="max-w-md w-full rounded-sm border border-rose-500/40 bg-zinc-950 text-white p-6 shadow-2xl space-y-4 ring-1 ring-rose-500/20">
+        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-[#292321]/75 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="max-w-md w-full rounded-sm border border-[#D8BFA8] bg-[#FAF4EE] text-[#292321] p-6 shadow-2xl space-y-4 ring-1 ring-[#5B1018]/20">
             <div className="flex items-start gap-3">
-              <div className="p-2.5 rounded-full bg-rose-500/15 text-rose-400 shrink-0">
+              <div className="p-2.5 rounded-full bg-[#5B1018]/10 text-[#5B1018] shrink-0">
                 <RotateCcw className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold uppercase font-tech text-white tracking-wide">
+                <h3 className="text-sm font-bold uppercase font-tech text-[#292321] tracking-wide">
                   Reset To Factory Initial State?
                 </h3>
-                <p className="text-xs text-zinc-400 mt-1">
+                <p className="text-xs text-[#4D423E] mt-1">
                   This will revert all customized products, brand settings, categories, and specs back to default factory settings.
                 </p>
               </div>
@@ -2505,7 +2501,7 @@ export const AdminCmsModal: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowResetConfirmModal(false)}
-                className="px-4 py-2 text-xs font-tech font-bold uppercase rounded-sm border border-white/15 text-zinc-300 hover:bg-zinc-800 transition-colors"
+                className="px-4 py-2 text-xs font-tech font-bold uppercase rounded-sm border border-[#D8BFA8] text-[#4D423E] hover:bg-[#E9D9C8] transition-colors"
               >
                 Cancel
               </button>
@@ -2516,7 +2512,7 @@ export const AdminCmsModal: React.FC = () => {
                   setShowResetConfirmModal(false);
                   setAdminModalOpen(false);
                 }}
-                className="px-5 py-2 text-xs font-tech font-bold uppercase rounded-sm bg-rose-600 hover:bg-rose-500 text-white flex items-center gap-1.5 transition-colors shadow-md font-black"
+                className="px-5 py-2 text-xs font-tech font-bold uppercase rounded-sm bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] flex items-center gap-1.5 transition-colors shadow-md font-black"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reset Everything</span>

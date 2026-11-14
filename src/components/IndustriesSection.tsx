@@ -20,10 +20,7 @@ export const IndustriesSection: React.FC = () => {
     addPartyLogo,
     deletePartyLogo,
     setPartyLogos,
-    themeMode,
   } = useContent();
-
-  const isLight = themeMode === 'light';
 
   // State for modal / edit dialog
   const [editingParty, setEditingParty] = useState<PartyLogo | null>(null);
@@ -63,7 +60,6 @@ export const IndustriesSection: React.FC = () => {
       }
     };
     reader.readAsDataURL(file);
-    // Reset file input
     e.target.value = '';
   };
 
@@ -130,9 +126,7 @@ export const IndustriesSection: React.FC = () => {
   return (
     <section
       id="parties-logos-section"
-      className={`py-12 border-t transition-colors ${
-        isLight ? 'bg-slate-50 border-slate-200' : 'bg-[#0c0e12] border-white/5'
-      }`}
+      className="py-12 border-t bg-[#F3E7DA] border-[#D8BFA8] transition-colors"
     >
       {/* Hidden file input for one-click upload */}
       <input
@@ -148,11 +142,11 @@ export const IndustriesSection: React.FC = () => {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Subtle Top Utility Actions - NO TEXT ON HEADING */}
+        {/* Subtle Top Utility Actions */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             {notification && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-tech font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 rounded-xs animate-in fade-in">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-tech font-bold text-[#F3E7DA] bg-[#5B1018] border border-[#5B1018] rounded-xs animate-in fade-in">
                 <Check className="w-3.5 h-3.5" />
                 {notification}
               </span>
@@ -162,22 +156,16 @@ export const IndustriesSection: React.FC = () => {
           <div className="flex items-center gap-2 ml-auto">
             <button
               onClick={() => addPartyLogo()}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-tech font-bold uppercase tracking-wider rounded-xs border transition-colors ${
-                isLight
-                  ? 'bg-white hover:bg-slate-100 text-slate-800 border-slate-300 shadow-xs'
-                  : 'bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border-white/10'
-              }`}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-tech font-bold uppercase tracking-wider rounded-xs border transition-colors bg-[#FAF4EE] hover:bg-[#5B1018] text-[#292321] hover:text-[#F3E7DA] border-[#D8BFA8] hover:border-[#5B1018] shadow-xs group"
               title="Add another party slot"
             >
-              <Plus className="w-3.5 h-3.5 text-amber-500" />
+              <Plus className="w-3.5 h-3.5 text-[#5B1018] group-hover:text-[#F3E7DA]" />
               <span>Add Party Slot</span>
             </button>
 
             <button
               onClick={handleResetSlots}
-              className={`inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-tech text-slate-500 hover:text-slate-900 dark:text-zinc-500 dark:hover:text-zinc-200 rounded-xs border transition-colors ${
-                isLight ? 'bg-white/80 border-slate-200' : 'bg-zinc-900/60 border-white/5'
-              }`}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-tech text-[#4D423E] hover:text-[#292321] rounded-xs border bg-[#FAF4EE] border-[#D8BFA8] transition-colors"
               title="Reset slots"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -187,7 +175,7 @@ export const IndustriesSection: React.FC = () => {
 
         {/* Small Modular Sections / Logo Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-          {partyLogos.map((party, idx) => {
+          {partyLogos.map((party) => {
             const hasLogo = Boolean(party.logoUrl && party.logoUrl.trim());
             const isDragging = dragOverId === party.id;
 
@@ -202,18 +190,13 @@ export const IndustriesSection: React.FC = () => {
                 onDrop={(e) => handleDrop(e, party.id)}
                 className={`relative group h-32 sm:h-36 rounded-xs p-3 flex flex-col items-center justify-center transition-all duration-200 ${
                   isDragging
-                    ? 'border-2 border-dashed border-amber-500 bg-amber-500/10 scale-102 shadow-md'
+                    ? 'border-2 border-dashed border-[#5B1018] bg-[#5B1018]/10 scale-102 shadow-md'
                     : hasLogo
-                    ? isLight
-                      ? 'bg-white border border-slate-200/90 shadow-xs hover:border-slate-300 hover:shadow-md'
-                      : 'bg-[#12151b] border border-white/10 hover:border-white/20'
-                    : isLight
-                    ? 'bg-white/80 border-2 border-dashed border-slate-300 hover:border-amber-500/80 hover:bg-amber-50/20'
-                    : 'bg-[#101318]/60 border-2 border-dashed border-white/10 hover:border-amber-500/50 hover:bg-white/[0.02]'
+                    ? 'bg-[#FAF4EE] border border-[#D8BFA8] shadow-xs hover:border-[#5B1018] hover:shadow-md'
+                    : 'bg-[#FAF4EE]/80 border-2 border-dashed border-[#D8BFA8] hover:border-[#5B1018] hover:bg-[#FAF4EE]'
                 }`}
               >
                 {hasLogo ? (
-                  /* Uploaded Logo Display */
                   <>
                     <div className="w-full h-full flex items-center justify-center p-2">
                       <img
@@ -223,12 +206,9 @@ export const IndustriesSection: React.FC = () => {
                       />
                     </div>
 
-                    {/* Small party name label */}
                     {party.name && (
                       <span
-                        className={`text-[10px] font-tech truncate max-w-[90%] px-1 text-center font-medium ${
-                          isLight ? 'text-slate-500' : 'text-zinc-400'
-                        }`}
+                        className="text-[10px] font-tech truncate max-w-[90%] px-1 text-center font-medium text-[#4D423E]"
                         title={party.name}
                       >
                         {party.name}
@@ -236,10 +216,10 @@ export const IndustriesSection: React.FC = () => {
                     )}
 
                     {/* Hover Action Overlay */}
-                    <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity rounded-xs flex items-center justify-center gap-2 p-2">
+                    <div className="absolute inset-0 bg-[#292321]/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity rounded-xs flex items-center justify-center gap-2 p-2">
                       <button
                         onClick={() => triggerUploadFor(party.id)}
-                        className="p-1.5 bg-white/20 hover:bg-amber-500 text-white rounded-xs transition-colors shadow-xs"
+                        className="p-1.5 bg-[#FAF4EE]/20 hover:bg-[#5B1018] text-[#F3E7DA] rounded-xs transition-colors shadow-xs"
                         title="Upload new image"
                       >
                         <Upload className="w-3.5 h-3.5" />
@@ -247,7 +227,7 @@ export const IndustriesSection: React.FC = () => {
 
                       <button
                         onClick={() => openEditModal(party)}
-                        className="p-1.5 bg-white/20 hover:bg-blue-500 text-white rounded-xs transition-colors shadow-xs"
+                        className="p-1.5 bg-[#FAF4EE]/20 hover:bg-[#D8BFA8] text-[#F3E7DA] hover:text-[#292321] rounded-xs transition-colors shadow-xs"
                         title="Edit name & URL"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
@@ -260,7 +240,7 @@ export const IndustriesSection: React.FC = () => {
                             showNotification('Logo removed');
                           }
                         }}
-                        className="p-1.5 bg-white/20 hover:bg-red-500 text-white rounded-xs transition-colors shadow-xs"
+                        className="p-1.5 bg-[#FAF4EE]/20 hover:bg-[#5B1018] text-[#F3E7DA] rounded-xs transition-colors shadow-xs"
                         title="Clear logo"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -268,49 +248,29 @@ export const IndustriesSection: React.FC = () => {
                     </div>
                   </>
                 ) : (
-                  /* Empty Logo Slot - Ready for Upload */
                   <div
                     onClick={() => triggerUploadFor(party.id)}
                     className="w-full h-full flex flex-col items-center justify-center text-center cursor-pointer p-2 select-none group/slot"
                   >
-                    <div
-                      className={`w-9 h-9 rounded-full flex items-center justify-center mb-2 transition-transform duration-200 group-hover/slot:scale-110 ${
-                        isLight
-                          ? 'bg-slate-100 text-slate-500 group-hover/slot:bg-amber-500 group-hover/slot:text-slate-950'
-                          : 'bg-white/5 text-zinc-400 group-hover/slot:bg-amber-500 group-hover/slot:text-slate-950'
-                      }`}
-                    >
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center mb-2 transition-transform duration-200 group-hover/slot:scale-110 bg-[#E9D9C8] text-[#4D423E] group-hover/slot:bg-[#5B1018] group-hover/slot:text-[#F3E7DA]">
                       <Upload className="w-4 h-4" />
                     </div>
 
-                    <span
-                      className={`text-[11px] font-tech font-bold uppercase tracking-wider ${
-                        isLight ? 'text-slate-700' : 'text-zinc-300'
-                      }`}
-                    >
+                    <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#292321]">
                       Upload Logo
                     </span>
 
-                    <span
-                      className={`text-[9px] font-tech mt-0.5 ${
-                        isLight ? 'text-slate-400' : 'text-zinc-500'
-                      }`}
-                    >
+                    <span className="text-[9px] font-tech mt-0.5 text-[#5A4F4B]">
                       Click or drop image
                     </span>
 
-                    {/* Quick options to paste URL or delete slot */}
                     <div
                       className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <button
                         onClick={() => openEditModal(party)}
-                        className={`p-1 rounded-xs transition-colors ${
-                          isLight
-                            ? 'bg-slate-200/80 hover:bg-slate-300 text-slate-700'
-                            : 'bg-white/10 hover:bg-white/20 text-zinc-300'
-                        }`}
+                        className="p-1 rounded-xs transition-colors bg-[#E9D9C8] hover:bg-[#D8BFA8] text-[#292321]"
                         title="Enter image URL / Name"
                       >
                         <Edit2 className="w-3 h-3" />
@@ -318,7 +278,7 @@ export const IndustriesSection: React.FC = () => {
                       {partyLogos.length > 4 && (
                         <button
                           onClick={() => deletePartyLogo(party.id)}
-                          className="p-1 rounded-xs bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white transition-colors"
+                          className="p-1 rounded-xs bg-[#5B1018]/10 hover:bg-[#5B1018] text-[#5B1018] hover:text-[#F3E7DA] transition-colors"
                           title="Remove slot"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -334,27 +294,15 @@ export const IndustriesSection: React.FC = () => {
           {/* Add Another Slot Button */}
           <button
             onClick={() => addPartyLogo()}
-            className={`h-32 sm:h-36 rounded-xs border-2 border-dashed flex flex-col items-center justify-center p-3 transition-all duration-200 ${
-              isLight
-                ? 'border-slate-300 hover:border-amber-500 hover:bg-amber-50/30 text-slate-600'
-                : 'border-white/10 hover:border-amber-500 hover:bg-white/[0.02] text-zinc-400'
-            }`}
+            className="h-32 sm:h-36 rounded-xs border-2 border-dashed flex flex-col items-center justify-center p-3 transition-all duration-200 border-[#D8BFA8] hover:border-[#5B1018] hover:bg-[#FAF4EE] text-[#4D423E]"
           >
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center mb-1.5 transition-transform ${
-                isLight ? 'bg-slate-200/70 text-slate-700' : 'bg-white/5 text-zinc-300'
-              }`}
-            >
-              <Plus className="w-4 h-4 text-amber-500" />
+            <div className="w-8 h-8 rounded-full flex items-center justify-center mb-1.5 transition-transform bg-[#E9D9C8] text-[#5B1018]">
+              <Plus className="w-4 h-4" />
             </div>
-            <span className="text-[11px] font-tech font-bold uppercase tracking-wider">
+            <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#292321]">
               Add Slot
             </span>
-            <span
-              className={`text-[9px] font-tech mt-0.5 ${
-                isLight ? 'text-slate-400' : 'text-zinc-500'
-              }`}
-            >
+            <span className="text-[9px] font-tech mt-0.5 text-[#5A4F4B]">
               For new party logo
             </span>
           </button>
@@ -363,22 +311,18 @@ export const IndustriesSection: React.FC = () => {
 
       {/* Edit Party Details / Paste Image URL Modal */}
       {editingParty && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in">
-          <div
-            className={`w-full max-w-md p-6 rounded-xs border shadow-2xl ${
-              isLight ? 'bg-white border-slate-300' : 'bg-[#141820] border-white/10 text-white'
-            }`}
-          >
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-white/10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#292321]/75 backdrop-blur-xs animate-in fade-in">
+          <div className="w-full max-w-md p-6 rounded-xs border shadow-2xl bg-[#FAF4EE] border-[#D8BFA8] text-[#292321]">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#D8BFA8]">
               <div className="flex items-center gap-2">
-                <ImageIcon className="w-4 h-4 text-amber-500" />
-                <h3 className="text-sm font-tech font-bold uppercase tracking-wider">
+                <ImageIcon className="w-4 h-4 text-[#5B1018]" />
+                <h3 className="text-sm font-tech font-bold uppercase tracking-wider text-[#292321]">
                   Party / Client Logo Details
                 </h3>
               </div>
               <button
                 onClick={() => setEditingParty(null)}
-                className="p-1 rounded-xs text-slate-400 hover:text-slate-700 dark:hover:text-white"
+                className="p-1 rounded-xs text-[#4D423E] hover:text-[#5B1018]"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -386,7 +330,7 @@ export const IndustriesSection: React.FC = () => {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-tech font-semibold mb-1 text-slate-600 dark:text-zinc-400">
+                <label className="block text-xs font-tech font-semibold mb-1 text-[#4D423E]">
                   Party / Client Name
                 </label>
                 <input
@@ -394,14 +338,12 @@ export const IndustriesSection: React.FC = () => {
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                   placeholder="e.g. Haldiram, Taj Hotels, Bikanervala"
-                  className={`w-full px-3 py-2 text-xs font-tech border rounded-xs outline-none focus:border-amber-500 ${
-                    isLight ? 'bg-slate-50 border-slate-300' : 'bg-black/30 border-white/10 text-white'
-                  }`}
+                  className="w-full px-3 py-2 text-xs font-tech border rounded-xs outline-none focus:border-[#5B1018] bg-white border-[#D8BFA8] text-[#292321]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-tech font-semibold mb-1 text-slate-600 dark:text-zinc-400">
+                <label className="block text-xs font-tech font-semibold mb-1 text-[#4D423E]">
                   Logo Image URL (Or upload directly)
                 </label>
                 <input
@@ -409,28 +351,20 @@ export const IndustriesSection: React.FC = () => {
                   value={editUrl}
                   onChange={(e) => setEditUrl(e.target.value)}
                   placeholder="https://example.com/logo.png"
-                  className={`w-full px-3 py-2 text-xs font-tech border rounded-xs outline-none focus:border-amber-500 ${
-                    isLight ? 'bg-slate-50 border-slate-300' : 'bg-black/30 border-white/10 text-white'
-                  }`}
+                  className="w-full px-3 py-2 text-xs font-tech border rounded-xs outline-none focus:border-[#5B1018] bg-white border-[#D8BFA8] text-[#292321]"
                 />
-                <p className="text-[10px] text-slate-400 dark:text-zinc-500 mt-1">
+                <p className="text-[10px] text-[#5A4F4B] mt-1">
                   You can also click the slot on the page to choose an image file from your device.
                 </p>
               </div>
 
               {/* Quick file upload button inside modal */}
               <div>
-                <label className="block text-xs font-tech font-semibold mb-1 text-slate-600 dark:text-zinc-400">
+                <label className="block text-xs font-tech font-semibold mb-1 text-[#4D423E]">
                   Upload File From Computer
                 </label>
-                <label
-                  className={`inline-flex items-center gap-2 px-3 py-2 text-xs font-tech font-bold uppercase tracking-wider rounded-xs border cursor-pointer ${
-                    isLight
-                      ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800'
-                      : 'bg-zinc-800 hover:bg-zinc-700 border-white/10 text-zinc-200'
-                  }`}
-                >
-                  <Upload className="w-3.5 h-3.5 text-amber-500" />
+                <label className="inline-flex items-center gap-2 px-3 py-2 text-xs font-tech font-bold uppercase tracking-wider rounded-xs border cursor-pointer bg-[#F3E7DA] hover:bg-[#E9D9C8] border-[#D8BFA8] text-[#292321]">
+                  <Upload className="w-3.5 h-3.5 text-[#5B1018]" />
                   <span>Choose Image File</span>
                   <input
                     type="file"
@@ -452,13 +386,8 @@ export const IndustriesSection: React.FC = () => {
                 </label>
               </div>
 
-              {/* Logo Preview */}
               {editUrl && (
-                <div
-                  className={`p-3 rounded-xs border flex items-center justify-center h-20 ${
-                    isLight ? 'bg-slate-100 border-slate-200' : 'bg-black/40 border-white/10'
-                  }`}
-                >
+                <div className="p-3 rounded-xs border flex items-center justify-center h-20 bg-white border-[#D8BFA8]">
                   <img
                     src={editUrl}
                     alt="Preview"
@@ -468,18 +397,16 @@ export const IndustriesSection: React.FC = () => {
               )}
             </div>
 
-            <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-slate-200 dark:border-white/10">
+            <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-[#D8BFA8]">
               <button
                 onClick={() => setEditingParty(null)}
-                className={`px-3 py-1.5 text-xs font-tech rounded-xs border ${
-                  isLight ? 'border-slate-300 text-slate-600' : 'border-white/10 text-zinc-400'
-                }`}
+                className="px-3 py-1.5 text-xs font-tech rounded-xs border border-[#D8BFA8] text-[#4D423E] hover:bg-[#F3E7DA]"
               >
                 Cancel
               </button>
               <button
                 onClick={saveEditModal}
-                className="px-4 py-1.5 text-xs font-tech font-bold uppercase tracking-wider bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xs shadow-xs"
+                className="px-4 py-1.5 text-xs font-tech font-bold uppercase tracking-wider bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] rounded-xs shadow-xs"
               >
                 Save
               </button>
