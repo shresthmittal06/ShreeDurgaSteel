@@ -96,6 +96,7 @@ interface CategoryImageEditModalProps {
   currentImage: string;
   defaultImage: string;
   onSave: (newUrl: string) => void;
+  themeMode?: 'dark' | 'light';
 }
 
 export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
@@ -107,6 +108,7 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
   currentImage,
   defaultImage,
   onSave,
+  themeMode = 'dark',
 }) => {
   const [selectedImage, setSelectedImage] = useState<string>(currentImage || defaultImage);
   const [urlInput, setUrlInput] = useState<string>('');
@@ -127,6 +129,9 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
 
   if (!isOpen) return null;
 
+  const isLight = themeMode === 'light';
+
+  // Handle local file upload
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -140,6 +145,7 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
       setIsProcessing(true);
       setErrorMessage('');
       setPreviewError(false);
+      // Compress to high performance WebP (~15KB)
       const compressedDataUrl = await compressImageFile(file, 720, 0.72);
       setSelectedImage(compressedDataUrl);
     } catch (err) {
@@ -183,33 +189,37 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#292321]/75 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[92vh] flex flex-col rounded-md border shadow-2xl overflow-hidden bg-[#FAF4EE] text-[#292321] border-[#D8BFA8]">
+      <div
+        className={`relative w-full max-w-2xl max-h-[92vh] flex flex-col rounded-md border shadow-2xl overflow-hidden ${
+          isLight ? 'bg-white text-slate-900 border-slate-300' : 'bg-[#11141a] text-white border-white/20'
+        }`}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#D8BFA8] shrink-0 bg-[#F3E7DA]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xs bg-[#5B1018]/10 text-[#5B1018] flex items-center justify-center border border-[#5B1018]/25">
+            <div className="w-9 h-9 rounded-xs bg-amber-500/20 text-amber-500 flex items-center justify-center border border-amber-500/30">
               <ImageIcon className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-tech font-bold uppercase tracking-wider text-[#5B1018]">
+                <span className="text-[10px] font-tech font-bold uppercase tracking-wider text-amber-500">
                   {categoryBadge}
                 </span>
-                <span className="text-xs text-[#4D423E]">• Homepage Portal Showcase</span>
+                <span className="text-xs text-zinc-400">• Homepage Portal Showcase</span>
               </div>
-              <h3 className="text-lg font-bold tracking-tight uppercase text-[#292321]">
+              <h3 className="text-lg font-bold tracking-tight uppercase">
                 Change Image: {categoryTitle}
               </h3>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded text-[#4D423E] hover:text-[#5B1018] hover:bg-[#D8BFA8]/30 transition-colors"
+            className="p-1.5 rounded text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
             title="Close"
           >
             <X className="w-5 h-5" />
@@ -221,14 +231,14 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
           {/* Live Preview Card */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-tech font-bold uppercase tracking-wider text-[#4D423E]">
+              <label className="text-xs font-tech font-bold uppercase tracking-wider text-zinc-400">
                 Live Card Preview
               </label>
               {selectedImage !== defaultImage && (
                 <button
                   type="button"
                   onClick={handleResetDefault}
-                  className="text-[11px] font-tech font-semibold text-[#5B1018] hover:text-[#440B11] flex items-center gap-1 transition-colors"
+                  className="text-[11px] font-tech font-semibold text-amber-500 hover:text-amber-400 flex items-center gap-1 transition-colors"
                 >
                   <RefreshCw className="w-3 h-3" />
                   <span>Restore Factory Default</span>
@@ -236,17 +246,17 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
               )}
             </div>
 
-            <div className="relative w-full h-52 rounded-xs overflow-hidden bg-white border border-[#D8BFA8] flex items-center justify-center p-3 shadow-inner">
+            <div className="relative w-full h-52 rounded-xs overflow-hidden bg-zinc-950 border border-white/15 flex items-center justify-center p-3 shadow-inner">
               {isProcessing ? (
-                <div className="flex flex-col items-center gap-2 text-[#4D423E]">
-                  <RefreshCw className="w-6 h-6 animate-spin text-[#5B1018]" />
+                <div className="flex flex-col items-center gap-2 text-zinc-400">
+                  <RefreshCw className="w-6 h-6 animate-spin text-amber-500" />
                   <span className="text-xs font-tech">Optimizing image...</span>
                 </div>
               ) : previewError ? (
-                <div className="flex flex-col items-center gap-2 text-[#5B1018] p-4 text-center">
+                <div className="flex flex-col items-center gap-2 text-red-400 p-4 text-center">
                   <AlertCircle className="w-6 h-6" />
                   <span className="text-xs font-tech font-bold">Image Failed to Load</span>
-                  <span className="text-[11px] text-[#4D423E]">
+                  <span className="text-[11px] text-zinc-400">
                     The URL or file could not be displayed. Please check the URL or upload a file.
                   </span>
                 </div>
@@ -260,14 +270,14 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
                 />
               )}
 
-              <span className="absolute bottom-2 right-2 px-2 py-0.5 rounded-xs bg-[#292321]/85 text-[10px] font-mono text-[#F3E7DA] border border-[#D8BFA8]/30">
+              <span className="absolute bottom-2 right-2 px-2 py-0.5 rounded-xs bg-black/80 text-[10px] font-mono text-zinc-300 border border-white/20">
                 {selectedImage.startsWith('data:') ? 'Custom Upload (WebP)' : 'Web Asset'}
               </span>
             </div>
           </div>
 
           {errorMessage && (
-            <div className="p-3 rounded-xs bg-[#5B1018]/10 border border-[#5B1018]/30 text-[#5B1018] text-xs flex items-center gap-2">
+            <div className="p-3 rounded-xs bg-red-500/15 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -275,14 +285,14 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
 
           {/* Navigation Tabs for Source Selection */}
           <div>
-            <div className="flex border-b border-[#D8BFA8] mb-4">
+            <div className="flex border-b border-white/10 mb-4">
               <button
                 type="button"
                 onClick={() => setActiveTab('upload')}
                 className={`flex items-center gap-2 py-2 px-4 text-xs font-tech font-bold uppercase tracking-wider border-b-2 transition-colors ${
                   activeTab === 'upload'
-                    ? 'border-[#5B1018] text-[#5B1018]'
-                    : 'border-transparent text-[#4D423E] hover:text-[#292321]'
+                    ? 'border-amber-500 text-amber-400'
+                    : 'border-transparent text-zinc-400 hover:text-white'
                 }`}
               >
                 <Upload className="w-3.5 h-3.5" />
@@ -293,8 +303,8 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
                 onClick={() => setActiveTab('presets')}
                 className={`flex items-center gap-2 py-2 px-4 text-xs font-tech font-bold uppercase tracking-wider border-b-2 transition-colors ${
                   activeTab === 'presets'
-                    ? 'border-[#5B1018] text-[#5B1018]'
-                    : 'border-transparent text-[#4D423E] hover:text-[#292321]'
+                    ? 'border-amber-500 text-amber-400'
+                    : 'border-transparent text-zinc-400 hover:text-white'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -305,8 +315,8 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
                 onClick={() => setActiveTab('url')}
                 className={`flex items-center gap-2 py-2 px-4 text-xs font-tech font-bold uppercase tracking-wider border-b-2 transition-colors ${
                   activeTab === 'url'
-                    ? 'border-[#5B1018] text-[#5B1018]'
-                    : 'border-transparent text-[#4D423E] hover:text-[#292321]'
+                    ? 'border-amber-500 text-amber-400'
+                    : 'border-transparent text-zinc-400 hover:text-white'
                 }`}
               >
                 <Link className="w-3.5 h-3.5" />
@@ -327,15 +337,19 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
                 />
                 <label
                   htmlFor="category-image-file-input"
-                  className="border-2 border-dashed rounded-xs p-6 flex flex-col items-center justify-center cursor-pointer transition-colors border-[#D8BFA8] hover:border-[#5B1018] bg-[#F3E7DA]/70 hover:bg-[#E9D9C8]/60"
+                  className={`border-2 border-dashed rounded-xs p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
+                    isLight
+                      ? 'border-slate-300 hover:border-amber-500 bg-slate-50 hover:bg-amber-50/20'
+                      : 'border-white/20 hover:border-amber-500/80 bg-zinc-900/60 hover:bg-zinc-900'
+                  }`}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#5B1018]/10 text-[#5B1018] flex items-center justify-center mb-2">
+                  <div className="w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mb-2">
                     <Upload className="w-6 h-6" />
                   </div>
-                  <span className="text-xs font-tech font-bold uppercase tracking-wider mb-1 text-[#292321]">
+                  <span className="text-xs font-tech font-bold uppercase tracking-wider mb-1 text-slate-800 dark:text-zinc-200">
                     Click to browse or drop an image file
                   </span>
-                  <span className="text-[11px] text-[#4D423E]">
+                  <span className="text-[11px] text-zinc-400">
                     Supports PNG, JPG, WebP. Automatically compressed for ultra-fast loading.
                   </span>
                 </label>
@@ -345,7 +359,7 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
             {/* Tab 2: Recommended Presets */}
             {activeTab === 'presets' && (
               <div className="space-y-3">
-                <p className="text-xs text-[#4D423E]">
+                <p className="text-xs text-zinc-400">
                   Select a curated industrial product photo for this category:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-56 overflow-y-auto pr-1">
@@ -363,11 +377,13 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
                         }}
                         className={`flex items-center gap-3 p-2.5 rounded-xs border text-left transition-all ${
                           isSelected
-                            ? 'border-[#5B1018] bg-[#5B1018]/10'
-                            : 'border-[#D8BFA8] hover:border-[#5B1018] bg-[#F3E7DA]/60'
+                            ? 'border-amber-500 bg-amber-500/10'
+                            : isLight
+                            ? 'border-slate-200 hover:border-slate-400 bg-slate-50'
+                            : 'border-white/10 hover:border-white/30 bg-zinc-900'
                         }`}
                       >
-                        <div className="w-14 h-14 rounded-xs bg-white shrink-0 overflow-hidden border border-[#D8BFA8] flex items-center justify-center">
+                        <div className="w-14 h-14 rounded-xs bg-black shrink-0 overflow-hidden border border-white/10 flex items-center justify-center">
                           <img
                             src={preset.url}
                             alt={preset.title}
@@ -378,15 +394,15 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="text-xs font-bold truncate text-[#292321]">
+                          <div className="text-xs font-bold truncate text-slate-900 dark:text-white">
                             {preset.title}
                           </div>
-                          <div className="text-[11px] text-[#4D423E] line-clamp-1">
+                          <div className="text-[11px] text-zinc-400 line-clamp-1">
                             {preset.description}
                           </div>
                         </div>
                         {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-[#5B1018] text-[#F3E7DA] flex items-center justify-center shrink-0">
+                          <div className="w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center shrink-0">
                             <Check className="w-3 h-3 stroke-[3]" />
                           </div>
                         )}
@@ -400,7 +416,7 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
             {/* Tab 3: Image URL */}
             {activeTab === 'url' && (
               <div className="space-y-3">
-                <label className="text-xs font-tech font-bold uppercase tracking-wider text-[#4D423E] block">
+                <label className="text-xs font-tech font-bold uppercase tracking-wider text-zinc-400 block">
                   Paste Direct Image URL
                 </label>
                 <div className="flex gap-2">
@@ -409,17 +425,21 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
                     placeholder="https://example.com/photo.jpg"
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-xs border text-xs font-mono outline-none bg-white border-[#D8BFA8] text-[#292321] focus:border-[#5B1018]"
+                    className={`flex-1 px-3 py-2 rounded-xs border text-xs font-mono outline-none ${
+                      isLight
+                        ? 'bg-white border-slate-300 text-slate-900 focus:border-amber-500'
+                        : 'bg-zinc-900 border-white/20 text-white focus:border-amber-500'
+                    }`}
                   />
                   <button
                     type="button"
                     onClick={handleApplyUrl}
-                    className="px-4 py-2 rounded-xs bg-[#292321] hover:bg-[#5B1018] text-[#F3E7DA] text-xs font-tech font-bold uppercase tracking-wider transition-colors"
+                    className="px-4 py-2 rounded-xs bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-tech font-bold uppercase tracking-wider transition-colors border border-white/10"
                   >
                     Preview
                   </button>
                 </div>
-                <p className="text-[11px] text-[#5A4F4B]">
+                <p className="text-[11px] text-zinc-500">
                   Tip: You can use any public HTTPS image link from Unsplash, Imgur, or your CDN.
                 </p>
               </div>
@@ -428,11 +448,11 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-[#D8BFA8] bg-[#F3E7DA] shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black/40 shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-xs font-tech font-bold uppercase tracking-wider text-[#4D423E] hover:text-[#292321] transition-colors"
+            className="px-4 py-2 text-xs font-tech font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors"
           >
             Cancel
           </button>
@@ -442,7 +462,7 @@ export const CategoryImageEditModal: React.FC<CategoryImageEditModalProps> = ({
               type="button"
               onClick={handleSave}
               disabled={isProcessing}
-              className="px-6 py-2.5 rounded-xs bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] font-tech font-bold text-xs uppercase tracking-wider transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              className="px-6 py-2.5 rounded-xs bg-amber-500 hover:bg-amber-400 text-slate-950 font-tech font-bold text-xs uppercase tracking-wider transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
             >
               <Check className="w-4 h-4 stroke-[2.5]" />
               <span>Save & Apply Image</span>

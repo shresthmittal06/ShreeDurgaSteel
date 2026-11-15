@@ -93,12 +93,12 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="flex items-center justify-between">
         <div>
-          <label className="block text-[11px] font-tech font-bold uppercase tracking-wider text-[#292321]">
+          <label className="block text-[11px] font-tech font-bold uppercase tracking-wider text-zinc-300">
             Product Documents & Specification Sheets
           </label>
-          <span className="text-[10px] text-[#5A4F4B]">
+          <span className="text-[10px] text-zinc-400">
             Upload spec sheet PDFs, CAD dimension diagrams, manuals, or brochure links
           </span>
         </div>
@@ -113,7 +113,7 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="px-2.5 py-1 bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] text-xs font-tech font-bold uppercase tracking-wider rounded-sm inline-flex items-center gap-1.5 transition-colors"
+            className="px-2.5 py-1 bg-white text-black hover:bg-zinc-200 text-xs font-tech font-bold uppercase tracking-wider rounded-sm inline-flex items-center gap-1.5 transition-colors"
           >
             <Upload className="w-3 h-3" />
             Upload File (PDF/Doc)
@@ -121,7 +121,7 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
           <button
             type="button"
             onClick={() => setShowAddManual(!showAddManual)}
-            className="px-2 py-1 bg-white hover:bg-[#E9D9C8] text-[#292321] text-xs font-tech font-bold rounded-sm inline-flex items-center gap-1 border border-[#D8BFA8] transition-colors"
+            className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-tech rounded-sm inline-flex items-center gap-1 border border-white/10"
           >
             <Plus className="w-3 h-3" />
             Add Link
@@ -131,35 +131,35 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
 
       {/* Manual Link Input */}
       {showAddManual && (
-        <div className="p-3 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm space-y-2">
+        <div className="p-3 bg-zinc-950 border border-white/15 rounded-sm space-y-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="text"
               placeholder="Document Title (e.g., Installation Guide)"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              className="px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] rounded-sm text-xs focus:outline-none focus:border-[#5B1018]"
+              className="px-2.5 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs"
             />
             <input
               type="url"
               placeholder="Document URL (https://...)"
               value={newUrl}
               onChange={(e) => setNewUrl(e.target.value)}
-              className="px-2.5 py-1.5 bg-white border border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] rounded-sm text-xs font-mono focus:outline-none focus:border-[#5B1018]"
+              className="px-2.5 py-1.5 bg-zinc-900 border border-white/15 text-white rounded-sm text-xs font-mono"
             />
           </div>
           <div className="flex justify-end gap-2">
             <button
               type="button"
               onClick={() => setShowAddManual(false)}
-              className="px-2.5 py-1 text-xs text-[#5A4F4B] hover:text-[#292321]"
+              className="px-2.5 py-1 text-xs text-zinc-400 hover:text-white"
             >
               Cancel
             </button>
             <button
               type="button"
               onClick={handleAddUrlDoc}
-              className="px-3 py-1 bg-[#5B1018] text-[#F3E7DA] text-xs font-tech font-bold uppercase tracking-wider rounded-sm hover:bg-[#440B11]"
+              className="px-3 py-1 bg-white text-black text-xs font-tech font-bold uppercase tracking-wider rounded-sm hover:bg-zinc-200"
             >
               Save Document
             </button>
@@ -169,20 +169,20 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
 
       {/* Document List */}
       {documents.length > 0 ? (
-        <div className="divide-y divide-[#D8BFA8] border border-[#D8BFA8] rounded-sm bg-white">
+        <div className="divide-y divide-white/10 border border-white/15 rounded-sm bg-zinc-950">
           {documents.map((doc, idx) => (
-            <div key={idx} className="p-2.5 flex items-center justify-between text-xs hover:bg-[#FAF4EE]">
+            <div key={idx} className="p-2.5 flex items-center justify-between text-xs hover:bg-white/[0.02]">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-7 h-7 rounded bg-[#F3E7DA] border border-[#D8BFA8] flex items-center justify-center shrink-0 text-[#5B1018] font-tech font-bold text-[10px]">
+                <div className="w-7 h-7 rounded bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 text-zinc-300 font-tech font-bold text-[10px]">
                   {doc.type === 'XLS' || doc.type === 'XLSX' ? (
-                    <FileSpreadsheet className="w-3.5 h-3.5 text-[#5B1018]" />
+                    <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
                   ) : (
-                    <FileText className="w-3.5 h-3.5 text-[#5B1018]" />
+                    <FileText className="w-3.5 h-3.5 text-zinc-300" />
                   )}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[#292321] font-medium truncate">{doc.title}</div>
-                  <div className="text-[10px] text-[#5A4F4B] font-tech uppercase">
+                  <div className="text-white font-medium truncate">{doc.title}</div>
+                  <div className="text-[10px] text-zinc-500 font-tech uppercase">
                     {doc.type} {doc.size ? `• ${doc.size}` : ''} {doc.fileData ? '• Uploaded File' : ''}
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
                   <button
                     type="button"
                     onClick={() => handleDownload(doc)}
-                    className="p-1.5 text-[#5A4F4B] hover:text-[#5B1018] transition-colors"
+                    className="p-1.5 text-zinc-400 hover:text-white transition-colors"
                     title="Download / View"
                   >
                     <Download className="w-3.5 h-3.5" />
@@ -202,7 +202,7 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
                 <button
                   type="button"
                   onClick={() => handleRemove(idx)}
-                  className="p-1.5 text-[#5A4F4B] hover:text-[#5B1018] transition-colors"
+                  className="p-1.5 text-zinc-500 hover:text-red-400 transition-colors"
                   title="Remove"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -212,7 +212,7 @@ export const DocumentUploadField: React.FC<DocumentUploadFieldProps> = ({ docume
           ))}
         </div>
       ) : (
-        <div className="p-3 bg-[#F3E7DA]/70 border border-dashed border-[#D8BFA8] rounded-sm text-center text-xs text-[#5A4F4B]">
+        <div className="p-3 bg-zinc-950/60 border border-dashed border-white/10 rounded-sm text-center text-xs text-zinc-500">
           No documents attached yet. Click "Upload File" to attach spec sheets, sizing diagrams, or blueprints.
         </div>
       )}

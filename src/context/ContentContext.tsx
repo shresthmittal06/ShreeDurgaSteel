@@ -165,6 +165,11 @@ interface ContentContextType {
   selectedDomainFilter: string;
   setSelectedDomainFilter: (domain: string) => void;
 
+  // Theme Mode (Light / Dark)
+  themeMode: 'light' | 'dark';
+  setThemeMode: React.Dispatch<React.SetStateAction<'light' | 'dark'>>;
+  toggleThemeMode: () => void;
+
   // Party / Client Logos
   partyLogos: PartyLogo[];
   setPartyLogos: React.Dispatch<React.SetStateAction<PartyLogo[]>>;
@@ -185,7 +190,7 @@ interface ContentContextType {
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
-// Updated storage keys for Shree Durga Steels v2
+// Updated storage keys for Shri Durga Steels v2
 const STORAGE_KEY_BRAND = 'sds_brand_v3';
 const STORAGE_KEY_HERO = 'sds_hero_v2';
 const STORAGE_KEY_STATS = 'sds_stats_v2';
@@ -803,6 +808,28 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return products.filter((p) => p.division === 'manufacturing');
   }, [products]);
 
+  // Theme mode: Defaults to 'light' per luxury minimal requirement
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>(() => {
+    try {
+      const saved = localStorage.getItem('sds_theme_mode');
+      return saved === 'dark' ? 'dark' : 'light';
+    } catch {
+      return 'light';
+    }
+  });
+
+  const toggleThemeMode = () => {
+    setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sds_theme_mode', themeMode);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [themeMode]);
+
   // Sync with LocalStorage
   useEffect(() => {
     try {
@@ -1170,6 +1197,9 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setSelectedCategoryFilter,
         selectedDomainFilter,
         setSelectedDomainFilter,
+        themeMode,
+        setThemeMode,
+        toggleThemeMode,
         computePricing,
         imageEditModalProduct,
         openImageEditModal,

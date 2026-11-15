@@ -15,16 +15,23 @@ import {
   Minus,
   Trash2,
   Layers,
+  Sparkles,
   X,
   ChevronRight,
   ClipboardList,
   Check,
+  Building,
+  User,
+  Phone,
+  MapPin,
   Eye,
   Info,
 } from 'lucide-react';
+import { ProductItem } from '../types';
 
 export const PriceMatrixPage: React.FC = () => {
-  const { products, brand, setSelectedProductForDetail } = useContent();
+  const { products, brand, themeMode, setSelectedProductForDetail } = useContent();
+  const isLight = themeMode === 'light';
 
   // Selection state: map of productId -> quantity
   const [selectedItems, setSelectedItems] = useState<Record<string, number>>({});
@@ -154,7 +161,7 @@ Date: ${new Date().toLocaleDateString('en-IN', {
       month: 'long',
       day: 'numeric',
     })}
-Supplier: ${brand.brandName || 'SHREE DURGA STEELS'}
+Supplier: ${brand.brandName || 'SHRI DURGA STEELS'}
 Contact: ${brand.phone} | Email: ${brand.email}
 Address: ${brand.address}
 =========================================
@@ -287,23 +294,35 @@ Thank you.`;
   };
 
   return (
-    <div className="pt-24 pb-28 transition-colors bg-[#F3E7DA] text-[#292321]">
+    <div className={`pt-24 pb-28 transition-colors ${isLight ? 'bg-slate-50' : 'bg-[#090b0e]'}`}>
       {/* Header Banner */}
-      <div className="border-b py-12 px-4 sm:px-6 lg:px-8 bg-[#FAF4EE] border-[#D8BFA8]">
+      <div
+        className={`border-b py-12 px-4 sm:px-6 lg:px-8 ${
+          isLight ? 'bg-white border-slate-200' : 'bg-zinc-900/60 border-white/10'
+        }`}
+      >
         <div className="max-w-7xl mx-auto">
           <TopPageBackButton currentPageTitle="Select Products & Get Quotation" />
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-tech font-bold uppercase tracking-[0.2em] bg-[#5B1018]/10 text-[#5B1018] border border-[#5B1018]/25 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-tech font-bold uppercase tracking-[0.2em] bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 mb-4">
             <ClipboardList className="w-3.5 h-3.5" />
             <span>PRODUCT SELECTION & QUOTATION BUILDER</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight mb-3 text-[#292321]">
+              <h1
+                className={`text-3xl sm:text-5xl font-black uppercase tracking-tight mb-3 ${
+                  isLight ? 'text-slate-950' : 'text-white'
+                }`}
+              >
                 Select Products & Get Quotation
               </h1>
-              <p className="text-sm sm:text-base max-w-2xl leading-relaxed text-[#4D423E]">
+              <p
+                className={`text-sm sm:text-base max-w-2xl leading-relaxed ${
+                  isLight ? 'text-slate-600' : 'text-zinc-400'
+                }`}
+              >
                 Browse our complete manufacturing and commercial catalogue. Select the items you need, specify quantities, and instantly get your quotation. You can email the request directly to our sales team or download your quotation sheet.
               </p>
             </div>
@@ -314,7 +333,7 @@ Thank you.`;
                 <>
                   <button
                     onClick={() => setQuoteModalOpen(true)}
-                    className="px-4 py-2.5 text-xs font-tech font-bold rounded flex items-center gap-2 transition-all bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] shadow-md active:scale-95 tabular-nums"
+                    className="px-4 py-2.5 text-xs font-tech font-bold rounded flex items-center gap-2 transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-md active:scale-95"
                   >
                     <FileText className="w-4 h-4" />
                     <span>GET QUOTATION ({selectedCount})</span>
@@ -322,25 +341,39 @@ Thank you.`;
 
                   <button
                     onClick={handleDirectMailQuotation}
-                    className="px-3.5 py-2.5 text-xs font-tech font-bold rounded border flex items-center gap-2 transition-colors bg-[#FAF4EE] border-[#D8BFA8] text-[#292321] hover:bg-[#E9D9C8] shadow-xs"
+                    className={`px-3.5 py-2.5 text-xs font-tech font-bold rounded border flex items-center gap-2 transition-colors ${
+                      isLight
+                        ? 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-xs'
+                        : 'bg-zinc-800 border-zinc-700 text-zinc-200 hover:bg-zinc-700'
+                    }`}
                     title="Send quotation request directly via email"
                   >
-                    <Mail className="w-4 h-4 text-[#5B1018]" />
+                    <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                     <span>EMAIL QUOTE</span>
                   </button>
 
                   <button
                     onClick={handleDownloadCsv}
-                    className="px-3.5 py-2.5 text-xs font-tech font-bold rounded border flex items-center gap-2 transition-colors bg-[#FAF4EE] border-[#D8BFA8] text-[#292321] hover:bg-[#E9D9C8] shadow-xs"
+                    className={`px-3.5 py-2.5 text-xs font-tech font-bold rounded border flex items-center gap-2 transition-colors ${
+                      isLight
+                        ? 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-xs'
+                        : 'bg-zinc-800 border-zinc-700 text-zinc-200 hover:bg-zinc-700'
+                    }`}
                     title="Download item list as CSV spreadsheet"
                   >
-                    <Download className="w-4 h-4 text-[#5B1018]" />
+                    <Download className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span>DOWNLOAD</span>
                   </button>
                 </>
               ) : (
-                <div className="text-xs font-tech px-4 py-2.5 rounded border flex items-center gap-2 bg-[#F3E7DA] text-[#4D423E] border-[#D8BFA8]">
-                  <Info className="w-4 h-4 text-[#5B1018]" />
+                <div
+                  className={`text-xs font-tech px-4 py-2.5 rounded border flex items-center gap-2 ${
+                    isLight
+                      ? 'bg-slate-100 text-slate-600 border-slate-200'
+                      : 'bg-zinc-900 text-zinc-400 border-zinc-800'
+                  }`}
+                >
+                  <Info className="w-4 h-4 text-amber-500" />
                   <span>Select items below to generate quotation</span>
                 </div>
               )}
@@ -352,22 +385,30 @@ Thank you.`;
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search & Control Filter Bar */}
-        <div className="p-4 sm:p-5 rounded border mb-6 bg-[#FAF4EE] border-[#D8BFA8] shadow-xs">
+        <div
+          className={`p-4 sm:p-5 rounded border mb-6 ${
+            isLight ? 'bg-white border-slate-200 shadow-xs' : 'bg-zinc-900 border-zinc-800'
+          }`}
+        >
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
             {/* Live Search */}
             <div className="flex-1 relative">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5A4F4B]" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search products by item name, model, product code, specifications, dimensions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-10 py-2.5 text-xs rounded border transition-colors focus:outline-none bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018]"
+                className={`w-full pl-10 pr-10 py-2.5 text-xs rounded border transition-colors focus:outline-none ${
+                  isLight
+                    ? 'bg-slate-50 border-slate-200 text-slate-900 focus:border-slate-500 focus:bg-white'
+                    : 'bg-zinc-950 border-zinc-700 text-white focus:border-zinc-500'
+                }`}
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5A4F4B] hover:text-[#292321]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white"
                   title="Clear search"
                 >
                   <X className="w-4 h-4" />
@@ -381,8 +422,12 @@ Thank you.`;
                 onClick={() => setShowOnlySelected(false)}
                 className={`px-3 py-2 text-xs font-tech font-bold rounded transition-colors ${
                   !showOnlySelected
-                    ? 'bg-[#292321] text-[#F3E7DA]'
-                    : 'bg-[#F3E7DA] text-[#4D423E] border border-[#D8BFA8] hover:bg-[#E9D9C8]'
+                    ? isLight
+                      ? 'bg-slate-900 text-white'
+                      : 'bg-white text-zinc-950'
+                    : isLight
+                    ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
                 }`}
               >
                 All Products ({products.length})
@@ -392,16 +437,20 @@ Thank you.`;
                 onClick={() => setShowOnlySelected(true)}
                 className={`px-3 py-2 text-xs font-tech font-bold rounded flex items-center gap-1.5 transition-colors ${
                   showOnlySelected
-                    ? 'bg-[#5B1018] text-[#F3E7DA]'
-                    : 'bg-[#F3E7DA] text-[#4D423E] border border-[#D8BFA8] hover:bg-[#E9D9C8]'
+                    ? isLight
+                      ? 'bg-amber-500 text-slate-950'
+                      : 'bg-amber-400 text-slate-950'
+                    : isLight
+                    ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
                 }`}
               >
                 <span>Selected Items</span>
                 <span
-                  className={`px-1.5 py-0.2 rounded text-[10px] tabular-nums ${
+                  className={`px-1.5 py-0.2 rounded text-[10px] ${
                     selectedCount > 0
-                      ? 'bg-[#D8BFA8] text-[#292321] font-extrabold'
-                      : 'bg-[#E9D9C8] text-[#4D423E]'
+                      ? 'bg-amber-500 text-black font-extrabold'
+                      : 'bg-slate-300 dark:bg-zinc-700 text-slate-700 dark:text-zinc-300'
                   }`}
                 >
                   {selectedCount}
@@ -411,7 +460,7 @@ Thank you.`;
               {selectedCount > 0 && (
                 <button
                   onClick={handleClearSelection}
-                  className="px-2.5 py-2 text-xs font-tech text-[#5B1018] hover:underline transition-colors flex items-center gap-1"
+                  className="px-2.5 py-2 text-xs font-tech text-rose-600 hover:text-rose-700 hover:underline transition-colors flex items-center gap-1"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Clear All</span>
@@ -421,14 +470,18 @@ Thank you.`;
           </div>
         </div>
 
-        {/* Product Items Table */}
-        <div className="rounded border overflow-hidden bg-[#FAF4EE] border-[#D8BFA8] shadow-sm">
+        {/* Product Items Table (Without Prices, Category, Discount, or individual Action buttons) */}
+        <div
+          className={`rounded border overflow-hidden ${
+            isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-zinc-900 border-zinc-800'
+          }`}
+        >
           {/* Table Action Header */}
-          <div className="p-4 border-b border-[#D8BFA8] flex flex-wrap items-center justify-between gap-3 bg-[#E9D9C8]/50">
+          <div className="p-4 border-b flex flex-wrap items-center justify-between gap-3 bg-slate-50/80 dark:bg-zinc-800/50">
             <div className="flex items-center gap-3">
               <button
                 onClick={handleSelectAll}
-                className="text-xs font-tech font-bold text-[#292321] hover:text-[#5B1018] flex items-center gap-1.5"
+                className="text-xs font-tech font-bold text-slate-700 dark:text-zinc-200 hover:text-amber-600 dark:hover:text-amber-400 flex items-center gap-1.5"
               >
                 <input
                   type="checkbox"
@@ -437,7 +490,7 @@ Thank you.`;
                     filteredProducts.every((p) => Boolean(selectedItems[p.id]))
                   }
                   onChange={handleSelectAll}
-                  className="accent-[#5B1018] rounded cursor-pointer w-4 h-4"
+                  className="accent-amber-500 rounded cursor-pointer w-4 h-4"
                 />
                 <span>
                   {filteredProducts.length > 0 &&
@@ -447,21 +500,21 @@ Thank you.`;
                 </span>
               </button>
 
-              <span className="text-[#D8BFA8]">|</span>
+              <span className="text-slate-300 dark:text-zinc-700">|</span>
 
-              <span className="text-xs text-[#5A4F4B] font-tech tabular-nums">
+              <span className="text-xs text-slate-500 dark:text-zinc-400 font-tech">
                 Showing {filteredProducts.length} items
               </span>
             </div>
 
             {selectedCount > 0 && (
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-[#5B1018] font-tech tabular-nums">
+                <span className="text-xs font-bold text-amber-600 dark:text-amber-400 font-tech">
                   {selectedCount} item{selectedCount > 1 ? 's' : ''} selected ({totalUnits} total unit{totalUnits > 1 ? 's' : ''})
                 </span>
                 <button
                   onClick={() => setQuoteModalOpen(true)}
-                  className="px-3 py-1 text-xs font-tech font-bold rounded bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] transition-colors flex items-center gap-1"
+                  className="px-3 py-1 text-xs font-tech font-bold rounded bg-amber-500 hover:bg-amber-400 text-slate-950 transition-colors flex items-center gap-1"
                 >
                   <Send className="w-3 h-3" />
                   <span>Get Quotation</span>
@@ -473,11 +526,15 @@ Thank you.`;
           {/* Table Container */}
           {filteredProducts.length === 0 ? (
             <div className="p-12 text-center">
-              <ClipboardList className="w-12 h-12 mx-auto text-[#B8B8B3] mb-3" />
-              <h3 className="text-base font-bold font-tech uppercase mb-1 text-[#292321]">
+              <ClipboardList className="w-12 h-12 mx-auto text-slate-400 mb-3 opacity-40" />
+              <h3
+                className={`text-base font-bold font-tech uppercase mb-1 ${
+                  isLight ? 'text-slate-800' : 'text-zinc-200'
+                }`}
+              >
                 No Matching Products Found
               </h3>
-              <p className="text-xs text-[#5A4F4B] max-w-sm mx-auto mb-4">
+              <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4">
                 {showOnlySelected
                   ? "You haven't selected any products yet. Switch back to 'All Products' to start selecting items for your quotation."
                   : 'Try searching with a different product name, model code, or keyword.'}
@@ -485,7 +542,7 @@ Thank you.`;
               {showOnlySelected && (
                 <button
                   onClick={() => setShowOnlySelected(false)}
-                  className="px-4 py-2 text-xs font-tech font-bold rounded bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] transition-colors"
+                  className="px-4 py-2 text-xs font-tech font-bold rounded bg-slate-900 text-white hover:bg-slate-800 transition-colors"
                 >
                   Show All Products
                 </button>
@@ -495,7 +552,13 @@ Thank you.`;
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="border-b font-tech uppercase text-[11px] tracking-wider bg-[#E9D9C8] text-[#292321] border-[#D8BFA8]">
+                  <tr
+                    className={`border-b font-tech uppercase text-[11px] tracking-wider ${
+                      isLight
+                        ? 'bg-slate-100/90 text-slate-700 border-slate-200'
+                        : 'bg-zinc-800/90 text-zinc-300 border-zinc-700'
+                    }`}
+                  >
                     <th className="p-3.5 w-12 text-center">
                       <span className="sr-only">Select</span>
                     </th>
@@ -505,7 +568,7 @@ Thank you.`;
                     <th className="p-3.5 w-36 text-center whitespace-nowrap">Quotation Qty</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#D8BFA8]/60 bg-white">
+                <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
                   {filteredProducts.map((product) => {
                     const isSelected = Boolean(selectedItems[product.id]);
                     const quantity = selectedItems[product.id] || 1;
@@ -514,6 +577,7 @@ Thank you.`;
                       <tr
                         key={product.id}
                         onClick={(e) => {
+                          // Prevent toggling if clicked on quantity controls or input
                           const target = e.target as HTMLElement;
                           if (
                             target.tagName === 'BUTTON' ||
@@ -527,8 +591,12 @@ Thank you.`;
                         }}
                         className={`cursor-pointer transition-colors ${
                           isSelected
-                            ? 'bg-[#5B1018]/10 hover:bg-[#5B1018]/15'
-                            : 'hover:bg-[#FAF4EE]'
+                            ? isLight
+                              ? 'bg-amber-50/70 hover:bg-amber-50'
+                              : 'bg-amber-950/25 hover:bg-amber-950/35'
+                            : isLight
+                            ? 'hover:bg-slate-50'
+                            : 'hover:bg-zinc-800/40'
                         }`}
                       >
                         {/* Checkbox */}
@@ -537,7 +605,7 @@ Thank you.`;
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleSelectItem(product.id)}
-                            className="accent-[#5B1018] rounded cursor-pointer w-4 h-4"
+                            className="accent-amber-500 rounded cursor-pointer w-4 h-4"
                             aria-label={`Select ${product.name}`}
                           />
                         </td>
@@ -551,21 +619,25 @@ Thank you.`;
                                 e.stopPropagation();
                                 setSelectedProductForDetail(product);
                               }}
-                              className="w-14 h-14 shrink-0 rounded overflow-hidden border flex items-center justify-center relative group cursor-pointer bg-[#FAF4EE] border-[#D8BFA8]"
+                              className={`w-14 h-14 shrink-0 rounded overflow-hidden border flex items-center justify-center relative group cursor-pointer ${
+                                isLight
+                                  ? 'bg-slate-100 border-slate-200'
+                                  : 'bg-zinc-800 border-zinc-700'
+                              }`}
                               title="Click to view full product details"
                             >
                               {product.mainImage ? (
                                 <img
                                   src={product.mainImage}
                                   alt={product.name}
-                                  className="w-full h-full object-contain p-1 object-center group-hover:scale-105 transition-transform duration-200"
+                                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-200"
                                   loading="lazy"
                                 />
                               ) : (
-                                <Layers className="w-5 h-5 text-[#B8B8B3] group-hover:scale-110 transition-transform" />
+                                <Layers className="w-5 h-5 text-slate-400 group-hover:scale-110 transition-transform" />
                               )}
-                              <div className="absolute inset-0 bg-[#292321]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <Eye className="w-4 h-4 text-[#F3E7DA]" />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <Eye className="w-4 h-4 text-white" />
                               </div>
                             </div>
 
@@ -577,15 +649,17 @@ Thank you.`;
                                     e.stopPropagation();
                                     setSelectedProductForDetail(product);
                                   }}
-                                  className="font-bold hover:underline cursor-pointer leading-snug text-xs sm:text-sm text-[#292321] hover:text-[#5B1018]"
+                                  className={`font-bold hover:underline cursor-pointer leading-snug text-xs sm:text-sm ${
+                                    isLight ? 'text-slate-900' : 'text-white'
+                                  }`}
                                 >
                                   {product.name}
                                 </span>
                               </div>
 
-                              <div className="text-[11px] text-[#5A4F4B] flex flex-wrap items-center gap-2">
+                              <div className="text-[11px] text-slate-500 dark:text-zinc-400 flex flex-wrap items-center gap-2">
                                 {product.model && (
-                                  <span className="font-tech font-semibold text-[#4D423E]">
+                                  <span className="font-tech font-semibold text-slate-700 dark:text-zinc-300">
                                     Model: {product.model}
                                   </span>
                                 )}
@@ -595,7 +669,7 @@ Thank you.`;
                               </div>
 
                               {product.shortDescription && (
-                                <p className="text-[11px] text-[#5A4F4B] line-clamp-1 mt-0.5">
+                                <p className="text-[11px] text-slate-400 dark:text-zinc-500 line-clamp-1 mt-0.5">
                                   {product.shortDescription}
                                 </p>
                               )}
@@ -605,7 +679,13 @@ Thank you.`;
 
                         {/* Product Code */}
                         <td className="p-3.5 whitespace-nowrap">
-                          <span className="font-mono text-xs font-bold px-2.5 py-1 rounded border inline-block bg-[#FAF4EE] text-[#292321] border-[#D8BFA8]">
+                          <span
+                            className={`font-mono text-xs font-bold px-2.5 py-1 rounded border inline-block ${
+                              isLight
+                                ? 'bg-slate-100 text-slate-800 border-slate-200'
+                                : 'bg-zinc-800 text-zinc-200 border-zinc-700'
+                            }`}
+                          >
                             {product.productCode}
                           </span>
                         </td>
@@ -614,8 +694,8 @@ Thank you.`;
                         <td className="p-3.5">
                           <div className="space-y-1 text-[11px]">
                             {product.specifications?.dimensions && (
-                              <div className="font-tech text-[#292321]">
-                                <span className="text-[#5A4F4B] font-normal">Dims: </span>
+                              <div className="font-tech text-slate-700 dark:text-zinc-300">
+                                <span className="text-slate-400 font-normal">Dims: </span>
                                 <span className="font-semibold">
                                   {product.specifications.dimensions}
                                 </span>
@@ -623,22 +703,22 @@ Thank you.`;
                             )}
 
                             {product.specifications?.material && (
-                              <div className="text-[#4D423E] font-tech">
-                                <span className="text-[#5A4F4B]">Material: </span>
+                              <div className="text-slate-600 dark:text-zinc-400 font-tech">
+                                <span className="text-slate-400">Material: </span>
                                 <span>{product.specifications.material}</span>
                               </div>
                             )}
 
                             {product.specifications?.capacity && (
-                              <div className="text-[#4D423E] font-tech">
-                                <span className="text-[#5A4F4B]">Capacity: </span>
+                              <div className="text-slate-600 dark:text-zinc-400 font-tech">
+                                <span className="text-slate-400">Capacity: </span>
                                 <span>{product.specifications.capacity}</span>
                               </div>
                             )}
 
                             {product.specifications?.power && (
-                              <div className="text-[#4D423E] font-tech">
-                                <span className="text-[#5A4F4B]">Power: </span>
+                              <div className="text-slate-600 dark:text-zinc-400 font-tech">
+                                <span className="text-slate-400">Power: </span>
                                 <span>{product.specifications.power}</span>
                               </div>
                             )}
@@ -646,7 +726,7 @@ Thank you.`;
                             {!product.specifications?.dimensions &&
                               !product.specifications?.material &&
                               !product.specifications?.capacity && (
-                                <span className="text-[#5A4F4B] italic">
+                                <span className="text-slate-400 italic">
                                   Standard commercial stainless steel specifications
                                 </span>
                               )}
@@ -659,11 +739,11 @@ Thank you.`;
                           onClick={(e) => e.stopPropagation()}
                         >
                           {isSelected ? (
-                            <div className="inline-flex items-center rounded border border-[#5B1018] bg-[#FAF4EE] shadow-xs overflow-hidden">
+                            <div className="inline-flex items-center rounded border border-amber-400 bg-white dark:bg-zinc-900 shadow-xs overflow-hidden">
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(product.id, -1)}
-                                className="px-2 py-1 text-[#292321] hover:bg-[#E9D9C8] transition-colors"
+                                className="px-2 py-1 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
                                 title="Decrease quantity"
                               >
                                 <Minus className="w-3 h-3" />
@@ -676,12 +756,12 @@ Thank you.`;
                                 onChange={(e) =>
                                   setExplicitQuantity(product.id, parseInt(e.target.value, 10))
                                 }
-                                className="w-12 text-center text-xs font-tech font-bold bg-transparent text-[#292321] focus:outline-none border-x border-[#D8BFA8] py-1 tabular-nums"
+                                className="w-12 text-center text-xs font-tech font-bold bg-transparent text-slate-900 dark:text-white focus:outline-none border-x border-amber-200 dark:border-zinc-700 py-1"
                               />
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(product.id, 1)}
-                                className="px-2 py-1 text-[#292321] hover:bg-[#E9D9C8] transition-colors"
+                                className="px-2 py-1 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
                                 title="Increase quantity"
                               >
                                 <Plus className="w-3 h-3" />
@@ -691,7 +771,11 @@ Thank you.`;
                             <button
                               type="button"
                               onClick={() => toggleSelectItem(product.id)}
-                              className="px-3 py-1.5 text-[11px] font-tech font-bold uppercase rounded border transition-colors bg-[#FAF4EE] hover:bg-[#5B1018] hover:text-[#F3E7DA] text-[#292321] border-[#D8BFA8]"
+                              className={`px-3 py-1.5 text-[11px] font-tech font-bold uppercase rounded border transition-colors ${
+                                isLight
+                                  ? 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-300'
+                                  : 'bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 border-zinc-700'
+                              }`}
                             >
                               + Select
                             </button>
@@ -706,7 +790,7 @@ Thank you.`;
           )}
 
           {/* Table Footer Notice */}
-          <div className="p-4 border-t border-[#D8BFA8] bg-[#E9D9C8]/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-tech text-[#5A4F4B]">
+          <div className="p-4 border-t bg-slate-50/80 dark:bg-zinc-800/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-tech text-slate-500">
             <div>
               * Official manufacturer quotation with customized freight, GST invoicing, and volume terms will be provided upon submission.
             </div>
@@ -721,21 +805,21 @@ Thank you.`;
 
       {/* Floating Sticky Bottom Bar when items are selected */}
       {selectedCount > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 p-3 sm:p-4 bg-[#FAF4EE]/95 backdrop-blur-md border-t border-[#D8BFA8] shadow-2xl animate-in slide-in-from-bottom duration-200">
+        <div className="fixed bottom-0 left-0 right-0 z-40 p-3 sm:p-4 bg-white/95 dark:bg-[#0e1115]/95 backdrop-blur-md border-t border-slate-200 dark:border-white/10 shadow-2xl animate-in slide-in-from-bottom duration-200">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             {/* Selected Count & Preview */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#5B1018]/10 border border-[#5B1018]/30 flex items-center justify-center text-[#5B1018] font-bold">
+              <div className="w-10 h-10 rounded-full bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <div>
-                <div className="font-extrabold text-sm sm:text-base text-[#292321] flex items-center gap-2 tabular-nums">
+                <div className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2">
                   <span>{selectedCount} Products Selected</span>
-                  <span className="text-xs font-normal text-[#5A4F4B]">
+                  <span className="text-xs font-normal text-slate-500">
                     ({totalUnits} units total)
                   </span>
                 </div>
-                <div className="text-[11px] text-[#5A4F4B] font-tech">
+                <div className="text-[11px] text-slate-500 dark:text-zinc-400 font-tech">
                   Ready to generate quotation via Email, WhatsApp, or Download.
                 </div>
               </div>
@@ -745,16 +829,20 @@ Thank you.`;
             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
               <button
                 onClick={handleDirectMailQuotation}
-                className="flex-1 sm:flex-initial px-3.5 py-2 text-xs font-tech font-bold uppercase rounded border flex items-center justify-center gap-1.5 transition-colors bg-white border-[#D8BFA8] text-[#292321] hover:bg-[#E9D9C8] shadow-xs"
+                className={`flex-1 sm:flex-initial px-3.5 py-2 text-xs font-tech font-bold uppercase rounded border flex items-center justify-center gap-1.5 transition-colors ${
+                  isLight
+                    ? 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-xs'
+                    : 'bg-zinc-800 border-zinc-700 text-zinc-200 hover:bg-zinc-700'
+                }`}
                 title="Send quotation request via your email application"
               >
-                <Mail className="w-3.5 h-3.5 text-[#5B1018]" />
+                <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>Mail Quotation</span>
               </button>
 
               <button
                 onClick={handleWhatsAppQuotation}
-                className="flex-1 sm:flex-initial px-3.5 py-2 text-xs font-tech font-bold uppercase rounded border border-[#292321] bg-[#292321] text-[#F3E7DA] hover:bg-[#5B1018] hover:border-[#5B1018] transition-colors flex items-center justify-center gap-1.5"
+                className="flex-1 sm:flex-initial px-3.5 py-2 text-xs font-tech font-bold uppercase rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-600 hover:text-white transition-colors flex items-center justify-center gap-1.5"
                 title="Send quotation request via WhatsApp"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
@@ -763,7 +851,7 @@ Thank you.`;
 
               <button
                 onClick={() => setQuoteModalOpen(true)}
-                className="flex-1 sm:flex-initial px-5 py-2 text-xs font-tech font-bold uppercase tracking-wider rounded bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] shadow-md transition-all flex items-center justify-center gap-1.5 active:scale-95"
+                className="flex-1 sm:flex-initial px-5 py-2 text-xs font-tech font-bold uppercase tracking-wider rounded bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-md transition-all flex items-center justify-center gap-1.5 active:scale-95"
               >
                 <FileText className="w-4 h-4" />
                 <span>Get Quotation Now</span>
@@ -776,19 +864,29 @@ Thank you.`;
 
       {/* Interactive Quotation Review & Dispatch Modal */}
       {quoteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#292321]/80 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="rounded-sm max-w-3xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[92vh] overflow-y-auto border transition-colors bg-[#FAF4EE] border-[#D8BFA8] text-[#292321]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div
+            className={`rounded-sm max-w-3xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[92vh] overflow-y-auto border transition-colors ${
+              isLight
+                ? 'bg-white border-slate-200 text-slate-800'
+                : 'bg-[#0e1115] border-white/20 text-zinc-200'
+            }`}
+          >
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#D8BFA8]">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-white/10">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded bg-[#5B1018]/10 text-[#5B1018] border border-[#5B1018]/25">
+                <div className="p-1.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[#292321]">
+                  <h3
+                    className={`text-lg sm:text-xl font-black uppercase tracking-tight ${
+                      isLight ? 'text-slate-950' : 'text-white'
+                    }`}
+                  >
                     Official Quotation Request
                   </h3>
-                  <div className="text-[11px] font-mono text-[#5A4F4B]">
+                  <div className="text-[11px] font-mono text-slate-500">
                     Ref: {quotationRefNumber} • {new Date().toLocaleDateString('en-IN')}
                   </div>
                 </div>
@@ -796,7 +894,7 @@ Thank you.`;
 
               <button
                 onClick={() => setQuoteModalOpen(false)}
-                className="p-1.5 rounded-sm hover:bg-[#E9D9C8] text-[#5A4F4B] hover:text-[#292321] transition-colors"
+                className="p-1.5 rounded-sm hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -805,26 +903,30 @@ Thank you.`;
 
             {quoteSentSuccess ? (
               <div className="py-10 text-center space-y-4">
-                <div className="w-16 h-16 mx-auto rounded-full bg-[#5B1018]/10 text-[#5B1018] flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center">
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
-                <h4 className="text-xl font-bold uppercase text-[#292321]">
+                <h4
+                  className={`text-xl font-bold uppercase ${
+                    isLight ? 'text-slate-900' : 'text-white'
+                  }`}
+                >
                   Quotation Request Prepared!
                 </h4>
-                <p className="text-xs text-[#4D423E] max-w-md mx-auto">
+                <p className="text-xs text-slate-500 max-w-md mx-auto">
                   Your quotation inquiry for {selectedCount} items ({totalUnits} units) has been compiled. Our commercial sales engineering desk will contact you with wholesale pricing and technical sheets.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
                   <button
                     onClick={handleDirectMailQuotation}
-                    className="px-4 py-2 text-xs font-tech font-bold rounded bg-[#292321] text-[#F3E7DA] hover:bg-[#5B1018] transition-colors flex items-center gap-2"
+                    className="px-4 py-2 text-xs font-tech font-bold rounded bg-slate-900 text-white hover:bg-slate-800 transition-colors flex items-center gap-2"
                   >
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-4 h-4 text-blue-400" />
                     <span>Open in Email App</span>
                   </button>
                   <button
                     onClick={handleWhatsAppQuotation}
-                    className="px-4 py-2 text-xs font-tech font-bold rounded bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] transition-colors flex items-center gap-2"
+                    className="px-4 py-2 text-xs font-tech font-bold rounded bg-emerald-600 text-white hover:bg-emerald-700 transition-colors flex items-center gap-2"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span>Send via WhatsApp</span>
@@ -834,7 +936,7 @@ Thank you.`;
                       setQuoteSentSuccess(false);
                       setQuoteModalOpen(false);
                     }}
-                    className="px-4 py-2 text-xs font-tech font-bold rounded border border-[#D8BFA8] bg-[#F3E7DA] text-[#292321] hover:bg-[#E9D9C8] transition-colors"
+                    className="px-4 py-2 text-xs font-tech font-bold rounded border border-slate-300 dark:border-zinc-700 transition-colors"
                   >
                     Close
                   </button>
@@ -845,16 +947,16 @@ Thank you.`;
                 {/* Selected Products Table Preview */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#5A4F4B] tabular-nums">
+                    <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-slate-500">
                       Selected Items ({selectedCount} items, {totalUnits} units)
                     </span>
                     <button
                       onClick={handleCopyQuotation}
-                      className="text-xs font-tech text-[#5B1018] hover:underline flex items-center gap-1 font-semibold"
+                      className="text-xs font-tech text-amber-600 hover:text-amber-700 flex items-center gap-1 font-semibold"
                     >
                       {copiedSummary ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-[#5B1018]" />
+                          <Check className="w-3.5 h-3.5 text-emerald-600" />
                           <span>Copied to Clipboard!</span>
                         </>
                       ) : (
@@ -866,31 +968,41 @@ Thank you.`;
                     </button>
                   </div>
 
-                  <div className="rounded border max-h-56 overflow-y-auto bg-white border-[#D8BFA8]">
+                  <div
+                    className={`rounded border max-h-56 overflow-y-auto ${
+                      isLight ? 'bg-slate-50 border-slate-200' : 'bg-zinc-950 border-zinc-800'
+                    }`}
+                  >
                     <table className="w-full text-left text-xs">
                       <thead>
-                        <tr className="border-b text-[10px] font-tech uppercase bg-[#E9D9C8] text-[#292321] border-[#D8BFA8]">
+                        <tr
+                          className={`border-b text-[10px] font-tech uppercase ${
+                            isLight
+                              ? 'bg-slate-100 text-slate-600 border-slate-200'
+                              : 'bg-zinc-900 text-zinc-400 border-zinc-800'
+                          }`}
+                        >
                           <th className="p-2.5">Item</th>
                           <th className="p-2.5">Code</th>
                           <th className="p-2.5">Specs</th>
                           <th className="p-2.5 text-center">Qty</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#D8BFA8]/60">
+                      <tbody className="divide-y divide-slate-200 dark:divide-zinc-800/80">
                         {selectedProductList.map((item, idx) => (
                           <tr key={item.product.id}>
-                            <td className="p-2.5 font-bold text-[#292321]">
+                            <td className="p-2.5 font-bold text-slate-900 dark:text-zinc-100">
                               {idx + 1}. {item.product.name}
                             </td>
-                            <td className="p-2.5 font-mono text-[11px] text-[#5A4F4B]">
+                            <td className="p-2.5 font-mono text-[11px] text-slate-500">
                               {item.product.productCode}
                             </td>
-                            <td className="p-2.5 text-[11px] text-[#4D423E] line-clamp-1">
+                            <td className="p-2.5 text-[11px] text-slate-500 line-clamp-1">
                               {item.product.specifications?.dimensions ||
                                 item.product.model ||
                                 'Standard'}
                             </td>
-                            <td className="p-2.5 text-center font-bold font-tech text-[#5B1018] tabular-nums">
+                            <td className="p-2.5 text-center font-bold font-tech text-amber-600 dark:text-amber-400">
                               {item.quantity}
                             </td>
                           </tr>
@@ -902,12 +1014,12 @@ Thank you.`;
 
                 {/* Customer Details Form */}
                 <div>
-                  <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#5A4F4B] block mb-2">
+                  <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-slate-500 block mb-2">
                     Your Contact Details (Optional for Direct Inquiries)
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-[#5A4F4B] mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-slate-400 mb-1">
                         Your Name
                       </label>
                       <input
@@ -917,12 +1029,16 @@ Thank you.`;
                         onChange={(e) =>
                           setClientDetails({ ...clientDetails, name: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded border focus:outline-none bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018]"
+                        className={`w-full px-3 py-2 rounded border focus:outline-none ${
+                          isLight
+                            ? 'bg-white border-slate-200 focus:border-slate-500'
+                            : 'bg-zinc-950 border-zinc-700 focus:border-zinc-500'
+                        }`}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-[#5A4F4B] mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-slate-400 mb-1">
                         Company / Hotel / Restaurant Name
                       </label>
                       <input
@@ -932,12 +1048,16 @@ Thank you.`;
                         onChange={(e) =>
                           setClientDetails({ ...clientDetails, company: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded border focus:outline-none bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018]"
+                        className={`w-full px-3 py-2 rounded border focus:outline-none ${
+                          isLight
+                            ? 'bg-white border-slate-200 focus:border-slate-500'
+                            : 'bg-zinc-950 border-zinc-700 focus:border-zinc-500'
+                        }`}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-[#5A4F4B] mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-slate-400 mb-1">
                         Phone / Mobile
                       </label>
                       <input
@@ -947,12 +1067,16 @@ Thank you.`;
                         onChange={(e) =>
                           setClientDetails({ ...clientDetails, phone: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded border focus:outline-none bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018]"
+                        className={`w-full px-3 py-2 rounded border focus:outline-none ${
+                          isLight
+                            ? 'bg-white border-slate-200 focus:border-slate-500'
+                            : 'bg-zinc-950 border-zinc-700 focus:border-zinc-500'
+                        }`}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-[#5A4F4B] mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-slate-400 mb-1">
                         Email Address
                       </label>
                       <input
@@ -962,12 +1086,16 @@ Thank you.`;
                         onChange={(e) =>
                           setClientDetails({ ...clientDetails, email: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded border focus:outline-none bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018]"
+                        className={`w-full px-3 py-2 rounded border focus:outline-none ${
+                          isLight
+                            ? 'bg-white border-slate-200 focus:border-slate-500'
+                            : 'bg-zinc-950 border-zinc-700 focus:border-zinc-500'
+                        }`}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-[#5A4F4B] mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-slate-400 mb-1">
                         City / Delivery State
                       </label>
                       <input
@@ -977,12 +1105,16 @@ Thank you.`;
                         onChange={(e) =>
                           setClientDetails({ ...clientDetails, city: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded border focus:outline-none bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018]"
+                        className={`w-full px-3 py-2 rounded border focus:outline-none ${
+                          isLight
+                            ? 'bg-white border-slate-200 focus:border-slate-500'
+                            : 'bg-zinc-950 border-zinc-700 focus:border-zinc-500'
+                        }`}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-tech uppercase text-[#5A4F4B] mb-1">
+                      <label className="block text-[10px] font-tech uppercase text-slate-400 mb-1">
                         Custom Specifications / Remarks
                       </label>
                       <input
@@ -992,15 +1124,19 @@ Thank you.`;
                         onChange={(e) =>
                           setClientDetails({ ...clientDetails, notes: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded border focus:outline-none bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018]"
+                        className={`w-full px-3 py-2 rounded border focus:outline-none ${
+                          isLight
+                            ? 'bg-white border-slate-200 focus:border-slate-500'
+                            : 'bg-zinc-950 border-zinc-700 focus:border-zinc-500'
+                        }`}
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Primary Action Dispatch Buttons */}
-                <div className="pt-4 border-t border-[#D8BFA8] space-y-3">
-                  <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#5A4F4B] block">
+                <div className="pt-4 border-t border-slate-200 dark:border-white/10 space-y-3">
+                  <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-slate-500 block">
                     Choose How You Would Like to Get or Send Your Quotation:
                   </span>
 
@@ -1008,11 +1144,11 @@ Thank you.`;
                     {/* Option 1: Mail Quotation */}
                     <button
                       onClick={handleDirectMailQuotation}
-                      className="p-3.5 rounded border border-[#D8BFA8] bg-[#F3E7DA] hover:bg-[#E9D9C8] text-[#292321] font-tech font-bold text-xs uppercase flex flex-col items-center justify-center gap-1.5 transition-all active:scale-95"
+                      className="p-3.5 rounded border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-700 dark:text-blue-300 font-tech font-bold text-xs uppercase flex flex-col items-center justify-center gap-1.5 transition-all active:scale-95"
                     >
-                      <Mail className="w-5 h-5 text-[#5B1018]" />
+                      <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                       <span>Mail Quotation Request</span>
-                      <span className="text-[10px] font-normal text-[#5A4F4B]">
+                      <span className="text-[10px] font-normal opacity-80">
                         To: {brand.email}
                       </span>
                     </button>
@@ -1020,9 +1156,9 @@ Thank you.`;
                     {/* Option 2: WhatsApp Quotation */}
                     <button
                       onClick={handleWhatsAppQuotation}
-                      className="p-3.5 rounded border border-[#5B1018] bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] font-tech font-bold text-xs uppercase flex flex-col items-center justify-center gap-1.5 transition-all active:scale-95"
+                      className="p-3.5 rounded border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-tech font-bold text-xs uppercase flex flex-col items-center justify-center gap-1.5 transition-all active:scale-95"
                     >
-                      <MessageSquare className="w-5 h-5" />
+                      <MessageSquare className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                       <span>Send via WhatsApp</span>
                       <span className="text-[10px] font-normal opacity-80">
                         Direct to Sales Team
@@ -1032,11 +1168,15 @@ Thank you.`;
                     {/* Option 3: Download / Print Quotation Sheet */}
                     <button
                       onClick={handleDownloadCsv}
-                      className="p-3.5 rounded border font-tech font-bold text-xs uppercase flex flex-col items-center justify-center gap-1.5 transition-all active:scale-95 border-[#D8BFA8] bg-white hover:bg-[#E9D9C8] text-[#292321]"
+                      className={`p-3.5 rounded border font-tech font-bold text-xs uppercase flex flex-col items-center justify-center gap-1.5 transition-all active:scale-95 ${
+                        isLight
+                          ? 'border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800'
+                          : 'border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-200'
+                      }`}
                     >
-                      <Download className="w-5 h-5 text-[#5B1018]" />
+                      <Download className="w-5 h-5 text-amber-500" />
                       <span>Download Quotation</span>
-                      <span className="text-[10px] font-normal text-[#5A4F4B]">
+                      <span className="text-[10px] font-normal opacity-80">
                         CSV / Spreadsheet File
                       </span>
                     </button>
@@ -1045,7 +1185,7 @@ Thank you.`;
                   <div className="flex items-center justify-between pt-2">
                     <button
                       onClick={handlePrintQuotation}
-                      className="text-xs font-tech text-[#5A4F4B] hover:text-[#292321] flex items-center gap-1"
+                      className="text-xs font-tech text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center gap-1"
                     >
                       <Printer className="w-3.5 h-3.5" />
                       <span>Print Quotation Sheet</span>
@@ -1053,7 +1193,7 @@ Thank you.`;
 
                     <button
                       onClick={() => setQuoteSentSuccess(true)}
-                      className="px-4 py-2 text-xs font-tech font-bold rounded bg-[#292321] text-[#F3E7DA] hover:bg-[#5B1018] transition-colors"
+                      className="px-4 py-2 text-xs font-tech font-bold rounded bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-zinc-950 transition-colors"
                     >
                       Submit In-App Request
                     </button>

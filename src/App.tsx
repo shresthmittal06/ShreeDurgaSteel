@@ -35,9 +35,12 @@ const MainLayout: React.FC = () => {
   const {
     activePage,
     brand,
+    themeMode,
     selectedProductForDetail,
     goBack,
   } = useContent();
+
+  const isLight = themeMode === 'light';
 
   // Keep dynamic document title in sync with brand name
   useEffect(() => {
@@ -45,7 +48,13 @@ const MainLayout: React.FC = () => {
   }, [brand.brandName]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F3E7DA] text-[#292321] selection:bg-[#5B1018] selection:text-[#F3E7DA]">
+    <div
+      className={`min-h-screen flex flex-col transition-colors duration-200 ${
+        isLight
+          ? 'bg-slate-50 text-slate-900 selection:bg-slate-900 selection:text-white'
+          : 'bg-[#0a0c0f] text-zinc-100 selection:bg-white selection:text-zinc-950'
+      }`}
+    >
       {/* Top B2B Navigation */}
       <Header />
 

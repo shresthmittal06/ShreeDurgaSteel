@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useContent } from '../context/ContentContext';
 import {
   ShieldCheck,
   Eye,
@@ -115,34 +116,34 @@ export const AdminControlBar: React.FC = () => {
   return (
     <>
       {/* Sticky Top Admin Dock */}
-      <div className="bg-[#292321] text-[#F3E7DA] border-b border-[#D8BFA8]/30 px-3 sm:px-6 py-2 sticky top-0 z-50 shadow-xl backdrop-blur-md">
+      <div className="bg-slate-950 text-white border-b border-amber-500/30 px-3 sm:px-6 py-2 sticky top-0 z-50 shadow-xl backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2.5 text-xs font-tech">
           {/* User Identity & Publication Status */}
           <div className="flex flex-wrap items-center gap-2.5">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#5B1018] border border-[#D8BFA8]/30 text-[#F3E7DA] font-bold uppercase tracking-wider">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#D8BFA8]" />
-              <span>{isOwner ? 'OWNER / ADMIN' : 'EDITOR'}</span>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-500/15 border border-amber-500/30 text-amber-400 font-bold uppercase tracking-wider">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+              <span>{isOwner ? '👑 OWNER / ADMIN' : '✍️ EDITOR'}</span>
             </div>
 
-            <span className="text-[11px] text-[#D8BFA8] font-mono hidden sm:inline">
+            <span className="text-[11px] text-zinc-300 font-mono hidden sm:inline">
               {currentUser.email}
             </span>
 
             {/* Status indicator */}
             {hasUnpublishedChanges ? (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#5B1018]/80 text-[#F3E7DA] border border-[#D8BFA8]/40 text-[10px] uppercase font-bold tracking-wider">
-                <AlertTriangle className="w-3 h-3 text-[#D8BFA8]" />
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] uppercase font-bold tracking-wider animate-pulse">
+                <AlertTriangle className="w-3 h-3 text-amber-400" />
                 <span>Draft edits pending (Not published)</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#3A312E] text-[#F3E7DA] border border-[#D8BFA8]/30 text-[10px] uppercase font-bold tracking-wider">
-                <CheckCircle2 className="w-3 h-3 text-[#D8BFA8]" />
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] uppercase font-bold tracking-wider">
+                <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                 <span>Published & live</span>
               </span>
             )}
 
             {publishMessage && (
-              <span className="text-[11px] text-[#D8BFA8] font-bold ml-2">
+              <span className="text-[11px] text-emerald-400 font-bold ml-2">
                 {publishMessage}
               </span>
             )}
@@ -151,14 +152,14 @@ export const AdminControlBar: React.FC = () => {
           {/* Mode Switcher & Publishing Controls */}
           <div className="flex flex-wrap items-center gap-2">
             {/* View Mode Buttons */}
-            <div className="inline-flex items-center rounded-sm bg-[#1E1918] border border-[#D8BFA8]/25 p-0.5">
+            <div className="inline-flex items-center rounded-sm bg-zinc-900 border border-white/10 p-0.5">
               <button
                 type="button"
                 onClick={() => setAdminViewMode('edit')}
                 className={`px-2.5 py-1 rounded-xs uppercase tracking-wider font-bold text-[11px] flex items-center gap-1 transition-all ${
                   adminViewMode === 'edit'
-                    ? 'bg-[#5B1018] text-[#F3E7DA] shadow-sm'
-                    : 'text-[#D8BFA8] hover:text-white'
+                    ? 'bg-amber-500 text-slate-950 shadow-sm'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
                 title="Edit products, images, categories, and site settings"
               >
@@ -171,8 +172,8 @@ export const AdminControlBar: React.FC = () => {
                 onClick={() => setAdminViewMode('preview')}
                 className={`px-2.5 py-1 rounded-xs uppercase tracking-wider font-bold text-[11px] flex items-center gap-1 transition-all ${
                   adminViewMode === 'preview'
-                    ? 'bg-[#F3E7DA] text-[#292321] shadow-sm'
-                    : 'text-[#D8BFA8] hover:text-white'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
                 title="Preview draft website exactly as public visitors will see it without edit buttons"
               >
@@ -185,8 +186,8 @@ export const AdminControlBar: React.FC = () => {
                 onClick={() => setAdminViewMode('published')}
                 className={`px-2.5 py-1 rounded-xs uppercase tracking-wider font-bold text-[11px] flex items-center gap-1 transition-all ${
                   adminViewMode === 'published'
-                    ? 'bg-[#D8BFA8] text-[#292321] shadow-sm'
-                    : 'text-[#D8BFA8] hover:text-white'
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
                 title="View the currently published live site"
               >
@@ -201,7 +202,7 @@ export const AdminControlBar: React.FC = () => {
                 type="button"
                 onClick={handlePublish}
                 disabled={isPublishing}
-                className="px-3.5 py-1 rounded-sm bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] border border-[#D8BFA8]/30 font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5 shadow-md transition-all active:scale-95 disabled:opacity-50"
+                className="px-3.5 py-1 rounded-sm bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5 shadow-md transition-all active:scale-95 disabled:opacity-50"
                 title="Publish draft changes to live website for all visitors across all devices"
               >
                 {isPublishing ? (
@@ -218,7 +219,7 @@ export const AdminControlBar: React.FC = () => {
               <button
                 type="button"
                 onClick={handleDiscard}
-                className="px-2 py-1 rounded-sm bg-[#3A312E] hover:bg-[#4D423E] text-[#F3E7DA] font-medium text-[10px] uppercase tracking-wider border border-[#D8BFA8]/25 flex items-center gap-1 transition-colors"
+                className="px-2 py-1 rounded-sm bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white font-medium text-[10px] uppercase tracking-wider border border-white/10 flex items-center gap-1 transition-colors"
                 title="Discard pending draft changes and revert to live published version"
               >
                 <RotateCcw className="w-2.5 h-2.5" />
@@ -231,10 +232,10 @@ export const AdminControlBar: React.FC = () => {
               <button
                 type="button"
                 onClick={openUsersModal}
-                className="px-2 py-1 rounded-sm bg-[#3A312E] hover:bg-[#4D423E] text-[#F3E7DA] font-medium text-[10px] uppercase tracking-wider border border-[#D8BFA8]/25 flex items-center gap-1 transition-colors"
+                className="px-2 py-1 rounded-sm bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white font-medium text-[10px] uppercase tracking-wider border border-white/10 flex items-center gap-1 transition-colors"
                 title="Manage editor permissions"
               >
-                <Users className="w-3 h-3 text-[#D8BFA8]" />
+                <Users className="w-3 h-3 text-amber-400" />
                 <span>Permissions</span>
               </button>
             )}
@@ -243,7 +244,7 @@ export const AdminControlBar: React.FC = () => {
             <button
               type="button"
               onClick={logout}
-              className="px-2 py-1 rounded-sm bg-[#3A312E] hover:bg-[#5B1018] text-[#D8BFA8] hover:text-[#F3E7DA] font-medium text-[10px] uppercase tracking-wider border border-[#D8BFA8]/25 flex items-center gap-1 transition-colors"
+              className="px-2 py-1 rounded-sm bg-zinc-800 hover:bg-rose-950 hover:text-rose-300 text-zinc-400 font-medium text-[10px] uppercase tracking-wider border border-white/10 flex items-center gap-1 transition-colors"
               title="Sign out of Admin Portal"
             >
               <LogOut className="w-2.5 h-2.5" />
@@ -255,81 +256,81 @@ export const AdminControlBar: React.FC = () => {
 
       {/* Permissions / Users Modal */}
       {showUsersModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#292321]/75 backdrop-blur-sm animate-fade-in font-tech">
-          <div className="bg-[#FAF4EE] border border-[#D8BFA8] rounded-sm max-w-xl w-full p-6 text-[#292321] shadow-2xl relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in font-tech">
+          <div className="bg-zinc-950 border border-white/15 rounded-sm max-w-xl w-full p-6 text-white shadow-2xl relative">
             <button
               onClick={() => setShowUsersModal(false)}
-              className="absolute top-4 right-4 p-1.5 text-[#5A4F4B] hover:text-[#5B1018] transition-colors"
+              className="absolute top-4 right-4 p-1.5 text-zinc-400 hover:text-white transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-2 mb-2">
-              <ShieldCheck className="w-5 h-5 text-[#5B1018]" />
-              <h3 className="text-base font-bold uppercase tracking-wider text-[#292321]">
+              <ShieldCheck className="w-5 h-5 text-amber-400" />
+              <h3 className="text-base font-bold uppercase tracking-wider">
                 Role-Based Access Control & Editor Permissions
               </h3>
             </div>
-            <p className="text-xs text-[#4D423E] mb-6">
+            <p className="text-xs text-zinc-400 mb-6">
               Only authorized staff accounts can edit products, descriptions, or upload files. Visitors without an account have read-only access to published content.
             </p>
 
             {userMsg && (
-              <div className="p-3 mb-4 rounded bg-[#E9D9C8] border border-[#5B1018]/30 text-[#5B1018] text-xs font-bold">
+              <div className="p-3 mb-4 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-bold">
                 {userMsg}
               </div>
             )}
 
             {/* Add New Editor Form */}
-            <form onSubmit={handleCreateUser} className="p-4 bg-[#F3E7DA] border border-[#D8BFA8] rounded-sm mb-6 space-y-3">
-              <div className="text-xs font-bold uppercase tracking-wider text-[#5B1018]">
+            <form onSubmit={handleCreateUser} className="p-4 bg-zinc-900/60 border border-white/10 rounded-sm mb-6 space-y-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-amber-400">
                 Grant Editing Access to Staff / Editor
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-[10px] text-[#4D423E] uppercase mb-1">Staff Name</label>
+                  <label className="block text-[10px] text-zinc-400 uppercase mb-1">Staff Name</label>
                   <input
                     type="text"
                     placeholder="e.g. Sales Team / Content Editor"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] rounded text-xs text-[#292321] placeholder:text-[#B8B8B3] focus:outline-none focus:border-[#5B1018]"
+                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 rounded text-xs text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] text-[#4D423E] uppercase mb-1">Email Address</label>
+                  <label className="block text-[10px] text-zinc-400 uppercase mb-1">Email Address</label>
                   <input
                     type="email"
                     required
                     placeholder="editor@company.com"
                     value={newEmail}
                     onChange={(e) => setNewEmail(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] rounded text-xs text-[#292321] placeholder:text-[#B8B8B3] focus:outline-none focus:border-[#5B1018]"
+                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 rounded text-xs text-white"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-[10px] text-[#4D423E] uppercase mb-1">Role</label>
+                  <label className="block text-[10px] text-zinc-400 uppercase mb-1">Role</label>
                   <select
                     value={newRole}
                     onChange={(e) => setNewRole(e.target.value as any)}
-                    className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] rounded text-xs text-[#292321] focus:outline-none focus:border-[#5B1018]"
+                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 rounded text-xs text-white"
                   >
                     <option value="editor">Editor (Can edit drafts & photos)</option>
                     <option value="owner">Owner / Admin (Can publish & manage users)</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] text-[#4D423E] uppercase mb-1">Password or PIN</label>
+                  <label className="block text-[10px] text-zinc-400 uppercase mb-1">Password or PIN</label>
                   <input
                     type="text"
                     required
                     placeholder="Set temporary password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-white border border-[#D8BFA8] rounded text-xs text-[#292321] placeholder:text-[#B8B8B3] font-mono focus:outline-none focus:border-[#5B1018]"
+                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-white/15 rounded text-xs text-white font-mono"
                   />
                 </div>
               </div>
@@ -337,7 +338,7 @@ export const AdminControlBar: React.FC = () => {
               <div className="flex justify-end pt-1">
                 <button
                   type="submit"
-                  className="px-4 py-1.5 bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] font-bold uppercase tracking-wider text-xs rounded-sm transition-colors shadow-sm"
+                  className="px-4 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold uppercase tracking-wider text-xs rounded-sm transition-colors shadow-sm"
                 >
                   Grant Access
                 </button>
@@ -346,28 +347,24 @@ export const AdminControlBar: React.FC = () => {
 
             {/* Existing Accounts List */}
             <div className="space-y-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-[#4D423E]">
+              <div className="text-xs font-bold uppercase tracking-wider text-zinc-400">
                 Configured Authorized Accounts
               </div>
-              <div className="divide-y divide-[#D8BFA8] border border-[#D8BFA8] rounded-sm bg-white max-h-48 overflow-y-auto">
+              <div className="divide-y divide-white/10 border border-white/10 rounded-sm bg-zinc-900/40 max-h-48 overflow-y-auto">
                 {usersList.map((u, i) => (
                   <div key={i} className="p-2.5 flex items-center justify-between text-xs">
                     <div>
-                      <div className="font-bold text-[#292321] flex items-center gap-1.5">
+                      <div className="font-bold text-white flex items-center gap-1.5">
                         <span>{u.name}</span>
-                        <span
-                          className={`px-1.5 py-0.2 rounded text-[9px] uppercase font-bold ${
-                            u.role === 'owner'
-                              ? 'bg-[#5B1018] text-[#F3E7DA]'
-                              : 'bg-[#E9D9C8] text-[#292321]'
-                          }`}
-                        >
+                        <span className={`px-1.5 py-0.2 rounded text-[9px] uppercase font-bold ${
+                          u.role === 'owner' ? 'bg-amber-500 text-slate-950' : 'bg-blue-600 text-white'
+                        }`}>
                           {u.role}
                         </span>
                       </div>
-                      <div className="text-[11px] text-[#5A4F4B] font-mono">{u.email}</div>
+                      <div className="text-[11px] text-zinc-400 font-mono">{u.email}</div>
                     </div>
-                    <span className="text-[10px] text-[#5B1018] font-tech font-bold uppercase">Active</span>
+                    <span className="text-[10px] text-emerald-400 font-tech uppercase">Active</span>
                   </div>
                 ))}
               </div>
@@ -377,7 +374,7 @@ export const AdminControlBar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowUsersModal(false)}
-                className="px-4 py-2 bg-[#292321] hover:bg-[#5B1018] text-[#F3E7DA] rounded-sm text-xs uppercase tracking-wider transition-colors"
+                className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-sm text-xs uppercase tracking-wider"
               >
                 Close
               </button>

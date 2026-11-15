@@ -16,7 +16,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
       className="fixed bottom-6 right-6 z-40 flex items-center group select-none"
     >
       {/* Tooltip on hover */}
-      <span className="hidden sm:inline-block mr-3 px-3 py-1.5 bg-[#292321] border border-[#D8BFA8]/30 text-[#F3E7DA] text-[11px] font-tech uppercase tracking-wider rounded-sm shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+      <span className="hidden sm:inline-block mr-3 px-3 py-1.5 bg-[#0e1116] border border-white/15 text-white text-[11px] font-tech uppercase tracking-wider rounded-sm shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
         Direct B2B WhatsApp Desk
       </span>
 
@@ -24,7 +24,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
         href={whatsappUrl}
         target="_blank"
         rel="noreferrer"
-        className="w-13 h-13 rounded-full bg-[#5B1018] hover:bg-[#440B11] text-[#F3E7DA] flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 border border-[#D8BFA8]/40"
+        className="w-13 h-13 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 border border-emerald-400/30"
         aria-label="Chat on WhatsApp with commercial sales"
       >
         <MessageSquare className="w-6 h-6 fill-current" />

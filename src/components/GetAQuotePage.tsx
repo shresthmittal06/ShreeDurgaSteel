@@ -7,10 +7,19 @@ import {
   Send,
   CheckCircle2,
   Upload,
+  Phone,
+  Building,
+  Mail,
+  MapPin,
+  Clock,
+  Sparkles,
+  ShieldCheck,
+  ArrowRight,
 } from 'lucide-react';
 
 export const GetAQuotePage: React.FC = () => {
-  const { brand } = useContent();
+  const { brand, products, themeMode } = useContent();
+  const isLight = themeMode === 'light';
 
   const [formData, setFormData] = useState({
     name: '',
@@ -112,66 +121,86 @@ export const GetAQuotePage: React.FC = () => {
   };
 
   return (
-    <div className="pt-28 pb-24 transition-colors min-h-screen bg-[#F3E7DA] text-[#292321]">
+    <div className={`pt-28 pb-24 transition-colors min-h-screen ${isLight ? 'bg-slate-50' : 'bg-[#0a0c10]'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <TopPageBackButton currentPageTitle="B2B Procurement & Consultation" />
 
         {/* Page Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-[#5B1018] mb-4 px-3 py-1 rounded-xs bg-[#5B1018]/10 border border-[#5B1018]/25">
+          <div className="inline-flex items-center gap-2 text-[11px] font-tech font-bold uppercase tracking-[0.25em] text-amber-700 dark:text-amber-400 mb-4 px-3 py-1 rounded-xs bg-amber-500/10 border border-amber-500/20">
             <FileText className="w-3.5 h-3.5" />
             <span>B2B PROCUREMENT & PROJECT CONSULTATION</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight uppercase leading-[1.05] mb-6 text-[#292321]">
+          <h1
+            className={`text-4xl sm:text-6xl font-extrabold tracking-tight uppercase leading-[1.05] mb-6 ${
+              isLight ? 'text-[#171717]' : 'text-[#ffffff]'
+            }`}
+          >
             TELL US WHAT YOUR
             <br />
-            <span className="text-[#5B1018]">
+            <span className={isLight ? 'text-[#b45309]' : 'text-[#f59e0b]'}>
               KITCHEN NEEDS.
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg leading-relaxed font-normal text-[#4D423E]">
+          <p
+            className={`text-base sm:text-lg leading-relaxed font-normal ${
+              isLight ? 'text-[#4a4a4a]' : 'text-[#d4d4d8]'
+            }`}
+          >
             Submit your commercial kitchen equipment requirements, architectural layouts, or bespoke stainless steel manufacturing inquiries. Our technical sales cell responds with itemized B2B quotations and engineering specifications.
           </p>
         </div>
 
         {/* Confirmation State */}
         {submitted ? (
-          <div className="p-8 sm:p-14 rounded-xs border max-w-3xl bg-[#FAF4EE] border-[#D8BFA8] shadow-xl">
-            <div className="w-16 h-16 rounded-full bg-[#5B1018]/10 border border-[#5B1018]/30 flex items-center justify-center text-[#5B1018] mb-6">
+          <div
+            className={`p-8 sm:p-14 rounded-xs border max-w-3xl ${
+              isLight ? 'bg-white border-slate-200 shadow-xl' : 'bg-[#11141a] border-white/10'
+            }`}
+          >
+            <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
-            <span className="text-xs font-tech uppercase tracking-widest text-[#5B1018] font-bold block mb-2">
+            <span className="text-xs font-tech uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold block mb-2">
               ENQUIRY SUBMITTED SUCCESSFULLY • REF: {leadRef}
             </span>
 
-            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-4 text-[#292321]">
+            <h2
+              className={`text-2xl sm:text-3xl font-black uppercase tracking-tight mb-4 ${
+                isLight ? 'text-slate-950' : 'text-white'
+              }`}
+            >
               Thank You, {formData.name}.
             </h2>
 
-            <p className="text-sm sm:text-base leading-relaxed mb-8 font-normal text-[#4D423E]">
+            <p
+              className={`text-sm sm:text-base leading-relaxed mb-8 font-normal ${
+                isLight ? 'text-slate-600' : 'text-zinc-300'
+              }`}
+            >
               We have received your requirement for <strong>{formData.projectRequirement}</strong>. A dedicated technical consultant from our commercial sales team will review your specifications and get in touch shortly.
             </p>
 
-            <div className="p-6 rounded-xs bg-[#F3E7DA] border border-[#D8BFA8] mb-8 font-tech text-xs space-y-2">
+            <div className="p-6 rounded-xs bg-slate-50 dark:bg-zinc-900/60 border border-slate-200 dark:border-white/10 mb-8 font-tech text-xs space-y-2">
               <div className="flex justify-between">
-                <span className="text-[#5A4F4B]">Company:</span>
-                <span className="font-bold text-[#292321]">{formData.company || 'Individual'}</span>
+                <span className="text-slate-500 dark:text-zinc-400">Company:</span>
+                <span className="font-bold text-slate-900 dark:text-white">{formData.company || 'Individual'}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#5A4F4B]">Business Format:</span>
-                <span className="font-bold text-[#292321]">{formData.businessType}</span>
+                <span className="text-slate-500 dark:text-zinc-400">Business Format:</span>
+                <span className="font-bold text-slate-900 dark:text-white">{formData.businessType}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#5A4F4B]">Products / Scope:</span>
-                <span className="font-bold text-[#292321]">{formData.productsRequired || 'Commercial Equipment'}</span>
+                <span className="text-slate-500 dark:text-zinc-400">Products / Scope:</span>
+                <span className="font-bold text-slate-900 dark:text-white">{formData.productsRequired || 'Commercial Equipment'}</span>
               </div>
               {formData.fileName && (
                 <div className="flex justify-between">
-                  <span className="text-[#5A4F4B]">Attached Drawing:</span>
-                  <span className="font-bold text-[#5B1018]">{formData.fileName}</span>
+                  <span className="text-slate-500 dark:text-zinc-400">Attached Drawing:</span>
+                  <span className="font-bold text-amber-600 dark:text-amber-400">{formData.fileName}</span>
                 </div>
               )}
             </div>
@@ -181,7 +210,7 @@ export const GetAQuotePage: React.FC = () => {
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 font-tech text-xs font-bold uppercase tracking-[0.18em] rounded-xs bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] transition-colors flex items-center gap-2 shadow-lg"
+                className="px-8 py-4 font-tech text-xs font-bold uppercase tracking-[0.18em] rounded-xs bg-emerald-600 text-white hover:bg-emerald-500 transition-colors flex items-center gap-2 shadow-lg"
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>CONTINUE ON WHATSAPP</span>
@@ -189,7 +218,11 @@ export const GetAQuotePage: React.FC = () => {
 
               <button
                 onClick={() => setSubmitted(false)}
-                className="px-6 py-4 font-tech text-xs font-bold uppercase tracking-[0.16em] rounded-xs border transition-colors border-[#D8BFA8] text-[#292321] hover:bg-[#E9D9C8]"
+                className={`px-6 py-4 font-tech text-xs font-bold uppercase tracking-[0.16em] rounded-xs border transition-colors ${
+                  isLight
+                    ? 'border-slate-300 text-slate-800 hover:bg-slate-100'
+                    : 'border-white/20 text-white hover:bg-white/5'
+                }`}
               >
                 SUBMIT ANOTHER REQUIREMENT
               </button>
@@ -198,18 +231,29 @@ export const GetAQuotePage: React.FC = () => {
         ) : (
           /* Form Layout */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Main Form */}
+            {/* Main Form (8 Cols) */}
             <form
               onSubmit={handleSubmit}
-              className="lg:col-span-8 p-8 sm:p-12 rounded-xs border bg-[#FAF4EE] border-[#D8BFA8] shadow-md"
+              className={`lg:col-span-8 p-8 sm:p-12 rounded-xs border ${
+                isLight ? 'bg-white border-slate-200 shadow-md' : 'bg-[#11141a] border-white/10'
+              }`}
             >
-              <h3 className="text-xl font-bold uppercase tracking-tight mb-8 pb-4 border-b text-[#292321] border-[#D8BFA8]">
+              <h3
+                className={`text-xl font-bold uppercase tracking-tight mb-8 pb-4 border-b ${
+                  isLight ? 'text-slate-950 border-slate-200' : 'text-white border-white/10'
+                }`}
+              >
                 Commercial Kitchen Quotation Request
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                {/* Name */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Your Full Name *
                   </label>
                   <input
@@ -218,12 +262,21 @@ export const GetAQuotePage: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Vikram Sharma"
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
+                {/* Company Name */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Company / Establishment Name
                   </label>
                   <input
@@ -231,12 +284,21 @@ export const GetAQuotePage: React.FC = () => {
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     placeholder="e.g. The Grand Palace Hotel / Royal Sweets"
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
+                {/* Business Email */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Business Email Address *
                   </label>
                   <input
@@ -245,12 +307,21 @@ export const GetAQuotePage: React.FC = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="e.g. procurement@hotel.com"
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
+                {/* Phone */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Direct Phone Number *
                   </label>
                   <input
@@ -259,12 +330,21 @@ export const GetAQuotePage: React.FC = () => {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="e.g. +91 98200 12345"
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
+                {/* WhatsApp */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     WhatsApp Number (for instant quote)
                   </label>
                   <input
@@ -272,12 +352,21 @@ export const GetAQuotePage: React.FC = () => {
                     value={formData.whatsapp}
                     onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                     placeholder="e.g. +91 98200 12345"
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
+                {/* Location */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     City / State / Country *
                   </label>
                   <input
@@ -286,18 +375,31 @@ export const GetAQuotePage: React.FC = () => {
                     value={formData.country}
                     onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                     placeholder="e.g. Mumbai, Maharashtra, India"
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
+                {/* Business Type */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Business Type
                   </label>
                   <select
                     value={formData.businessType}
                     onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   >
                     {businessTypes.map((t) => (
                       <option key={t} value={t}>
@@ -307,14 +409,23 @@ export const GetAQuotePage: React.FC = () => {
                   </select>
                 </div>
 
+                {/* Project Scope */}
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Project Scope
                   </label>
                   <select
                     value={formData.projectRequirement}
                     onChange={(e) => setFormData({ ...formData, projectRequirement: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   >
                     {projectRequirements.map((r) => (
                       <option key={r} value={r}>
@@ -328,7 +439,11 @@ export const GetAQuotePage: React.FC = () => {
               {/* Products Required & Estimated Quantity */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Products Required (e.g. Electric Fryers, Barfi Trays, GN Pans)
                   </label>
                   <input
@@ -336,18 +451,30 @@ export const GetAQuotePage: React.FC = () => {
                     value={formData.productsRequired}
                     onChange={(e) => setFormData({ ...formData, productsRequired: e.target.value })}
                     placeholder="e.g. 2x Double Tank Fryer, 50x Barfi Tray No. 00, 20x 1/1 GN Pan"
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                  <label
+                    className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                      isLight ? 'text-slate-700' : 'text-zinc-300'
+                    }`}
+                  >
                     Estimated Quantity
                   </label>
                   <select
                     value={formData.estimatedQuantity}
                     onChange={(e) => setFormData({ ...formData, estimatedQuantity: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] focus:border-[#5B1018] focus:outline-none"
+                    className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                        : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                    }`}
                   >
                     <option value="1-5 Units">1-5 Units (Sample / Initial)</option>
                     <option value="6-20 Units">6-20 Units (Mid Volume)</option>
@@ -359,7 +486,11 @@ export const GetAQuotePage: React.FC = () => {
 
               {/* Message / Requirement Details */}
               <div className="mb-6">
-                <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                <label
+                  className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                    isLight ? 'text-slate-700' : 'text-zinc-300'
+                  }`}
+                >
                   Specific Dimensions, Power Requirements or Notes
                 </label>
                 <textarea
@@ -367,21 +498,35 @@ export const GetAQuotePage: React.FC = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Specify custom tray depths, electrical phase requirements, expected delivery timeframe, or turnkey kitchen layout details..."
-                  className="w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors bg-white border-[#D8BFA8] text-[#292321] placeholder:text-[#B8B8B3] focus:border-[#5B1018] focus:outline-none"
+                  className={`w-full px-4 py-3 rounded-xs text-sm font-sans border transition-colors ${
+                    isLight
+                      ? 'bg-slate-50 border-slate-300 text-slate-950 focus:border-slate-900'
+                      : 'bg-zinc-900/80 border-white/10 text-white focus:border-amber-400'
+                  }`}
                 />
               </div>
 
               {/* File / Drawing Upload */}
               <div className="mb-8">
-                <label className="block text-xs font-tech font-bold uppercase tracking-wider mb-2 text-[#4D423E]">
+                <label
+                  className={`block text-xs font-tech font-bold uppercase tracking-wider mb-2 ${
+                    isLight ? 'text-slate-700' : 'text-zinc-300'
+                  }`}
+                >
                   Upload Architectural Drawing / Specification Sheet (PDF, DWG, JPG up to 15MB)
                 </label>
-                <div className="relative border border-dashed rounded-xs p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors border-[#D8BFA8] bg-[#F3E7DA] hover:bg-[#E9D9C8]">
-                  <Upload className="w-6 h-6 text-[#5B1018] mb-2" />
-                  <span className="text-xs font-tech font-semibold text-[#292321]">
+                <div
+                  className={`border border-dashed rounded-xs p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
+                    isLight
+                      ? 'border-slate-300 bg-slate-50 hover:bg-slate-100/80'
+                      : 'border-white/15 bg-white/[0.02] hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <Upload className="w-6 h-6 text-amber-600 dark:text-amber-400 mb-2" />
+                  <span className="text-xs font-tech font-semibold text-slate-700 dark:text-zinc-300">
                     {formData.fileName ? formData.fileName : 'Click or drag drawing file here'}
                   </span>
-                  <span className="text-[10px] text-[#5A4F4B] font-tech mt-1">
+                  <span className="text-[10px] text-slate-400 dark:text-zinc-500 font-tech mt-1">
                     Accepts PDF, DWG, DXF, PNG, JPEG
                   </span>
                   <input
@@ -395,25 +540,37 @@ export const GetAQuotePage: React.FC = () => {
               {/* Submit CTA */}
               <button
                 type="submit"
-                className="w-full py-4 font-tech text-xs font-bold uppercase tracking-[0.2em] rounded-xs bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] transition-colors flex items-center justify-center gap-2 shadow-lg"
+                className="w-full py-4 font-tech text-xs font-bold uppercase tracking-[0.2em] rounded-xs bg-slate-950 dark:bg-white text-white dark:text-zinc-950 hover:bg-slate-800 dark:hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
               >
                 <Send className="w-4 h-4" />
                 <span>REQUEST QUOTATION</span>
               </button>
             </form>
 
-            {/* Sidebar / Direct B2B Help */}
+            {/* Sidebar / Direct B2B Help (4 Cols) */}
             <div className="lg:col-span-4 space-y-6">
               {/* Direct WhatsApp Callout */}
-              <div className="p-8 rounded-xs border bg-[#FAF4EE] border-[#D8BFA8]">
-                <div className="flex items-center gap-2 text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-[#5B1018] mb-4">
+              <div
+                className={`p-8 rounded-xs border ${
+                  isLight ? 'bg-white border-slate-200' : 'bg-[#11141a] border-white/10'
+                }`}
+              >
+                <div className="flex items-center gap-2 text-[10px] font-tech font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-4">
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>DIRECT SALES CHAT</span>
                 </div>
-                <h4 className="text-lg font-black uppercase tracking-tight mb-2 text-[#292321]">
+                <h4
+                  className={`text-lg font-black uppercase tracking-tight mb-2 ${
+                    isLight ? 'text-slate-950' : 'text-white'
+                  }`}
+                >
                   Need Immediate Technical Assistance?
                 </h4>
-                <p className="text-xs leading-relaxed mb-6 font-normal text-[#4D423E]">
+                <p
+                  className={`text-xs leading-relaxed mb-6 font-normal ${
+                    isLight ? 'text-slate-600' : 'text-zinc-400'
+                  }`}
+                >
                   Our commercial sales managers are available directly on WhatsApp for instantaneous size recommendations, stock checks, and dealer quotations.
                 </p>
 
@@ -421,7 +578,7 @@ export const GetAQuotePage: React.FC = () => {
                   href={`https://wa.me/${brand.whatsapp.replace(/[^0-9]/g, '')}?text=Hello%20Shree%20Durga%20Steels,%20I%20have%20an%20urgent%20commercial%20kitchen%20equipment%20requirement.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 font-tech text-xs font-bold uppercase tracking-[0.16em] rounded-xs bg-[#5B1018] text-[#F3E7DA] hover:bg-[#440B11] transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3.5 font-tech text-xs font-bold uppercase tracking-[0.16em] rounded-xs bg-emerald-600 text-white hover:bg-emerald-500 transition-colors flex items-center justify-center gap-2"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>CHAT ON WHATSAPP NOW</span>
@@ -429,41 +586,49 @@ export const GetAQuotePage: React.FC = () => {
               </div>
 
               {/* Direct Calling & Factory Contacts */}
-              <div className="p-8 rounded-xs border bg-[#FAF4EE] border-[#D8BFA8]">
-                <span className="text-[10px] font-tech font-bold uppercase tracking-[0.2em] block mb-4 text-[#5A4F4B]">
+              <div
+                className={`p-8 rounded-xs border ${
+                  isLight ? 'bg-white border-slate-200' : 'bg-[#11141a] border-white/10'
+                }`}
+              >
+                <span
+                  className={`text-[10px] font-tech font-bold uppercase tracking-[0.2em] block mb-4 ${
+                    isLight ? 'text-slate-500' : 'text-zinc-400'
+                  }`}
+                >
                   DIRECT PHONE CHANNELS
                 </span>
 
                 <div className="space-y-4 text-xs font-tech">
-                  <div className="pb-3 border-b border-[#D8BFA8]">
-                    <span className="text-[#5A4F4B] block text-[10px]">
+                  <div className="pb-3 border-b border-slate-100 dark:border-white/5">
+                    <span className="text-slate-400 dark:text-zinc-500 block text-[10px]">
                       Commercial Kitchen Sales
                     </span>
                     <a
                       href={`tel:${brand.phone.replace(/\s+/g, '')}`}
-                      className="font-bold text-[#292321] text-sm hover:text-[#5B1018] hover:underline"
+                      className="font-bold text-slate-900 dark:text-white text-sm hover:underline"
                     >
                       {brand.phone}
                     </a>
                   </div>
 
-                  <div className="pb-3 border-b border-[#D8BFA8]">
-                    <span className="text-[#5A4F4B] block text-[10px]">
+                  <div className="pb-3 border-b border-slate-100 dark:border-white/5">
+                    <span className="text-slate-400 dark:text-zinc-500 block text-[10px]">
                       Email Quotation Desk
                     </span>
                     <a
                       href={`mailto:${brand.email}`}
-                      className="font-bold text-[#292321] text-sm hover:text-[#5B1018] hover:underline"
+                      className="font-bold text-slate-900 dark:text-white text-sm hover:underline"
                     >
                       {brand.email}
                     </a>
                   </div>
 
                   <div>
-                    <span className="text-[#5A4F4B] block text-[10px]">
+                    <span className="text-slate-400 dark:text-zinc-500 block text-[10px]">
                       Response Guarantee
                     </span>
-                    <span className="font-bold text-[#5B1018]">
+                    <span className="font-bold text-amber-700 dark:text-amber-400">
                       Within 4 business hours with itemized PDF specs
                     </span>
                   </div>

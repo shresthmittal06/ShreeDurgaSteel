@@ -4,23 +4,10 @@
   :root {
     --font-sans: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'Manrope', 'Inter', sans-serif;
-
-    /* Core Signature Palette */
-    --color-warm-ivory: #F3E7DA;
-    --color-ivory-elevated: #FAF4EE;
-    --color-deep-oxblood: #5B1018;
-    --color-deep-oxblood-hover: #440B11;
-    --color-champagne-beige: #D8BFA8;
-    --color-champagne-soft: #E9D9C8;
-    --color-soft-charcoal: #292321;
-    --color-charcoal-muted: #5A4F4B;
-    --color-brushed-silver: #B8B8B3;
   }
 
   html {
     font-family: var(--font-sans);
-    background-color: #F3E7DA;
-    color: #292321;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -28,8 +15,8 @@
 
   body {
     font-family: var(--font-sans);
-    background-color: #F3E7DA;
-    color: #292321;
+    background-color: #0d0f12;
+    color: #f4f4f5;
     overflow-x: hidden;
     font-weight: 400;
     line-height: 1.6;
@@ -79,49 +66,49 @@
   font-feature-settings: 'tnum' 1, 'cv05' 1;
 }
 
-/* Semantic Hospitality Text Tokens */
+/* Solid high-contrast text color tokens for Hotel & Hospitality B2B standard */
 .text-hospitality-dark {
-  color: #292321;
+  color: #171717;
 }
 
 .text-hospitality-secondary {
-  color: #5A4F4B;
+  color: #4a4a4a;
 }
 
 .text-hospitality-muted {
-  color: #706460;
+  color: #666666;
 }
 
 .text-hospitality-white {
-  color: #F3E7DA;
+  color: #ffffff;
 }
 
-/* Subtle warm ivory & champagne brushed surface texture */
+/* Subtle brushed steel texture backdrop */
 .bg-brushed-steel {
-  background: radial-gradient(circle at 50% 0%, rgba(216, 191, 168, 0.35) 0%, rgba(243, 231, 218, 0.98) 75%);
+  background: radial-gradient(circle at 50% 0%, rgba(55, 60, 70, 0.25) 0%, rgba(13, 15, 18, 0.95) 75%);
 }
 
 .bg-metallic-card {
-  background: linear-gradient(180deg, #FAF4EE 0%, #F3E7DA 100%);
-  border: 1px solid #D8BFA8;
+  background: linear-gradient(180deg, rgba(28, 32, 38, 0.8) 0%, rgba(18, 20, 24, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .bg-metallic-card:hover {
-  border-color: #5B1018;
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
-/* Custom subtle scrollbar anchored to Champagne Beige & Deep Oxblood */
+/* Custom subtle scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F3E7DA;
+  background: #0d0f12;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D8BFA8;
+  background: #2a2e36;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #5B1018;
+  background: #454c59;
 }

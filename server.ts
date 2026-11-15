@@ -738,7 +738,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[Server] SHREE DURGA STEELS full-stack server running on http://0.0.0.0:${PORT} (${isProduction ? 'Production' : 'Development'})`);
+    console.log(`[Server] SHRI DURGA STEELS full-stack server running on http://0.0.0.0:${PORT} (${isProduction ? 'Production' : 'Development'})`);
   });
 }
 
